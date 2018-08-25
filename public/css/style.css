@@ -1,0 +1,23 @@
+#canvas {
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+.hide {
+  display: none !important;
+}
+
+.background-yellow {
+  background-color: #ffdd57;
+}
+
+.color-yellow {
+  color: #ffdd57;
+}
+
+.bordered {
+  border: 1px solid #aaaaaa;
+}
