@@ -8,14 +8,25 @@ define(['jquery'],function () {
         <div id="intro" class="uk-container uk-container-small uk-position-center uk-text-center">
 			<div>
 				<h1 class="uk-heading-primary">Pict • io</h1>
-				<h3 class="uk-h3 uk-margin-remove-top">An inclusive mini-game for <strong>humans</strong> and <strong>quasi-humans!</strong></h3>
+				<h3 id="subtitle" data-i18n="[html]intro.subtitle" class="uk-h3 uk-margin-remove-top">An inclusive mini-game for <strong>humans</strong> and <strong>quasi-humans!</strong></h3>
 			</div>
 			<div class="uk-margin-medium-top">
-				<button id="go-play" class="uk-button uk-button-large uk-button-primary uk-border-rounded">Let's Play</button>
+				<button id="go-play" data-i18n="intro.PlayBT" class="uk-button uk-button-large uk-button-primary uk-border-rounded">Let's Play</button>
 			</div>
 			<div class="uk-margin-large-top">
-				<button id="-show-instructions" uk-toggle="target: #instructions" class="uk-button uk-button-text">How to play?</button>
+				<button id="-show-instructions" data-i18n="intro.intructionsBT" uk-toggle="target: #instructions" class="uk-button uk-button-text"></button>
 			</div>
+
+			<nav class="uk-navbar-container" uk-navbar>
+				<div class="uk-navbar-center">
+					<ul class="uk-navbar-nav">
+						<li><a href="#" onclick="app.i18next.changeLanguage('en')">English</a></li>
+						<li><a href="#" onclick="app.i18next.changeLanguage('pt')">Português</a></li>
+					</ul>
+
+				</div>
+			</nav>
+
         </div>`;
 
         let inst = `
@@ -48,10 +59,23 @@ define(['jquery'],function () {
 
         // return html;
 
-        console.log(this)
-
         $(main).appendTo($("#view"));
-        $(inst).appendTo($("#view"));
+		$(inst).appendTo($("#view"));
+
+		// i18next.changeLanguage("en");
+
+		console.log(app);
+		// app.i18next.changeLanguage("pt");
+
+		$('#intro').localize();
+		$('.nav').localize();
+		$('#content').localize();
+
+		app.i18next.on('languageChanged', () => {
+			console.log($.t('pt.translation.general'));
+			$('#intro').localize();
+		  });
+
 
         $('#go-play').click(function() {
 		
@@ -65,7 +89,7 @@ define(['jquery'],function () {
     
         });
 
-    }
+    };
 
     // return apply;
 

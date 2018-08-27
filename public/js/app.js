@@ -16,8 +16,11 @@ requirejs.config({
         "paper": "lib/paper-full.min",
         "responsivevoice": "lib/responsivevoice",
         "artyom": "lib/artyom.window.min", //"artyom"
-        "chroma": "lib/chroma.min"
-        
+        "chroma": "lib/chroma.min",
+        "io":"/socket.io/socket.io",
+        "i18next": "lib/i18next.min",
+        "i18nextBackend": "lib/i18nextXHRBackend.min",
+        "jqueryI18next": "lib/jquery-i18next.min"
     }
 });
 
@@ -32,6 +35,10 @@ requirejs([
     'responsivevoice',
     'artyom',
     'chroma',
+    'io',
+    'i18next',
+    'i18nextBackend',
+    'jqueryI18next',
     'interfaceView'
    ],
     function ($,
@@ -43,9 +50,19 @@ requirejs([
               responsiveVoice,
               artyom,
               chroma,
+              io,
+              i18next,
+              i18nextBackend,
+              jqueryI18next,
               interfaceView) {
 
+
+        /// MAIN SETTINGS
+
         icons(UIkit);
+
+
+        /// APP
 
         const App = function() {
 
@@ -72,6 +89,8 @@ requirejs([
 
             this.socket;
 
+            this.i18next = i18next;
+
             this.attempNumber = 0;
 
             //list of colours
@@ -91,7 +110,9 @@ requirejs([
 
             this.init = function() {
 
-                this.interface.init();
+                console.log(this);
+
+                
 
                 
 
@@ -108,6 +129,96 @@ requirejs([
                 $(document).ready(function(){
                     app.socket = io();
                   });
+
+
+                app.i18next
+                    .use(i18nextBackend)
+                    .init({
+                        debug: true,
+                        lng: 'en',
+                        fallbackLng: 'en',
+                        backend: {
+                            loadPath: 'locales/{{lng}}.json'
+                        }
+                    }, function(err, t) {
+
+                        console.log(app.i18next);
+                        
+                        jqueryI18next.init(app.i18next, $);
+
+                        // console.log(app.i18next.t("pt.translation.general"));
+
+                        // jqueryI18next.init(app.i18next, $, {
+                        //         tName: 't', // --> appends $.t = i18next.t
+                        //         i18nName: 'i18n', // --> appends $.i18n = i18next
+                        //         handleName: 'localize', // --> appends $(selector).localize(opts);
+                        //         selectorAttr: 'data-i18n', // selector for translating elements
+                        //         targetAttr: 'i18n-target', // data-() attribute to grab target element to translate (if diffrent then itself)
+                        //         optionsAttr: 'i18n-options', // data-() attribute that contains options, will load/set if useOptionsAttr = true
+                        //         useOptionsAttr: false, // see optionsAttr
+                        //         parseDefaultValueFromContent: true // parses default values from content ele.val or ele.text
+                        //       });
+
+                        app.interface.init();
+                    });
+
+
+
+
+
+                // this.i18next.init({
+                //     lng: 'en', // evtl. use language-detector https://github.com/i18next/i18next-browser-languageDetector
+                //     resources: { // evtl. load via xhr https://github.com/i18next/i18next-xhr-backend
+                //         en: {
+                //             translation: {
+                //                 intro: {
+                //                     subtitle: 'An inclusive mini-game for <strong>humans</strong> and <strong>quasi-humans!</strong>',
+                //                     PlayBT: "Let's Play",
+                //                     intructionsBT: "How to play?"
+                //                 }
+                //             }
+                //         },
+                //         pt: {
+                //             translation: {
+                //                 intro: {
+                //                     subtitle: 'Um game inclusive para <strong>humanos</strong> e <strong>quasi-humanos!</strong>',
+                //                     PlayBT: "Jogar",
+                //                     intructionsBT: "Instruções"
+                //                 }
+                //             }
+                //         }
+                //     }
+                // }, function(err, t) {
+                //     // jqueryI18next.init(app.i18next, $);
+
+                //     jqueryI18next.init(app.i18next, $, {
+                //             tName: 't', // --> appends $.t = i18next.t
+                //             i18nName: 'i18n', // --> appends $.i18n = i18next
+                //             handleName: 'localize', // --> appends $(selector).localize(opts);
+                //             selectorAttr: 'data-i18n', // selector for translating elements
+                //             targetAttr: 'i18n-target', // data-() attribute to grab target element to translate (if diffrent then itself)
+                //             optionsAttr: 'i18n-options', // data-() attribute that contains options, will load/set if useOptionsAttr = true
+                //             useOptionsAttr: false, // see optionsAttr
+                //             parseDefaultValueFromContent: true // parses default values from content ele.val or ele.text
+                //           });
+
+                //     app.interface.init();
+                // });
+    
+                // console.log(i18next);
+        
+                // jqueryI18next.init(i18next, $, {
+                //     tName: 't', // --> appends $.t = i18next.t
+                //     i18nName: 'i18n', // --> appends $.i18n = i18next
+                //     handleName: 'localize', // --> appends $(selector).localize(opts);
+                //     selectorAttr: 'data-i18n', // selector for translating elements
+                //     targetAttr: 'i18n-target', // data-() attribute to grab target element to translate (if diffrent then itself)
+                //     optionsAttr: 'i18n-options', // data-() attribute that contains options, will load/set if useOptionsAttr = true
+                //     useOptionsAttr: false, // see optionsAttr
+                //     parseDefaultValueFromContent: true // parses default values from content ele.val or ele.text
+                //   });
+
+
                 
             };
 
