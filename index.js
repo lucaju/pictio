@@ -1,4 +1,6 @@
-/*jshint esversion: 6 */
+
+
+//Modules
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
@@ -18,9 +20,9 @@ app.use('/pictio/', express.static(__dirname + '/public'));
 
 
 function onConnection(socket){
-  socket.on('interface', (data) => socket.broadcast.emit('interface', data));
-  socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
-  socket.on('guess', (data) => socket.broadcast.emit('guess', data));
+	socket.on('interface', (data) => socket.broadcast.emit('interface', data));
+	socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+	socket.on('guess', (data) => socket.broadcast.emit('guess', data));
 }
 
 io.on('connection', onConnection);

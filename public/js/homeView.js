@@ -2,9 +2,9 @@
 
 define(['jquery'],function () {
 
-    return function () {
+	return function () {
 
-        let main = `
+		let main = `
         <div id="intro" class="uk-container uk-container-small uk-position-center uk-text-center">
 			<div>
 				<h1 class="uk-heading-primary">Pict • io</h1>
@@ -16,8 +16,9 @@ define(['jquery'],function () {
 			<div class="uk-margin-large-top">
 				<button id="-show-instructions" data-i18n="intro.intructionsBT" uk-toggle="target: #instructions" class="uk-button uk-button-text"></button>
 			</div>
-
-			<nav class="uk-navbar-container" uk-navbar>
+			<br/>
+			<hr/>
+			<nav class="uk-navbar">
 				<div class="uk-navbar-center">
 					<ul class="uk-navbar-nav">
 						<li><a href="#" onclick="app.i18next.changeLanguage('en')">English</a></li>
@@ -29,7 +30,7 @@ define(['jquery'],function () {
 
         </div>`;
 
-        let inst = `
+		let inst = `
         <div id="instructions" uk-offcanvas="mode: push; overlay: true">
 			<div class="uk-offcanvas-bar">
 
