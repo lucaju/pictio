@@ -1,32 +1,41 @@
-/*jshint esversion: 6 */
-define([
-    'jquery',
-    'jqueryUI',
-    'uikit',
-    'homeView'
-   ],function (d3, moment, chroma, homeView) {
 
-        const InterfaceView = function() {
+//modules
+import $ from 'jquery';
+// import jqueryUI from 'jquery-ui';
+// import UIkit from 'uikit';
 
-            this.currentView = "home";
+import homeView from './homeView';
 
-            this.init = function() {
-                this.changeView("home");
-            };
 
-            this.changeView = function(viewName) {
 
-                //clean view
-                const view = $("#view");
-                view.empty();
 
-                homeView(view);
+export default function interfaceView(context) {
 
-            };
+	this.context = context;
 
-        };
+	this.currentView = 'home';
 
-        const interfaceView = new InterfaceView();
-        return interfaceView;
+	this.init = function() {
+		// console.log('aqui!');
+		// console.log(app);
+		// this.changeView("home");
+	};
 
-   });
+	this.changeView = function(viewName) {
+
+		//clean view
+		const view = $('#view');
+		view.empty();
+
+		homeView(this.context);
+
+	};
+
+}
+
+// export InterfaceView
+
+//         const interfaceView = new InterfaceView();
+//         return interfaceView;
+
+//    });

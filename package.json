@@ -26,17 +26,26 @@
     "uikit": "^3.0.0-rc.12"
   },
   "scripts": {
-    "start": "node index"
+    "start": "node index",
+    "webpackServer": "webpack-dev-server --open",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "server": "node index.js"
   },
   "author": "Luciano Frizzera",
   "license": "MIT",
   "devDependencies": {
+    "clean-webpack-plugin": "^0.1.19",
     "eslint": "^5.4.0",
     "eslint-config-google": "^0.9.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.0",
-    "eslint-plugin-standard": "^3.1.0"
+    "eslint-plugin-standard": "^3.1.0",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-middleware": "^3.2.0",
+    "webpack-dev-server": "^3.1.7"
   }
 }
