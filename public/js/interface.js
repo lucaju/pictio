@@ -74,7 +74,7 @@ function showInfoView() {
 // --- VIEW 2: Starting the game: choose you colour
 function showColorChoice() {
 
-	var view = $("#view");
+	var view = $('#view');
 	view.empty();
 
 

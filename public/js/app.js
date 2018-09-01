@@ -9,7 +9,8 @@ import UIkit from 'uikit';
 import uikiticons from 'uikit/dist/js/uikit-icons.min';
 import easytimer from 'easytimer';
 // import paper from 'paper';
-// import responsivevoice from 'responsivevoice';
+// import responsiveVoice from 'responsivevoice';
+require('responsivevoice');
 // import artyom from 'artyom.js';
 // import chroma from 'chroma-js';
 // import io from '/socket.io/socket.io';
@@ -24,16 +25,13 @@ import interfaceView from './interfaceView';
 
 const App = function() {
 
-	
-
 	//main variables
 	this.interface = new interfaceView(this);
 	
-
 	this.currentChallenge;           //current challenge
 	this.currentDrawChallenge;       //current draw category
 	this.guessAttemps = [];          //current list of guess attemps
-	this.classColor;                 //Class colour (can be the same as playercolour) -> chanfe the interface color
+	// this.classColor;                 //Class colour (can be the same as playercolour) -> chanfe the interface color
 	this.playerColor;                //color choose by the player
 	this.voice;                      //voice, attached to the colour
 
@@ -44,8 +42,8 @@ const App = function() {
 
 	this.inverseClassToggle = false;
 
-	this.classElement; 
-	this.classBlend; 
+	// this.classElement; 
+	// this.classBlend; 
 
 	this.socket;
 
@@ -60,7 +58,6 @@ const App = function() {
 		'dark',
 		'yellow']; 
 
-
 	//list of voices
 	this.voices = [
 		'UK English Female',
@@ -73,40 +70,27 @@ const App = function() {
 
 		uikiticons(UIkit);
 
-		console.log(this);
-
-		// changeColour(colours[0]); //default
-		// playerColor = colours[0];
-		// changeVoice(playerColor); //default
-		
-		// showInfoView();
-
-		// showGame(challenges[0]);
-		// showGame('wall');
+		this.playerColor = this.colours[0];
+		this.changeVoice(this.playerColor); //default
 
 		//socket.io
 		$(document).ready(function(){
-			window.app.socket = io();
+			app.socket = io();
 		});
-
 
 		app.i18next
 			.use(i18nextBackend)
 			.init({
-				debug: true,
+				debug: false,
 				lng: 'en',
 				fallbackLng: 'en',
 				backend: {
 					loadPath: 'locales/{{lng}}.json'
 				}
 			}, function(err, t) {
-				// console.log(app.i18next);
-				
+
 				jqueryI18next.init(window.app.i18next, $);
-
-				// console.log(app.i18next.t('pt.translation.general'));
-
-				// jqueryI18next.init(app.i18next, $, {
+				// , {
 				//         tName: 't', // --> appends $.t = i18next.t
 				//         i18nName: 'i18n', // --> appends $.i18n = i18next
 				//         handleName: 'localize', // --> appends $(selector).localize(opts);
@@ -117,70 +101,42 @@ const App = function() {
 				//         parseDefaultValueFromContent: true // parses default values from content ele.val or ele.text
 				//       });
 
-				app.interface.changeView('home');
+				app.interface.init();
+
+				app.interface.changeColour(app.colours[0]); //default
+
+				// app.interface.changeView('challenges');
+				// app.interface.changeView('wall');
+				
 			});
 
+	};
 
+	// --- function to change interface colour and assing it to the player
+	this.changeVoice = function(playerColor) {
 
+		let colourIndex;
+		$.each(this.colours, function(i,colour) {
+			if (playerColor == colour) {
+				colourIndex = i;
+				return false; 
+			}
+		});
+	
+		this.voice = this.voices[colourIndex];
+	
+	};
 
-
-		// this.i18next.init({
-		//     lng: 'en', // evtl. use language-detector https://github.com/i18next/i18next-browser-languageDetector
-		//     resources: { // evtl. load via xhr https://github.com/i18next/i18next-xhr-backend
-		//         en: {
-		//             translation: {
-		//                 intro: {
-		//                     subtitle: 'An inclusive mini-game for <strong>humans</strong> and <strong>quasi-humans!</strong>',
-		//                     PlayBT: 'Let's Play',
-		//                     intructionsBT: 'How to play?'
-		//                 }
-		//             }
-		//         },
-		//         pt: {
-		//             translation: {
-		//                 intro: {
-		//                     subtitle: 'Um game inclusive para <strong>humanos</strong> e <strong>quasi-humanos!</strong>',
-		//                     PlayBT: 'Jogar',
-		//                     intructionsBT: 'Instruções'
-		//                 }
-		//             }
-		//         }
-		//     }
-		// }, function(err, t) {
-		//     // jqueryI18next.init(app.i18next, $);
-
-		//     jqueryI18next.init(app.i18next, $, {
-		//             tName: 't', // --> appends $.t = i18next.t
-		//             i18nName: 'i18n', // --> appends $.i18n = i18next
-		//             handleName: 'localize', // --> appends $(selector).localize(opts);
-		//             selectorAttr: 'data-i18n', // selector for translating elements
-		//             targetAttr: 'i18n-target', // data-() attribute to grab target element to translate (if diffrent then itself)
-		//             optionsAttr: 'i18n-options', // data-() attribute that contains options, will load/set if useOptionsAttr = true
-		//             useOptionsAttr: false, // see optionsAttr
-		//             parseDefaultValueFromContent: true // parses default values from content ele.val or ele.text
-		//           });
-
-		//     app.interface.init();
-		// });
-
-		// console.log(i18next);
-
-		// jqueryI18next.init(i18next, $, {
-		//     tName: 't', // --> appends $.t = i18next.t
-		//     i18nName: 'i18n', // --> appends $.i18n = i18next
-		//     handleName: 'localize', // --> appends $(selector).localize(opts);
-		//     selectorAttr: 'data-i18n', // selector for translating elements
-		//     targetAttr: 'i18n-target', // data-() attribute to grab target element to translate (if diffrent then itself)
-		//     optionsAttr: 'i18n-options', // data-() attribute that contains options, will load/set if useOptionsAttr = true
-		//     useOptionsAttr: false, // see optionsAttr
-		//     parseDefaultValueFromContent: true // parses default values from content ele.val or ele.text
-		//   });
-
-
-		
+	this.speak = function(text) {
+		if(text != null) {
+			console.log(text)
+			window.speak(text, this.voice);
+		// artyom.say(text);
+		}
 	};
 
 };
 
-window.app = new App();
+const app = new App();
+window.app = app;
 app.init();

@@ -19,11 +19,13 @@
     "jquery-ui": "^1.12.1",
     "jquery-ui-dist": "^1.12.1",
     "jshint": "^2.9.6",
+    "json5": "^2.0.1",
     "paper": "^0.11.5",
     "requirejs": "^2.3.5",
     "responsivevoice": "^0.4.1",
     "socket.io": "latest",
-    "uikit": "^3.0.0-rc.12"
+    "uikit": "^3.0.0-rc.12",
+    "webpack-jquery-ui": "^2.0.1"
   },
   "scripts": {
     "start": "node index",
@@ -43,6 +45,7 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-standard": "^3.1.0",
+    "html-loader": "^0.5.5",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-middleware": "^3.2.0",
