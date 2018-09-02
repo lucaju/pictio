@@ -10,8 +10,8 @@
         "title": "How to Play",
         "text": "<p >This game provides humans and machine with a common problem to solve as teams, where players must make themselves understood through drawings.</p> <p><strong>Participants:</strong> 2 teams composed of 2 humans and 1 tablet.</p><p><strong>Contents:</strong> 1 board, 1 dice, 1 frame and 2 pawns.</p><p><strong>The goal of the game:</strong> Make the team's pawn the first to go all the way through the board.</p><p>1. Each team chooses a pawn and places it at the beginning of the board.</p><p>2. Each team selects one person to be the first drawer. The team players alternate the drawer at each round.</p><p>3. The first drawers of each team throw the dice and advance into the board, which provides them with the first challenge. There are three categories of challenges:</p> <ul><li>A. Drawing on the Wall</li><li>B. Blind Drawing with Left/ Right Hand</li><li>C. Verbal Description</li></ul><p>4. The drawers can not use other means of communication rather than those indicated for each challenge.</p><p>5. If the team is able to complete the challenge, they can throw the dice and play one more time. After that, it is the other team’s turn to throw the dice.</p> <p>6. The game continues this way until one of the pawns completes the entire course.</p>"
     },
-    "colorChoice": {
-        "title": "Choose your color",
+    "personaChoice": {
+        "title": "Choose your partner",
         "done": "Done",
         "colours": {
             "light": "light",
@@ -19,6 +19,9 @@
             "dark": "dark",
             "yellow" : "yellow"
         }
+    },
+    "showChallenges": {
+        "title": "Pick a challenge"
     }
  
 }

@@ -22,13 +22,14 @@ export default function (context) {
 
 
 	$('#go-play').click(function() {
+
+		app._initArtyom(); // initialize languate
 	
 		$('#intro').animate({
 			marginTop: '-100',
 			opacity: 0,
 		}, 1500, function() {
-			app.interface.changeView('color-choice');
-			// showColorChoice();
+			app.interface.changeView('partner-choice');
 		} );
 
 	});

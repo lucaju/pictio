@@ -8,7 +8,8 @@ require('webpack-jquery-ui');
 
 
 import homeView from './home-view';
-import colorChoiceView from './color-choice-view';
+import partnerChoiceView from './partner-choice-view';
+import showChallengesView from './show-challenges-view';
 
 export default function interfaceView(context) {
 
@@ -19,10 +20,15 @@ export default function interfaceView(context) {
 	this.classElement; 
 	this.classBlend; 
 
+	this.classColor;                 //Class colour (can be the same as playercolour) -> chanfe the interface color
+
 	this.inverseClassToggle = false;
 
 	this.currentViewName = 'home';
 	this.currentView;
+
+	this.inverseClassToggle = false;
+	this.invertedColor;
 
 	this.init = function() {
 		this.currentViewName = 'home';
@@ -43,8 +49,12 @@ export default function interfaceView(context) {
 			this.currentView = homeView(this.context);
 			break;
 
-		case 'color-choice':
-			this.currentView = colorChoiceView(this.context);
+		case 'partner-choice':
+			this.currentView = partnerChoiceView(this.context);
+			break;
+
+		case 'show-challenges':
+			this.currentView = showChallengesView(this.context);
 			break;
 
 		default:
@@ -55,6 +65,15 @@ export default function interfaceView(context) {
 		console.log(viewName);
 
 	};
+
+	function inverseClass() {
+		if(inverseClassToggle) {
+			return "uk-light";
+		} else {
+			return "uk-dark";
+		}
+	
+	}
 
 	this.changeColour = function(colour) {
 
@@ -91,8 +110,6 @@ export default function interfaceView(context) {
 		this.classElement = elementClass;
 		this.classColor = colorClass;
 		this.classBlend = blendClass;
-
-		console.log(colour,prevColorClass, colorClass)
 	
 		$('#view').switchClass( prevColorClass, colorClass, 1000, 'easeInOutQuad');
 		if (prevBlendClass != this.classBlend) $('#view').switchClass( prevBlendClass, this.classBlend, 1000, 'easeInOutQuad');

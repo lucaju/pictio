@@ -10,8 +10,8 @@
         "title": "Como Jogar ",
         "text": "<p>Este jogo fornece aos humanos e às máquinas um problema comum para resolver em equipes, no qual os jogadores devem se fazer entender através de desenhos.</p>Participantes: 2 equipes compostas por 2 humanos e 1 máquina.</p><p>Conteúdos: 1 tabuleiro, 1 dado, 1 moldura e 2 peões.</p><p>Objetivo do jogo: Promover o peão do time até completar todo o percurso do tabuleiro.</p><p>1. Cada equipe escolhe um peão e coloca-o no início do tabuleiro.</p><p>2. Cada equipe seleciona uma pessoa para ser a primeira desenhista. Os jogadores da equipe alternam a vez de desenhar em cada rodada.</p><p>3. Os primeiros desenhistas de cada equipe jogam os dados e avançam no tabuleiro, que lhes fornece o primeiro desafio. Existem três categorias de desafios:</p> <ul><li>A. Desenho na parede</li><li>B. Desenho Cego com a mão Esquerda / Direita</li><li>C. Descrição verbal</li></ul><p>4. Os desenhistas não podem usar outros meios de comunicação, a não ser aqueles indicados para cada desafio.</p><p>5. Se a equipe for capaz de completar o desafio, eles podem lançar os dados e jogar mais uma vez. Depois disso, é a vez da outra equipe lançar os dados.</p><p>6. O jogo continua assim até que um dos peões complete todo o percurso.</p>"
     },
-    "colorChoice": {
-        "title": "Escolha sua cor",
+    "personaChoice": {
+        "title": "Escolha seu parceiro",
         "done": "Pronto",
         "colours": {
             "light": "claro",
@@ -19,6 +19,9 @@
             "dark": "escuro",
             "yellow" : "amarelo"
         }
+    },
+    "showChallenges": {
+        "title": "Escolha um Desafio"
     }
  
 }
