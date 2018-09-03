@@ -37,6 +37,13 @@ module.exports = {
 					outputPath:'assets/images/'
 				//the images will be emited to dist/assets/images/ folder
 				}
+			},
+			{
+				test: /\.html$/,
+				loader: 'mustache-loader'
+				// loader: 'mustache-loader?minify'
+				// loader: 'mustache-loader?{ minify: { removeComments: false } }'
+				// loader: 'mustache-loader?noShortcut'
 			}
 		]
 	},

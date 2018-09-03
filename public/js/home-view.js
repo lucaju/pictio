@@ -1,19 +1,30 @@
 
 //modules
 import $ from 'jquery';
-import homeHTML from 'html-loader!../home.html';
-import instructionsHTML from 'html-loader!../instructions.html';
+// import homeHTML from 'html-loader!../home.html';
+import homeHTML from '../home.html';
+// import instructionsHTML from 'html-loader!../instructions.html';
 
 export default function (context) {
 
 	const app = context;
 
-	$(homeHTML).appendTo($('#view'));
-	$(instructionsHTML).appendTo($('#view'));
+	const htmlData = {
+		subtitle: 'An inclusive mini-game for <strong>humans</strong> and <strong>quasi-humans!</strong>',
+		buttons: {
+			play: "Let's Play",
+			intructions: 'How to play?'
+		}
+	};
+
+	var html = homeHTML(htmlData);
+
+	$(html).appendTo($('#view'));
+	// $(instructionsHTML).appendTo($('#view'));
 
 
-	$('#intro').localize();
-	$('#instructions').localize();
+	// $('#intro').localize();
+	// $('#instructions').localize();
 
 	app.i18next.on('languageChanged', () => {
 		$('#intro').localize();
