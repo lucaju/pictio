@@ -1,0 +1,1408 @@
+{
+    "challenges": [
+        {
+          "name": "Drawing on the Wall",
+          "code": "A",
+          "short": "wall",
+          "time": 30,
+          "description":"In this challenge, the two human players work together to produce one sketch representing the word given by the tablet. The player who saw the word must draw on a wall, using just their fingers, without leaving any visible mark. The second human acts as a proxy, following the trajectory of the finger and trying to reproduce it on the screen of the tablet. The AI program has one minute to guess what is being drawn."
+        },
+        {
+          "name": "Blind Drawing with Left/Right Hand",
+          "code": "B",
+          "short": "blind",
+          "time": 60,
+          "description":"This is an individual challenge, where the drawer sketch representations for the word selected without looking at the screen and using her/his non-dominant hand. While the human player draws, the machine will attempt to guess what is being drawn."
+        
+        },
+        {
+          "name": "Verbal Description",
+          "code": "C",
+          "short": "verbal",
+          "time": 90,
+          "description":"In this challenge, the two human players work together to produce one sketch representing the word selected. The player who saw the word must verbally describe it, using only geometrical figures and spatial orientation. The second human acts as a proxy, following the instructions and trying to reproduce it on the screen of the tablets. The AI program has one minute to guess what is being drawn."
+        }
+      ],
+      "catChallenges": [
+        {
+          "Category": "aircraft carrier",
+          "Challenge": "B"
+        },
+        {
+          "Category": "airplane",
+          "Challenge": "B"
+        },
+        {
+          "Category": "alarm clock",
+          "Challenge": "B"
+        },
+        {
+          "Category": "ambulance",
+          "Challenge": "B"
+        },
+        {
+          "Category": "angel",
+          "Challenge": "B"
+        },
+        {
+          "Category": "animal migration",
+          "Challenge": "B"
+        },
+        {
+          "Category": "ant",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "anvil",
+          "Challenge": "B"
+        },
+        {
+          "Category": "apple",
+          "Challenge": "A"
+        },
+        {
+          "Category": "arm",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "asparagus",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "axe",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "backpack",
+          "Challenge": "B"
+        },
+        {
+          "Category": "banana",
+          "Challenge": "A"
+        },
+        {
+          "Category": "bandage",
+          "Challenge": "B"
+        },
+        {
+          "Category": "barn",
+          "Challenge": "B"
+        },
+        {
+          "Category": "baseball",
+          "Challenge": ""
+        },
+        {
+          "Category": "baseball bat",
+          "Challenge": "A"
+        },
+        {
+          "Category": "basket",
+          "Challenge": "B"
+        },
+        {
+          "Category": "basketball",
+          "Challenge": ""
+        },
+        {
+          "Category": "bat",
+          "Challenge": "B"
+        },
+        {
+          "Category": "bathtub",
+          "Challenge": "A"
+        },
+        {
+          "Category": "beach",
+          "Challenge": "B"
+        },
+        {
+          "Category": "bear",
+          "Challenge": "B"
+        },
+        {
+          "Category": "beard",
+          "Challenge": "A"
+        },
+        {
+          "Category": "bed",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "bee",
+          "Challenge": "B"
+        },
+        {
+          "Category": "belt",
+          "Challenge": "B"
+        },
+        {
+          "Category": "bench",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "bicycle",
+          "Challenge": "B,C"
+        },
+        {
+          "Category": "binoculars",
+          "Challenge": "C"
+        },
+        {
+          "Category": "bird",
+          "Challenge": "B"
+        },
+        {
+          "Category": "birthday cake",
+          "Challenge": "C"
+        },
+        {
+          "Category": "blackberry",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "blueberry",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "book",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "boomerang",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "bottlecap",
+          "Challenge": "C"
+        },
+        {
+          "Category": "bowtie",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "bracelet",
+          "Challenge": "B,C"
+        },
+        {
+          "Category": "brain",
+          "Challenge": "A"
+        },
+        {
+          "Category": "bread",
+          "Challenge": "A"
+        },
+        {
+          "Category": "bridge",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "broccoli",
+          "Challenge": "B"
+        },
+        {
+          "Category": "broom",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "bucket",
+          "Challenge": "C"
+        },
+        {
+          "Category": "bulldozer",
+          "Challenge": "B"
+        },
+        {
+          "Category": "bus",
+          "Challenge": "C"
+        },
+        {
+          "Category": "bush",
+          "Challenge": "A"
+        },
+        {
+          "Category": "butterfly",
+          "Challenge": "A"
+        },
+        {
+          "Category": "cactus",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "cake",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "calculator",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "calendar",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "camel",
+          "Challenge": "B"
+        },
+        {
+          "Category": "camera",
+          "Challenge": "C"
+        },
+        {
+          "Category": "camouflage",
+          "Challenge": "A"
+        },
+        {
+          "Category": "campfire",
+          "Challenge": "A"
+        },
+        {
+          "Category": "candle",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "cannon",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "canoe",
+          "Challenge": "A"
+        },
+        {
+          "Category": "car",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "carrot",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "castle",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "cat",
+          "Challenge": "B"
+        },
+        {
+          "Category": "ceiling fan",
+          "Challenge": "B"
+        },
+        {
+          "Category": "cello",
+          "Challenge": "B"
+        },
+        {
+          "Category": "cell phone",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "chair",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "chandelier",
+          "Challenge": "B"
+        },
+        {
+          "Category": "church",
+          "Challenge": "A"
+        },
+        {
+          "Category": "circle",
+          "Challenge": ""
+        },
+        {
+          "Category": "clarinet",
+          "Challenge": "B"
+        },
+        {
+          "Category": "clock",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "cloud",
+          "Challenge": "A"
+        },
+        {
+          "Category": "coffee cup",
+          "Challenge": "A"
+        },
+        {
+          "Category": "compass",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "computer",
+          "Challenge": "C"
+        },
+        {
+          "Category": "cookie",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "cooler",
+          "Challenge": "B,C"
+        },
+        {
+          "Category": "couch",
+          "Challenge": "B"
+        },
+        {
+          "Category": "cow",
+          "Challenge": "B"
+        },
+        {
+          "Category": "crab",
+          "Challenge": "B"
+        },
+        {
+          "Category": "crayon",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "crocodile",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "crown",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "cruise ship",
+          "Challenge": "B"
+        },
+        {
+          "Category": "cup",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "diamond",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "dishwasher",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "diving board",
+          "Challenge": "B"
+        },
+        {
+          "Category": "dog",
+          "Challenge": "B"
+        },
+        {
+          "Category": "dolphin",
+          "Challenge": "B"
+        },
+        {
+          "Category": "donut",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "door",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "dragon",
+          "Challenge": "B"
+        },
+        {
+          "Category": "dresser",
+          "Challenge": "B,C"
+        },
+        {
+          "Category": "drill",
+          "Challenge": "C"
+        },
+        {
+          "Category": "drums",
+          "Challenge": "C"
+        },
+        {
+          "Category": "duck",
+          "Challenge": "B"
+        },
+        {
+          "Category": "dumbbell",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "ear",
+          "Challenge": "B"
+        },
+        {
+          "Category": "elbow",
+          "Challenge": "B"
+        },
+        {
+          "Category": "elephant",
+          "Challenge": "B"
+        },
+        {
+          "Category": "envelope",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "eraser",
+          "Challenge": "A"
+        },
+        {
+          "Category": "eye",
+          "Challenge": "A"
+        },
+        {
+          "Category": "eyeglasses",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "face",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "fan",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "feather",
+          "Challenge": "A"
+        },
+        {
+          "Category": "fence",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "finger",
+          "Challenge": "A"
+        },
+        {
+          "Category": "fire hydrant",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "fireplace",
+          "Challenge": "A"
+        },
+        {
+          "Category": "firetruck",
+          "Challenge": "B"
+        },
+        {
+          "Category": "fish",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "flamingo",
+          "Challenge": "B"
+        },
+        {
+          "Category": "flashlight",
+          "Challenge": "B,C"
+        },
+        {
+          "Category": "flip flops",
+          "Challenge": "B"
+        },
+        {
+          "Category": "floor lamp",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "flower",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "flying saucer",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "foot",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "fork",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "frog",
+          "Challenge": "B"
+        },
+        {
+          "Category": "frying pan",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "garden",
+          "Challenge": "B"
+        },
+        {
+          "Category": "garden hose",
+          "Challenge": "B"
+        },
+        {
+          "Category": "giraffe",
+          "Challenge": "B"
+        },
+        {
+          "Category": "goatee",
+          "Challenge": "B"
+        },
+        {
+          "Category": "golf club",
+          "Challenge": "B"
+        },
+        {
+          "Category": "grapes",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "grass",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "guitar",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "hamburger",
+          "Challenge": "B"
+        },
+        {
+          "Category": "hammer",
+          "Challenge": "C"
+        },
+        {
+          "Category": "hand",
+          "Challenge": "A"
+        },
+        {
+          "Category": "harp",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "hat",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "headphones",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "hedgehog",
+          "Challenge": "B,C"
+        },
+        {
+          "Category": "helicopter",
+          "Challenge": "B"
+        },
+        {
+          "Category": "helmet",
+          "Challenge": "A"
+        },
+        {
+          "Category": "hexagon",
+          "Challenge": "A"
+        },
+        {
+          "Category": "hockey puck",
+          "Challenge": "B"
+        },
+        {
+          "Category": "hockey stick",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "horse",
+          "Challenge": "B"
+        },
+        {
+          "Category": "hospital",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "hot air balloon",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "hot dog",
+          "Challenge": "B"
+        },
+        {
+          "Category": "hot tub",
+          "Challenge": "B"
+        },
+        {
+          "Category": "hourglass",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "house",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "house plant",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "hurricane",
+          "Challenge": "A"
+        },
+        {
+          "Category": "ice cream",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "jacket",
+          "Challenge": "B"
+        },
+        {
+          "Category": "jail",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "kangaroo",
+          "Challenge": "B"
+        },
+        {
+          "Category": "key",
+          "Challenge": "B"
+        },
+        {
+          "Category": "keyboard",
+          "Challenge": "B"
+        },
+        {
+          "Category": "knee",
+          "Challenge": "B"
+        },
+        {
+          "Category": "knife",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "ladder",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "lantern",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "laptop",
+          "Challenge": "B"
+        },
+        {
+          "Category": "leaf",
+          "Challenge": "A"
+        },
+        {
+          "Category": "leg",
+          "Challenge": "A"
+        },
+        {
+          "Category": "light bulb",
+          "Challenge": "A"
+        },
+        {
+          "Category": "lighter",
+          "Challenge": "A"
+        },
+        {
+          "Category": "lighthouse",
+          "Challenge": "B"
+        },
+        {
+          "Category": "lightning",
+          "Challenge": "A"
+        },
+        {
+          "Category": "line",
+          "Challenge": ""
+        },
+        {
+          "Category": "lion",
+          "Challenge": "B"
+        },
+        {
+          "Category": "lipstick",
+          "Challenge": "B"
+        },
+        {
+          "Category": "lobster",
+          "Challenge": "B"
+        },
+        {
+          "Category": "lollipop",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "mailbox",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "map",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "marker",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "matches",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "megaphone",
+          "Challenge": "B"
+        },
+        {
+          "Category": "mermaid",
+          "Challenge": "B"
+        },
+        {
+          "Category": "microphone",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "microwave",
+          "Challenge": "C"
+        },
+        {
+          "Category": "monkey",
+          "Challenge": "B"
+        },
+        {
+          "Category": "moon",
+          "Challenge": ""
+        },
+        {
+          "Category": "mosquito",
+          "Challenge": "B"
+        },
+        {
+          "Category": "motorbike",
+          "Challenge": "B"
+        },
+        {
+          "Category": "mountain",
+          "Challenge": "A"
+        },
+        {
+          "Category": "mouse",
+          "Challenge": "B"
+        },
+        {
+          "Category": "moustache",
+          "Challenge": "A"
+        },
+        {
+          "Category": "mouth",
+          "Challenge": "A"
+        },
+        {
+          "Category": "mug",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "mushroom",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "nail",
+          "Challenge": "B"
+        },
+        {
+          "Category": "necklace",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "nose",
+          "Challenge": "A"
+        },
+        {
+          "Category": "ocean",
+          "Challenge": ""
+        },
+        {
+          "Category": "octagon",
+          "Challenge": "A"
+        },
+        {
+          "Category": "octopus",
+          "Challenge": "B,C"
+        },
+        {
+          "Category": "onion",
+          "Challenge": ""
+        },
+        {
+          "Category": "oven",
+          "Challenge": "C"
+        },
+        {
+          "Category": "owl",
+          "Challenge": "B"
+        },
+        {
+          "Category": "paintbrush",
+          "Challenge": "A.B"
+        },
+        {
+          "Category": "paint can",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "palm tree",
+          "Challenge": "A"
+        },
+        {
+          "Category": "panda",
+          "Challenge": "B"
+        },
+        {
+          "Category": "pants",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "paper clip",
+          "Challenge": "A"
+        },
+        {
+          "Category": "parachute",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "parrot",
+          "Challenge": "B"
+        },
+        {
+          "Category": "passport",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "peanut",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "pear",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "peas",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "pencil",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "penguin",
+          "Challenge": "B"
+        },
+        {
+          "Category": "piano",
+          "Challenge": "B"
+        },
+        {
+          "Category": "pickup truck",
+          "Challenge": "B"
+        },
+        {
+          "Category": "picture frame",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "pig",
+          "Challenge": "B"
+        },
+        {
+          "Category": "pillow",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "pineapple",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "pizza",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "pliers",
+          "Challenge": "B"
+        },
+        {
+          "Category": "police car",
+          "Challenge": "B"
+        },
+        {
+          "Category": "pond",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "pool",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "popsicle",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "postcard",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "potato",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "power outlet",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "purse",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "rabbit",
+          "Challenge": "B"
+        },
+        {
+          "Category": "raccoon",
+          "Challenge": "B"
+        },
+        {
+          "Category": "radio",
+          "Challenge": "B,C"
+        },
+        {
+          "Category": "rain",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "rainbow",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "rake",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "remote control",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "rhinoceros",
+          "Challenge": "B"
+        },
+        {
+          "Category": "rifle",
+          "Challenge": "B"
+        },
+        {
+          "Category": "river",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "roller coaster",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "rollerskates",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "sailboat",
+          "Challenge": "B,C"
+        },
+        {
+          "Category": "sandwich",
+          "Challenge": "B"
+        },
+        {
+          "Category": "saw",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "saxophone",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "school bus",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "scissors",
+          "Challenge": "B"
+        },
+        {
+          "Category": "scorpion",
+          "Challenge": "B"
+        },
+        {
+          "Category": "screwdriver",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "sea turtle",
+          "Challenge": "B"
+        },
+        {
+          "Category": "see saw",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "shark",
+          "Challenge": "B"
+        },
+        {
+          "Category": "sheep",
+          "Challenge": "B"
+        },
+        {
+          "Category": "shoe",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "shorts",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "shovel",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "sink",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "skateboard",
+          "Challenge": "B,C"
+        },
+        {
+          "Category": "skull",
+          "Challenge": "B"
+        },
+        {
+          "Category": "skyscraper",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "sleeping bag",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "smiley face",
+          "Challenge": "A"
+        },
+        {
+          "Category": "snail",
+          "Challenge": "B"
+        },
+        {
+          "Category": "snake",
+          "Challenge": "B"
+        },
+        {
+          "Category": "snorkel",
+          "Challenge": "B"
+        },
+        {
+          "Category": "snowflake",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "snowman",
+          "Challenge": "A,B,C"
+        },
+        {
+          "Category": "soccer ball",
+          "Challenge": "A"
+        },
+        {
+          "Category": "sock",
+          "Challenge": "A"
+        },
+        {
+          "Category": "speedboat",
+          "Challenge": "B"
+        },
+        {
+          "Category": "spider",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "spoon",
+          "Challenge": "C"
+        },
+        {
+          "Category": "spreadsheet",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "square",
+          "Challenge": ""
+        },
+        {
+          "Category": "squiggle",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "squirrel",
+          "Challenge": "B"
+        },
+        {
+          "Category": "stairs",
+          "Challenge": "A"
+        },
+        {
+          "Category": "star",
+          "Challenge": "A"
+        },
+        {
+          "Category": "steak",
+          "Challenge": "B"
+        },
+        {
+          "Category": "stereo",
+          "Challenge": "B,C"
+        },
+        {
+          "Category": "stethoscope",
+          "Challenge": "B,C"
+        },
+        {
+          "Category": "stitches",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "stop sign",
+          "Challenge": "A"
+        },
+        {
+          "Category": "stove",
+          "Challenge": "B,C"
+        },
+        {
+          "Category": "strawberry",
+          "Challenge": "A"
+        },
+        {
+          "Category": "streetlight",
+          "Challenge": "A"
+        },
+        {
+          "Category": "string bean",
+          "Challenge": "B"
+        },
+        {
+          "Category": "submarine",
+          "Challenge": "B"
+        },
+        {
+          "Category": "suitcase",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "sun",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "swan",
+          "Challenge": "B"
+        },
+        {
+          "Category": "sweater",
+          "Challenge": "B"
+        },
+        {
+          "Category": "swing set",
+          "Challenge": "B"
+        },
+        {
+          "Category": "sword",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "syringe",
+          "Challenge": "C"
+        },
+        {
+          "Category": "table",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "teapot",
+          "Challenge": "B"
+        },
+        {
+          "Category": "teddy-bear",
+          "Challenge": "B"
+        },
+        {
+          "Category": "telephone",
+          "Challenge": "B"
+        },
+        {
+          "Category": "television",
+          "Challenge": "C"
+        },
+        {
+          "Category": "tennis racquet",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "tent",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "The Eiffel Tower",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "The Great Wall of China",
+          "Challenge": "A"
+        },
+        {
+          "Category": "The Mona Lisa",
+          "Challenge": "B"
+        },
+        {
+          "Category": "tiger",
+          "Challenge": "B"
+        },
+        {
+          "Category": "toaster",
+          "Challenge": "B"
+        },
+        {
+          "Category": "toe",
+          "Challenge": "B"
+        },
+        {
+          "Category": "toilet",
+          "Challenge": "B"
+        },
+        {
+          "Category": "tooth",
+          "Challenge": "B"
+        },
+        {
+          "Category": "toothbrush",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "toothpaste",
+          "Challenge": "B"
+        },
+        {
+          "Category": "tornado",
+          "Challenge": "A"
+        },
+        {
+          "Category": "tractor",
+          "Challenge": "B"
+        },
+        {
+          "Category": "traffic light",
+          "Challenge": "B"
+        },
+        {
+          "Category": "train",
+          "Challenge": "B"
+        },
+        {
+          "Category": "tree",
+          "Challenge": "A"
+        },
+        {
+          "Category": "triangle",
+          "Challenge": ""
+        },
+        {
+          "Category": "trombone",
+          "Challenge": "B"
+        },
+        {
+          "Category": "truck",
+          "Challenge": "B"
+        },
+        {
+          "Category": "trumpet",
+          "Challenge": "B"
+        },
+        {
+          "Category": "t-shirt",
+          "Challenge": "B"
+        },
+        {
+          "Category": "umbrella",
+          "Challenge": "A"
+        },
+        {
+          "Category": "underwear",
+          "Challenge": "A"
+        },
+        {
+          "Category": "van",
+          "Challenge": "B,C"
+        },
+        {
+          "Category": "vase",
+          "Challenge": "A"
+        },
+        {
+          "Category": "violin",
+          "Challenge": "B"
+        },
+        {
+          "Category": "washing machine",
+          "Challenge": "B"
+        },
+        {
+          "Category": "watermelon",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "waterslide",
+          "Challenge": "B"
+        },
+        {
+          "Category": "whale",
+          "Challenge": "A,B"
+        },
+        {
+          "Category": "wheel",
+          "Challenge": ""
+        },
+        {
+          "Category": "windmill",
+          "Challenge": "B"
+        },
+        {
+          "Category": "wine bottle",
+          "Challenge": "A,C"
+        },
+        {
+          "Category": "wine glass",
+          "Challenge": "B"
+        },
+        {
+          "Category": "wristwatch",
+          "Challenge": "B"
+        },
+        {
+          "Category": "yoga",
+          "Challenge": "B"
+        },
+        {
+          "Category": "zebra",
+          "Challenge": "B"
+        },
+        {
+          "Category": "zigzag",
+          "Challenge": ""
+        }
+      ]
+}

@@ -1,0 +1,26 @@
+ [
+    {
+        "name": "Oliver Cromwell",
+        "slug": "oliver_cromwell",
+        "language": "British English",
+        "colour": "light"
+    },
+    {
+        "name": "Nancy Fraser",
+        "slug": "nancy_fraser",
+        "language": "American English",
+        "colour": "blue"
+    },
+    {
+        "name": "Marcia Tiburi",
+        "slug": "marcia_tiburi",
+        "language": "Português Brasil",
+        "colour": "dark"
+    },
+    {
+        "name": "Voltaire",
+        "slug": "voltaire",
+        "language": "Français",
+        "colour": "yellow"
+    }
+]

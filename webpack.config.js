@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
 	mode:  'development', //production
-	entry: './public/js/app.js',
+	entry: './public/app.js',
 	plugins: [
 		new CleanWebpackPlugin(['public/dist']),
 		new webpack.ProvidePlugin({
