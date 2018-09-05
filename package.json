@@ -23,6 +23,7 @@
     "mustache": "^2.3.2",
     "mustache-loader": "^1.4.1",
     "paper": "^0.11.5",
+    "random-weighted-choice": "^0.1.3",
     "requirejs": "^2.3.5",
     "responsivevoice": "^0.4.1",
     "socket.io": "latest",

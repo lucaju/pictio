@@ -65,12 +65,12 @@ export default function (context) {
 				}
 				
 				//speak
-				let translateColor = app.i18next.t(
-					`personaChoice.colours.${persona.colour}`,
+				let translatedColor = app.i18next.t(
+					`personas.colours.${persona.colour}`,
 					{lng:app.getLanguageCode(persona.language)}
 				);
 
-				let textToSpeak = persona.name + '. ' + translateColor;
+				let textToSpeak = `${persona.name}. ${translatedColor}`;
 
 				app.speak(textToSpeak,persona.language);
 
@@ -81,7 +81,7 @@ export default function (context) {
 				});
 
 			}
-		
+
 		});
 
 	});

@@ -4,25 +4,20 @@
 
 //modules
 import $ from 'jquery';
-// import jqueryUI from 'jquery-ui';
 import UIkit from 'uikit';
 import uikiticons from 'uikit/dist/js/uikit-icons.min';
 import easytimer from 'easytimer';
-// import paper from 'paper';
-// import responsiveVoice from 'responsivevoice';
-// require('responsivevoice');
 import Artyom from 'artyom.js';
 // import chroma from 'chroma-js';
-// import io from '/socket.io/socket.io';
 import io from 'socket.io-client';
 import i18next from 'i18next';
 import i18nextBackend from 'i18next-xhr-backend';
 import jqueryI18next from 'jquery-i18next';
 
-import personas from './data/personas.json';
-import gameVariables from './data/game-mechanics.json';
+import gameMechanics from './data/game-mechanics.json';
 
 import interfaceView from './components/interface-view';
+import magentaAI from './magentaAI';
 
 
 
@@ -37,26 +32,26 @@ const App = function () {
 
 	this.interface = new interfaceView(this);
 	this.language = 'British English';
-	this.mute = true;
+	this.mute = gameMechanics.options.mute;
 
-	this.mechanics = gameVariables;
+	this.mechanics = gameMechanics;
 
-	this.personas = personas;
+	this.personas = gameMechanics.personas;
 	this.currentPersona = this.personas[0];
 
+	this.magentaAI = new magentaAI();
+
 	this.gameState = {
-		currentChallenge: '', //current challenge
-		currentCategory: '', //current draw category
+		currentChallenge: 'Drawing on the Wall', //'', //current challenge
+		currentCategory: 'pizza', //'', //current draw category
 		firstSpeak: true, //regulates is it is the first time the machine speak on each time that users play the challenge
 		attemptNumber: 0,
-		attemps: [], //current list of guess attemps
+		attempts: [], //current list of guess attempts
 		timer: new easytimer() //innitiate timer object
 	};
 
 	//methods
 	this.init = function () {
-
-		console.log(gameVariables);
 
 		uikiticons(UIkit);
 
@@ -90,43 +85,15 @@ const App = function () {
 
 				app.interface.init();
 
-				// app.interface.changeColour(app.colours[0]); //default
+				app.magentaAI.init(app);
 
-				// app.interface.changeView('challenges');
-				// app.interface.changeView('wall');
+				app.interface.changeView('game');
 
 				// console.log(speechSynthesis.getVoices())
 				// app.sortCat();
 				// app.sortPort();
 			});
 	};
-
-	// this.sortPort = function() {
-	// 	const list = {};
-	// 	for (let cat of port) {
-	// 		let key = cat['Category English'];
-	// 		let value = cat['Categoria Portugues'];
-			
-
-	// 		// console.log(key, value);
-	// 		list[key.replace(' ', '-').toLowerCase()] = value.toLowerCase();
-	// 	}
-
-	// 	// console.log(list);
-
-	// 	console.log(JSON.stringify(list));
-	// };
-
-	// this.sortCat = function() {
-	// 	const list = {};
-	// 	for (let cat of this.mechanics.catChallenges) {
-	// 		// console.log(cat);
-	// 		list[cat.Category.replace(' ', '-').toLowerCase()] = cat.Category.toLowerCase();
-	// 	}
-
-	// 	console.log(JSON.stringify(list));
-	// };
-	
 
 	this.changeContexLanguage = function (lang) {
 		this.language = lang;
@@ -171,10 +138,7 @@ const App = function () {
 			debug: false, // Show messages in the console
 			executionKeyword: 'and do it now',
 			listen: true, // Start to listen commands !
-
-			// If providen, you can only trigger a command if you say its name
-			// e.g to trigger Good Morning, you need to say "Jarvis Good Morning"
-			name: 'Jarvis'
+			name: 'Jarvis' // If providen, you can only trigger a command if you say its name e.g to trigger Good Morning, you need to say 'Jarvis Good Morning'
 		}).then(() => {
 			console.log('Artyom has been succesfully initialized');
 		}).catch((err) => {
@@ -184,7 +148,6 @@ const App = function () {
 	};
 
 	this.speak = function (text, language) {
-		console.log(this.mute, text);
 		if (!this.mute && text != null) {
 			if (language != undefined) {
 				this.artyom.say(text, {
@@ -196,7 +159,7 @@ const App = function () {
 		}
 	};
 
-	this.resetGameState = function() {
+	this.resetGameState = function () {
 		this.gameState = {
 			currentChallenge: '',
 			currentCategory: '',
@@ -206,6 +169,58 @@ const App = function () {
 			timer: new easytimer()
 		};
 	};
+
+	this.startDrawing = function (challenge) {
+		this.attempts = [];
+		this.timeGame();
+		this.magentaAI.isOn = true;
+		this.magentaAI.startMagenta();
+	};
+
+	// --- set timer for game
+	this.timeGame = function () {
+
+		const challenge = this.getChallenge(this.gameState.currentChallenge);
+		const challengeTime = challenge.time;
+
+		this.gameState.timer = new easytimer(); // reset timer
+
+		this.gameState.timer.start({
+			countdown: true,
+			startValues: {
+				seconds: challengeTime
+			}
+		}); // start timer countdown
+
+		let timeLeft = (this.gameState.timer.getTimeValues().minutes * 60) + this.gameState.timer.getTimeValues().seconds;
+
+		$('#timer #number').html(timeLeft + 's');
+
+		this.gameState.timer.addEventListener('secondsUpdated', function (e) {
+
+			timeLeft = (app.gameState.timer.getTimeValues().minutes * 60) + app.gameState.timer.getTimeValues().seconds;
+
+			$('#timer #number').html(timeLeft + 's');
+
+			app.socket.emit('interface', {
+				view: 'game',
+				action: 'timer',
+				timer: timeLeft + 's',
+			});
+		});
+
+		this.gameState.timer.addEventListener('targetAchieved', function (e) {
+			console.log('times up');
+			// gameLost(challenge); // Time is up
+		});
+	};
+
+	// ---  set limited list of best guesses
+	this.getBestGuesses = function (limit) {
+		if (limit) return this.gameState.attempts.slice(0, limit);
+		return this.gameState.attempts;
+	};
+
 
 };
 

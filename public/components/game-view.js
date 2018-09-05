@@ -11,8 +11,10 @@ export default function (context) {
 
 	const pageData = {
 		time: challenge.time,
-		clear: 'clear',
-		play: 'play',
+		clear: 'Clear',
+		play: 'Play',
+		back: 'Back',
+		showBackButton: true,
 		inverseColour: app.interface.inverseClass()
 	};
 
@@ -21,22 +23,16 @@ export default function (context) {
 	$(gameHTML).appendTo($('#view'));
 
 	$('#game').localize();
-
-
 	
-	$('#start-drawing').click(function () {
-
-		// $('#start-drawing-overlay').remove();
-		// $('.uk-inline').removeClass('uk-inline');
-		// startDrawing(challenge);
-
-		console.log('play');
+	$('#start-drawing-overlay').click(function () {
+		$('#start-drawing-overlay').remove();
+		app.startDrawing();
 	});
 
 	$('#clear-drawing').click(function () {
 		console.log('clear');
 		$('#guess')[0].innerHTML = '...';
-		// clearDrawing(challenge);
+		app.magentaAI.clearCanvas();
 
 		app.socket.emit('guess', {
 			view: 'game',
@@ -47,8 +43,8 @@ export default function (context) {
 
 
 	$('#back').click(function () {
-		app.gameStape.timer.stop();
-		app.gameState.attemps = [];
+		// app.gameStape.timer.stop();
+		// app.gameState.attemps = [];
 		$('#game').animate({
 			marginTop: '-100',
 			opacity: 0,
