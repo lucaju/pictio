@@ -112,7 +112,7 @@ function updateInk(point, time) {
 }
 
 //--- Clear Paper Drawing Canvas --/// only canvsas... interface is handled in interfaca.js
-function clearDrawing() {
+function clearCanvas() {
 
   // Remove Paper Path Layer
   paper.project.activeLayer.removeChildren();

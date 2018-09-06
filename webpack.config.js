@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
 	mode:  'development', //production
-	entry: './public/js/app.js',
+	entry: './public/app.js',
 	plugins: [
 		new CleanWebpackPlugin(['public/dist']),
 		new webpack.ProvidePlugin({
@@ -37,6 +37,13 @@ module.exports = {
 					outputPath:'assets/images/'
 				//the images will be emited to dist/assets/images/ folder
 				}
+			},
+			{
+				test: /\.html$/,
+				loader: 'mustache-loader'
+				// loader: 'mustache-loader?minify'
+				// loader: 'mustache-loader?{ minify: { removeComments: false } }'
+				// loader: 'mustache-loader?noShortcut'
 			}
 		]
 	},
