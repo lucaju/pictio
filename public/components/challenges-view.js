@@ -11,7 +11,7 @@ export default function (context) {
 	app.resetGameState();
 
 	const pageData = {
-		title: 'Pick a challenge',
+		title: app.i18next.t('challenges.page.title'),
 		inverseColour: app.interface.inverseClass(),
 		challenges:  app.mechanics.challenges
 	};
@@ -24,7 +24,7 @@ export default function (context) {
 
 	//emit to socker IO
 	app.socket.emit('interface', {
-		view: 'show-challenges'
+		view: 'challenges'
 	});
 
 	// get challenges

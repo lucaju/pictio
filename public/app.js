@@ -6,7 +6,7 @@
 import $ from 'jquery';
 import UIkit from 'uikit';
 import uikiticons from 'uikit/dist/js/uikit-icons.min';
-import easytimer from 'easytimer';
+import easytimer from 'easytimer'; // consider change to: moment-timer
 import Artyom from 'artyom.js';
 // import chroma from 'chroma-js';
 import io from 'socket.io-client';
@@ -18,6 +18,8 @@ import gameMechanics from './data/game-mechanics.json';
 
 import interfaceView from './components/interface-view';
 import magentaAI from './magentaAI';
+
+import loadingbar from '@loadingio/loading-bar';
 
 
 
@@ -42,10 +44,10 @@ const App = function () {
 	this.magentaAI = new magentaAI();
 
 	this.gameState = {
-		currentChallenge: 'Drawing on the Wall', //'', //current challenge
-		currentCategory: 'pizza', //'', //current draw category
+		currentChallenge: '', //'', //current challenge
+		currentCategory: '', //'', //current draw category
 		firstSpeak: true, //regulates is it is the first time the machine speak on each time that users play the challenge
-		attemptNumber: 0,
+		success: false,
 		attempts: [], //current list of guess attempts
 		timer: new easytimer() //innitiate timer object
 	};
@@ -87,7 +89,7 @@ const App = function () {
 
 				app.magentaAI.init(app);
 
-				app.interface.changeView('game');
+				// app.interface.changeView('game');
 
 				// console.log(speechSynthesis.getVoices())
 				// app.sortCat();
@@ -164,13 +166,13 @@ const App = function () {
 			currentChallenge: '',
 			currentCategory: '',
 			firstSpeak: true,
-			attemptNumber: 0,
-			guessAttemps: [],
+			success: false,
+			attempts: [],
 			timer: new easytimer()
 		};
 	};
 
-	this.startDrawing = function (challenge) {
+	this.startDrawing = function () {
 		this.attempts = [];
 		this.timeGame();
 		this.magentaAI.isOn = true;
@@ -185,33 +187,48 @@ const App = function () {
 
 		this.gameState.timer = new easytimer(); // reset timer
 
+		
+
 		this.gameState.timer.start({
 			countdown: true,
+			precision: 'secondTenths',
 			startValues: {
 				seconds: challengeTime
 			}
 		}); // start timer countdown
 
-		let timeLeft = (this.gameState.timer.getTimeValues().minutes * 60) + this.gameState.timer.getTimeValues().seconds;
+		let timeLeftSeconds = challengeTime;
+		let timeLeftPercent = 100;// %
 
-		$('#timer #number').html(timeLeft + 's');
+		//loading bar
+		let timerTracker = new loadingbar('#ldBar');
+		timerTracker.set(timeLeftPercent);
 
-		this.gameState.timer.addEventListener('secondsUpdated', function (e) {
+		// $('#timer #number').html(challengeTime + 's');
 
-			timeLeft = (app.gameState.timer.getTimeValues().minutes * 60) + app.gameState.timer.getTimeValues().seconds;
+		this.gameState.timer.addEventListener('secondTenthsUpdated', function (e) {
 
-			$('#timer #number').html(timeLeft + 's');
+			const  min = app.gameState.timer.getTimeValues().minutes;
+			const  sec = app.gameState.timer.getTimeValues().seconds;
+			const  tsec = app.gameState.timer.getTimeValues().secondTenths;
+
+			timeLeftSeconds = (min*60) + sec;
+			// $('#timer #number').html(timeLeftSeconds + 's');
+
+			const timeLeftSecondsTeeth = (min*60*10) + (sec*10) + tsec;
+			timeLeftPercent = (timeLeftSecondsTeeth / challengeTime)*10;
+			timerTracker.set(timeLeftPercent);
 
 			app.socket.emit('interface', {
 				view: 'game',
 				action: 'timer',
-				timer: timeLeft + 's',
+				timer: timeLeftSeconds + 's',
+				timerPercentage: timeLeftPercent
 			});
 		});
 
 		this.gameState.timer.addEventListener('targetAchieved', function (e) {
-			console.log('times up');
-			// gameLost(challenge); // Time is up
+			app.interface.changeView('post-game');
 		});
 	};
 

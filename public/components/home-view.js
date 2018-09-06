@@ -9,10 +9,10 @@ export default function (context) {
 	const app = context;
 
 	const homeData = {
-		subtitle: 'An inclusive mini-game for <strong>humans</strong> and <strong>quasi-humans!</strong>',
+		subtitle: app.i18next.t('intro.subtitle'),
 		buttons: {
-			play: "Let's Play",
-			intructions: 'How to play?'
+			play: app.i18next.t('intro.buttons.play'),
+			intructions: app.i18next.t('intro.buttons.intructions')
 		},
 		languages: [
 			{
@@ -27,8 +27,8 @@ export default function (context) {
 	};
 
 	const instructionData = {
-		title: 'How to Play',
-		text:  ''
+		title: app.i18next.t('instructions.title'),
+		text:  app.i18next.t('instructions.text')
 	};
 
 	const homeHTML = homeMustache(homeData);
@@ -38,7 +38,7 @@ export default function (context) {
 	$(instructionsHTML).appendTo($('#view'));
 
 	$('#intro').localize();
-	$('#instructions').localize();
+	$('#instructions').localize().localize({ joinArrays: ' ' });
 
 	app.i18next.on('languageChanged', () => {
 		$('#intro').localize();

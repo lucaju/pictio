@@ -8,6 +8,8 @@ import partnersView from './partners-view';
 import challengesView from './challenges-view';
 import challengeView from './challenge-view';
 import gameView from './game-view';
+import postgameView from './postgame-view';
+
 
 export default function interfaceView(context) {
 
@@ -62,12 +64,14 @@ export default function interfaceView(context) {
 			this.currentView = gameView(this.app);
 			break;
 
+		case 'post-game':
+			this.currentView = postgameView(this.app);
+			break;
+
 		default:
 			this.currentView = homeView(this.app);
 			break;
 		}
-
-		console.log(viewName);
 
 	};
 

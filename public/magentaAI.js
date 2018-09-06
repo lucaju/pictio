@@ -222,8 +222,6 @@ export default function magentaAI() {
 
 		let attempt = activeScore[0][0];
 
-		this.addToGuessAttemps(attempt);
-
 		//----TEST AND GET BACK TO THE INTERFACE
 		if (this.app.gameState.currentCategory != attempt) {
 			this.drawIsWrong(attempt);
@@ -238,14 +236,14 @@ export default function magentaAI() {
 
 		let repeated = false;
 
-		for(let attempt of this.app.attempts) {
+		for(let attempt of this.app.gameState.attempts) {
 			if (attempt == newAttempt) {
 				repeated = true;
 			}
 		}
 
 		if (repeated == false) {
-			this.app.attempts.push(newAttempt);
+			this.app.gameState.attempts.push(newAttempt);
 		}
 
 	};
@@ -256,13 +254,13 @@ export default function magentaAI() {
 		let currentGuesses = this.scores.slice();
 
 		//if it is the first guess
-		if (this.app.attempts.length == 0) {
+		if (this.app.gameState.attempts.length == 0) {
 			return scores;
 		}
 
-		for (let i = 0; i < this.app.attempts.length; i++) {
+		for (let i = 0; i < this.app.gameState.attempts.length; i++) {
 			for (let j = 0; j < currentGuesses.length; j++) {
-				if (this.app.attempts[i] == currentGuesses[j][0]) {
+				if (this.app.gameState.attempts[i] == currentGuesses[j][0]) {
 					currentGuesses.splice(j, 1);
 				}
 			}
@@ -328,13 +326,15 @@ export default function magentaAI() {
 
 		} else {
 
+			this.addToGuessAttemps(attempt);
+
 			verbal = translatedAttempt;
 
 			if (this.app.gameState.firstSpeak == true) {
 				this.app.gameState.firstSpeak = false;
-				speech = 'Hummm....';
+				verbal = speech = 'Hummm....';
 			} else {
-				speech = translatedAttempt;
+				speech = verbal;
 			}
 		}
 
@@ -355,10 +355,12 @@ export default function magentaAI() {
 	////-- if  draw is right
 	this.drawIsRight = function (attempt) {
 
+		this.addToGuessAttemps(attempt);
+
 		this.app.gameState.timer.stop(); //stop timer
 		this.app.gameState.success = true; 
 		
-		this.magentIsOn = false;
+		this.isOn = false;
 
 		let verbal = '';
 		let speech = '';

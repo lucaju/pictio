@@ -16,8 +16,6 @@ export default function (context) {
 
 	app.gameState.currentCategory = currentDrawChallenge;
 
-	console.log(app.gameState);
-
 	//-- Filter category by cahllenge code 
 	function filterCategories(code) {
 
@@ -49,15 +47,15 @@ export default function (context) {
 	}
 
 	const pageData = {
-		name: challenge.name,
+		name: app.i18next.t(`challenges.challenges.${challenge.name}`),
 		short: challenge.short,
-		description: challenge.description,
+		description: app.i18next.t(`challenges.challenges.${challenge.description}`),
 		draw: 'Draw',
 		drawCategory: currentDrawChallenge,
-		categorySlug: currentDrawChallenge.replace(' ', '-'),
+		categorySlug: currentDrawChallenge.replace(/\s/g, '-').toLowerCase(),
 		time: challenge.time,
-		ready:'I\'m ready',
-		back: 'back',
+		ready: app.i18next.t('challenges.page.ready'),
+		back: app.i18next.t('challenges.page.back'),
 		inverseColour: app.interface.inverseClass(),
 	};
 

@@ -64,6 +64,14 @@
             "i-know": "I know! I know! It is"
         }
     },
+    "postgame": {
+        "success": "We did it!",
+        "wrong": "We got all wrong!",
+        "supposed": "You were supposed to draw",
+        "best-guesses": "My best guesses were",
+        "it-is": "It is",
+        "back": "Back"
+    },
     "interjection": {
         "0": "What is this?",
         "1": "I have no idea what it is.",

@@ -11,10 +11,10 @@ export default function (context) {
 
 	const pageData = {
 		time: challenge.time,
-		clear: 'Clear',
-		play: 'Play',
-		back: 'Back',
-		showBackButton: true,
+		clear: app.i18next.t('game.page.clear'),
+		play: app.i18next.t('game.page.play'),
+		back: app.i18next.t('game.page.back'),
+		showBackButton: false,
 		inverseColour: app.interface.inverseClass()
 	};
 
@@ -30,7 +30,6 @@ export default function (context) {
 	});
 
 	$('#clear-drawing').click(function () {
-		console.log('clear');
 		$('#guess')[0].innerHTML = '...';
 		app.magentaAI.clearCanvas();
 
@@ -40,7 +39,6 @@ export default function (context) {
 			attempt: '...',
 		});
 	});
-
 
 	$('#back').click(function () {
 		// app.gameStape.timer.stop();
@@ -53,7 +51,6 @@ export default function (context) {
 			app.interface.changeView('challenge');
 		});
 	});
-
 
 	//animation
 	function enterAnimation() {
@@ -71,7 +68,6 @@ export default function (context) {
 			marginTop: 0,
 			opacity: 1,
 		}, 1500);
-
 
 		card.delay(1000).animate({
 			height: cardHeight,

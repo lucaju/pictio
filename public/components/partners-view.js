@@ -11,8 +11,10 @@ export default function (context) {
 	const pageData = {
 		title: 'Choose your partner',
 		inverseColour: app.interface.inverseClass(),
-		done: 'Done',
-		personas:  app.personas
+		done: app.i18next.t('personas.done'),
+		personas:  app.personas,
+		showName: false,
+		individualAccent: false
 	};
 
 	const partnerHTML = partnersMustache(pageData);
@@ -63,14 +65,25 @@ export default function (context) {
 				} else {
 					$('#title').removeClass('uk-light', {duration:500}); 
 				}
+
+				//translation colour
+				let translatedColor = '';
+
+				if (pageData.individualAccent) {
+					translatedColor = app.i18next.t(
+						`personas.colours.${persona.colour}`,
+						{lng:app.getLanguageCode(persona.language)}
+					);
+				} else {
+					translatedColor = app.i18next.t(
+						`personas.colours.${persona.colour}`
+					);
+				}
 				
 				//speak
-				let translatedColor = app.i18next.t(
-					`personas.colours.${persona.colour}`,
-					{lng:app.getLanguageCode(persona.language)}
-				);
-
-				let textToSpeak = `${persona.name}. ${translatedColor}`;
+				let textToSpeak = '';
+				if (pageData.showName) textToSpeak = `${persona.name}. `;
+				textToSpeak += translatedColor;
 
 				app.speak(textToSpeak,persona.language);
 
