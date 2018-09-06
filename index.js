@@ -24,7 +24,9 @@ const port = process.env.PORT || 3000;
 // });
 
 app.use('/dashboard', express.static(__dirname + '/dashboard'));
-app.use('/', express.static(__dirname + '/public'));
+app.use('/', express.static(__dirname + '/game/dist'));
+app.use('/locales', express.static(__dirname + '/locales'));
+app.use('/game/assets', express.static(__dirname + '/game/assets'));
 
 // app.use(webpackDevMiddleware(compiler, {
 // 	publicPath: webpackConfig.output.publicPath
