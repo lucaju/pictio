@@ -2,10 +2,18 @@
 
 //Modules
 const express = require('express');
+
+
+// const webpack = require('webpack');
+// const webpackDevMiddleware = require('webpack-dev-middleware');
+
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
+
+// const webpackConfig= require('./webpack.config.js');
+// const compiler = webpack(webpackConfig);
 
 // app.use(express.static(__dirname + '/public'));
 // app.use(express.static(__dirname + '/Pictio'));
@@ -16,7 +24,11 @@ const port = process.env.PORT || 3000;
 // });
 
 app.use('/dashboard', express.static(__dirname + '/dashboard'));
-app.use('/pictio/', express.static(__dirname + '/public'));
+app.use('/', express.static(__dirname + '/public'));
+
+// app.use(webpackDevMiddleware(compiler, {
+// 	publicPath: webpackConfig.output.publicPath
+// }));
 
 
 function onConnection(socket){
