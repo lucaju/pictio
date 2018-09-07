@@ -23,9 +23,11 @@ export default function (context) {
 	$('#challenges').localize();
 
 	//emit to socker IO
-	app.socket.emit('interface', {
-		view: 'challenges'
-	});
+	if(app.IOon) {
+		app.socket.emit('interface', {
+			view: 'challenges'
+		});
+	}
 
 	// get challenges
 	// $.each(app.gameVariables.challenges, function (i, challenge) {
@@ -48,9 +50,11 @@ export default function (context) {
 
 		});
 
-		app.socket.emit('interface', {
-			view: 'choose-chalenge'
-		});	
+		if(app.IOon) {
+			app.socket.emit('interface', {
+				view: 'choose-chalenge'
+			});
+		}
 
 
 		//visual initial state

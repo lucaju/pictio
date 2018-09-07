@@ -62,11 +62,12 @@ export default function (context) {
 
 	});
 
-	
-	app.socket.emit('interface', {
-		view: 'post-game',
-		action: 'initiate',
-		bestGuesses: list,
-	});
+	if(app.IOon) {
+		app.socket.emit('interface', {
+			view: 'post-game',
+			action: 'initiate',
+			bestGuesses: list,
+		});
+	}
 
 }

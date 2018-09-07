@@ -33,11 +33,13 @@ export default function (context) {
 		$('#guess')[0].innerHTML = '...';
 		app.magentaAI.clearCanvas();
 
-		app.socket.emit('guess', {
-			view: 'game',
-			action: 'clear',
-			attempt: '...',
-		});
+		if(app.IOon) {
+			app.socket.emit('guess', {
+				view: 'game',
+				action: 'clear',
+				attempt: '...',
+			});
+		}
 	});
 
 	$('#back').click(function () {
@@ -77,10 +79,12 @@ export default function (context) {
 
 	enterAnimation();
 
-	app.socket.emit('interface', {
-		view: 'show-game',
-		action: 'initiate',
-		challenge: app.gameState,
-	});
+	if(app.IOon) {
+		app.socket.emit('interface', {
+			view: 'show-game',
+			action: 'initiate',
+			challenge: app.gameState,
+		});
+	}
 
 }

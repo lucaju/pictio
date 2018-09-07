@@ -21,8 +21,6 @@ import magentaAI from './magentaAI';
 
 import loadingbar from '@loadingio/loading-bar';
 
-// import bg from './assets/gg-qd-bg.opt.png';
-
 import 'uikit/dist/css/uikit.min.css';
 import '@loadingio/loading-bar/dist/loading-bar.css';
 import './style.css';
@@ -34,6 +32,7 @@ import './style.css';
 const App = function () {
 
 	//main variables
+	this.IOon = true;
 	this.socket;
 	this.i18next = i18next;
 	this.artyom = new Artyom();
@@ -64,9 +63,11 @@ const App = function () {
 		uikiticons(UIkit);
 
 		//socket.io
-		$(document).ready(function () {
-			app.socket = io();
-		});
+		if(this.IOon) {
+			$(document).ready(function () {
+				app.socket = io();
+			});
+		}
 
 		app.i18next
 			.use(i18nextBackend)
@@ -225,12 +226,14 @@ const App = function () {
 			timeLeftPercent = (timeLeftSecondsTeeth / challengeTime)*10;
 			timerTracker.set(timeLeftPercent);
 
-			app.socket.emit('interface', {
-				view: 'game',
-				action: 'timer',
-				timer: timeLeftSeconds + 's',
-				timerPercentage: timeLeftPercent
-			});
+			if(app.IOon) {
+				app.socket.emit('interface', {
+					view: 'game',
+					action: 'timer',
+					timer: timeLeftSeconds + 's',
+					timerPercentage: timeLeftPercent
+				});
+			}
 		});
 
 		this.gameState.timer.addEventListener('targetAchieved', function (e) {

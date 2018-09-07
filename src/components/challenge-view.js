@@ -93,11 +93,13 @@ export default function (context) {
 
 	});
 
-	app.socket.emit('interface', {
-		view: 'challenge-instruction',
-		challenge: challenge,
-		currentDrawChallenge: currentDrawChallenge
-	});
+	if(app.IOon) {
+		app.socket.emit('interface', {
+			view: 'challenge-instruction',
+			challenge: challenge,
+			currentDrawChallenge: currentDrawChallenge
+		});
+	}
 
 
 	//animation

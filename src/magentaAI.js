@@ -100,12 +100,14 @@ export default function magentaAI() {
 
 				let canvasSize = _this.getCanvasDimensions();
 
-				_this.app.socket.emit('drawing', {
-					x0: _this.prevPoints.x / canvasSize.width,
-					y0: _this.prevPoints.y / canvasSize.height,
-					x1: event.point.x / canvasSize.width,
-					y1: event.point.y / canvasSize.height
-				});
+				if(_this.app.IOon) {
+					_this.app.socket.emit('drawing', {
+						x0: _this.prevPoints.x / canvasSize.width,
+						y0: _this.prevPoints.y / canvasSize.height,
+						x1: event.point.x / canvasSize.width,
+						y1: event.point.y / canvasSize.height
+					});
+				}
 
 				_this.prevPoints = event.point;
 
@@ -345,10 +347,12 @@ export default function magentaAI() {
 		//speak
 		this.app.speak(speech,this.app.currentPersona.language);
 
-		this.app.socket.emit('guess', {
-			view: 'game',
-			attempt: verbal,
-		});
+		if(this.app.IOon) {
+			this.app.socket.emit('guess', {
+				view: 'game',
+				attempt: verbal,
+			});
+		}
 
 	};
 

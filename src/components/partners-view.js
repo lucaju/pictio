@@ -24,9 +24,11 @@ export default function (context) {
 	$('#partner-choice').localize();
 	
 	//emit to socker IO
-	app.socket.emit('interface', {
-		view: 'partner-color'
-	});
+	if(app.IOon) {
+		app.socket.emit('interface', {
+			view: 'partner-color'
+		});
+	}
 
 	//buttons
 	$.each(app.personas,function(i,persona) {
@@ -87,11 +89,12 @@ export default function (context) {
 
 				app.speak(textToSpeak,persona.language);
 
-
-				app.socket.emit('interface', {
-					view:'choose-color',
-					color: app.currentPersona.colour
-				});
+				if(app.IOon) {
+					app.socket.emit('interface', {
+						view:'choose-color',
+						color: app.currentPersona.colour
+					});
+				}
 
 			}
 
