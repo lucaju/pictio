@@ -1,12 +1,57 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	mode: 'development', //production
-	entry: './game/app.js',
+	entry: './src/app.js',
+	devServer: {
+		contentBase: './dist'
+	},
+	devtool: 'inline-source-map',
+	module: {
+		rules: [
+			{
+				test: /\.css$/,
+				use: [
+					'style-loader',
+					'css-loader'
+				]
+			},
+			// {
+			// 	test: /\.(png|svg|jpg|gif)$/,
+			// 	use: [
+			// 		'file-loader'
+			// 	]
+			// },
+			{
+				test: /\.(gif|png|jpe?g|svg)$/i,
+				use: [
+					'file-loader',
+					{
+						loader: 'image-webpack-loader',
+						options: {
+							bypassOnDebug: true, // webpack@1.x
+							disable: true, // webpack@2.x and newer
+						},
+					},
+				],
+			},
+			{
+				test: /\.html$/,
+				use: 'mustache-loader'
+				// loader: 'mustache-loader?minify'
+				// loader: 'mustache-loader?{ minify: { removeComments: false } }'
+				// loader: 'mustache-loader?noShortcut'
+			}
+		]
+	},
 	plugins: [
+		// new BundleAnalyzerPlugin(),
+		new CleanWebpackPlugin(['./dist']),
 		new HtmlWebpackPlugin({
 			inject: false,
 			template: require('html-webpack-template'),
@@ -34,7 +79,6 @@ module.exports = {
 			],
 			title: 'Pict.io'
 		}),
-		new CleanWebpackPlugin(['game/dist']),
 		new webpack.ProvidePlugin({
 			$: 'jquery',
 			jQuery: 'jquery',
@@ -42,36 +86,8 @@ module.exports = {
 			'window.$': 'jquery'
 		})
 	],
-	devtool: 'inline-source-map',
-	devServer: {
-		contentBase: './game/dist'
-	},
 	output: {
 		filename: 'main.js',
-		path: path.resolve(__dirname, 'game/dist'),
-	},
-	module: {
-		rules: [
-			{
-				test: /\.css$/,
-				use: [
-					'style-loader',
-					'css-loader'
-				]
-			},
-			{
-				test: /\.(png|svg|jpg|gif)$/,
-				use: [
-					'file-loader'
-				]
-			},
-			{
-				test: /\.html$/,
-				use: 'mustache-loader'
-				// loader: 'mustache-loader?minify'
-				// loader: 'mustache-loader?{ minify: { removeComments: false } }'
-				// loader: 'mustache-loader?noShortcut'
-			}
-		]
+		path: path.resolve(__dirname, 'dist'),
 	},
 };

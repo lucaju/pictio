@@ -2,6 +2,7 @@
   "name": "pictio",
   "version": "0.4.0",
   "description": "An inclusive mini-game for humans and quasi-humans!",
+  "private": true,
   "main": "index.js",
   "keywords": [
     "Game",
@@ -32,6 +33,7 @@
     "start": "node index",
     "webpackServer": "webpack-dev-server --open",
     "build": "webpack",
+    "production": "webpack -p --progress",
     "watch": "webpack --watch",
     "server": "node index.js"
   },
@@ -55,6 +57,7 @@
     "style-loader": "^0.23.0",
     "url-loader": "^1.1.1",
     "webpack": "^4.17.2",
+    "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-middleware": "^3.2.0",
     "webpack-dev-server": "^3.1.8"
