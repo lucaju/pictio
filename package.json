@@ -34,7 +34,8 @@
     "webpackServer": "webpack-dev-server --open",
     "build": "webpack",
     "production": "webpack -p --progress",
-    "watch": "webpack --watch",
+    "watchDashboard": "webpack --config webpack.dashboard.config.js --watch ",
+    "watchGame": "webpack --watch",
     "server": "node index.js"
   },
   "author": "Luciano Frizzera",

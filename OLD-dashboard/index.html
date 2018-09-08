@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	<title>Pict.io - Dashboard [Socket.IO]</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+   
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"> -->
+    <link rel="stylesheet" href="../css/uikit.min.css" />
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script> -->
+
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> -->
+	<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+	<!-- <script type="text/javascript" src="./Pictio/js/jQueryRotate.js"></script> -->
+
+    <script src="../js/easytimer.min.js"></script>
+    <!-- <script src='./Pictio/js/paper-0.9.25.min.js'></script> -->
+
+    <script type="text/javascript" src="../js/uikit.min.js"></script>
+	<script type="text/javascript" src="../js/uikit-icons.min.js"></script>
+	
+	<script src="../js/artyom.window.min.js"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+
+    <!-- <script src="js/interface.js"></script> -->
+	<!-- <script src="js/drawing.js"></script> -->
+	<script src="/socket.io/socket.io.js"></script>
+	<!-- <script src="js/speech.js"></script> -->
+</head>
+
+<body>
+<div id="main" class="uk-offcanvas-content" uk-height-viewport>
+	<div id="view" class="uk-height-1-1 uk-section uk-background-default uk-background-blend-multiply uk-background-cover" style="background-image: url(../assets/gg-qd-bg.png);">
+
+
+        <div id="intro" class="uk-container uk-container-small uk-position-center uk-text-center">
+                <h1 id="title" class="uk-heading-primary">Pict • io</h1>
+            <div uk-grid>
+                <div class="uk-width-expand"></div>
+                <div class="uk-width-1-1">
+                    
+                    <div id="status" class="uk-margin-medium-top">
+                        <h3 class="uk-heading-line uk-text-uppercase uk-text-center uk-text-muted"><span>Dashboard</span></h3>
+                    </div>
+                </div>
+                <div class="uk-width-expand"></div>
+            </div>
+		</div>
+
+
+
+
+
+
+
+
+
+ 
+        <div id="game" class="uk-container uk-container-expand uk-text-center uk-hidden">
+            <div uk-grid>
+                <div class="uk-width-1-3 uk-text-left">
+                    <h3 id="guess" class="uk-h3">...</h3>
+                </div>
+                <div class="uk-width-1-3">
+                    <h4 id="game-challenge-name"class="uk-h2"></h4>
+                </div>
+                <div class="uk-width-1-3">
+                    <h2 id="number" class="uk-h2">...</h2>
+                </div>
+            </div>
+            <div class="uk-margin-remove-top" uk-grid>
+                <div class="uk-card uk-card-default uk-card-body uk-border-rounded uk-width-1-1 uk-padding-remove uk-margin-left uk-box-shadow-large bordered" uk-height-viewport="offset-bottom: 40">
+
+                    <canvas id="canvas" class="whiteboard" resize></canvas>
+                    
+                </div>
+            </div>
+
+        </div>
+	
+	</div>
+</div>
+
+<!-- <script src="/socket.io/socket.io.js"></script> -->
+<script src="main.js"></script>
+</body>
+
+</html>

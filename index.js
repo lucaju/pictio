@@ -21,8 +21,8 @@ const port = process.env.PORT || 3000;
   
 // });
 
-app.use('/dashboard', express.static(__dirname + '/dashboard'));
 app.use('/', express.static(__dirname + '/dist'));
+app.use('/dashboard', express.static(__dirname + '/dashboard'));
 app.use('/locales', express.static(__dirname + '/locales'));
 app.use('/assets', express.static(__dirname + '/assets'));
 

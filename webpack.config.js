@@ -8,6 +8,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
 	mode: 'development', //production
 	entry: './src/app.js',
+	output: {
+		filename: 'app.bundle.js',
+		path: path.resolve(__dirname, 'dist'),
+	},
 	devServer: {
 		contentBase: './dist'
 	},
@@ -50,8 +54,9 @@ module.exports = {
 		]
 	},
 	plugins: [
-		// new BundleAnalyzerPlugin(),
-		new CleanWebpackPlugin(['./dist']),
+		new CleanWebpackPlugin([
+			'./dist',
+		]),
 		new HtmlWebpackPlugin({
 			inject: false,
 			template: require('html-webpack-template'),
@@ -63,6 +68,7 @@ module.exports = {
 			// 	trackingId: 'UA-XXXX-XX',
 			// 	pageViewOnLoad: true
 			// },
+			filename:'index.html',
 			meta: [
 				{
 					name: 'charset',
@@ -84,10 +90,7 @@ module.exports = {
 			jQuery: 'jquery',
 			'window.jQuery': 'jquery',
 			'window.$': 'jquery'
-		})
-	],
-	output: {
-		filename: 'main.js',
-		path: path.resolve(__dirname, 'dist'),
-	},
+		}),
+		// new BundleAnalyzerPlugin()
+	]
 };
