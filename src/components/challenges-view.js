@@ -25,7 +25,8 @@ export default function (context) {
 	//emit to socker IO
 	if(app.IOon) {
 		app.socket.emit('interface', {
-			view: 'challenges'
+			view: 'challenges',
+			message: app.i18next.t('challenges.dashboard.selecting'),
 		});
 	}
 
@@ -49,13 +50,6 @@ export default function (context) {
 			});
 
 		});
-
-		if(app.IOon) {
-			app.socket.emit('interface', {
-				view: 'choose-chalenge'
-			});
-		}
-
 
 		//visual initial state
 		let cDelay = 400 + (i * 100) + (Math.random() * 200);

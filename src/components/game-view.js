@@ -30,15 +30,19 @@ export default function (context) {
 	});
 
 	$('#clear-drawing').click(function () {
-		$('#guess')[0].innerHTML = '...';
-		app.magentaAI.clearCanvas();
+		if(app.magentaAI.isOn) {
+			$('#guess')[0].innerHTML = '...';
+			app.magentaAI.clearCanvas();
+		
 
-		if(app.IOon) {
-			app.socket.emit('guess', {
-				view: 'game',
-				action: 'clear',
-				attempt: '...',
-			});
+			if(app.IOon) {
+				app.socket.emit('guess', {
+					view: 'game',
+					action: 'clear',
+					attempt: '...',
+				});
+			}
+
 		}
 	});
 
@@ -81,9 +85,7 @@ export default function (context) {
 
 	if(app.IOon) {
 		app.socket.emit('interface', {
-			view: 'show-game',
-			action: 'initiate',
-			challenge: app.gameState,
+			view: 'game'
 		});
 	}
 

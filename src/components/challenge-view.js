@@ -13,8 +13,10 @@ export default function (context) {
 	const filteredCatetories = filterCategories(challenge.code);
 	const randomDraw = filteredCatetories[Math.floor(Math.random() * filteredCatetories.length)];
 	const currentDrawChallenge = randomDraw.Category; // save current draw category
+	const categorySlug = currentDrawChallenge.replace(/\s/g, '-').toLowerCase();
 
 	app.gameState.currentCategory = currentDrawChallenge;
+
 
 	//-- Filter category by cahllenge code 
 	function filterCategories(code) {
@@ -47,12 +49,12 @@ export default function (context) {
 	}
 
 	const pageData = {
-		name: app.i18next.t(`challenges.challenges.${challenge.name}`),
+		name: app.i18next.t(`challenges.challenges.${challenge.short}.name`),
 		short: challenge.short,
-		description: app.i18next.t(`challenges.challenges.${challenge.description}`),
-		draw: 'Draw',
-		drawCategory: currentDrawChallenge,
-		categorySlug: currentDrawChallenge.replace(/\s/g, '-').toLowerCase(),
+		description: app.i18next.t(`challenges.challenges.${challenge.short}.description`),
+		draw: app.i18next.t('challenges.page.draw'),
+		drawCategory: app.i18next.t(`categories.${categorySlug}`),
+		categorySlug: categorySlug,
 		time: challenge.time,
 		ready: app.i18next.t('challenges.page.ready'),
 		back: app.i18next.t('challenges.page.back'),
@@ -95,9 +97,13 @@ export default function (context) {
 
 	if(app.IOon) {
 		app.socket.emit('interface', {
-			view: 'challenge-instruction',
-			challenge: challenge,
-			currentDrawChallenge: currentDrawChallenge
+			view: 'challenge',
+			name: pageData.name,
+			short: pageData.short,
+			description: pageData.description,
+			drawCategory: pageData.drawCategory,
+			time: pageData.time,
+			colourClass: pageData.inverseColour,
 		});
 	}
 

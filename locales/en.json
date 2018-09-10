@@ -30,6 +30,9 @@
             "blue": "blue",
             "dark": "dark",
             "yellow" : "yellow"
+        },
+        "dashboard": {
+            "assembly": "Assembling teams"
         }
     },
     "challenges": {
@@ -38,6 +41,9 @@
             "draw": "Draw",
             "ready": "I'm ready",
             "back": "Back"
+        },
+        "dashboard": {
+            "selecting": "The team is selecting a challenge"
         },
         "challenges": {
            "wall": {

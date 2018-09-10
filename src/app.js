@@ -210,6 +210,7 @@ const App = function () {
 		//loading bar
 		let timerTracker = new loadingbar('#ldBar');
 		timerTracker.set(timeLeftPercent);
+		$('.ldBar-label').remove();
 
 		// $('#timer #number').html(challengeTime + 's');
 
@@ -227,9 +228,8 @@ const App = function () {
 			timerTracker.set(timeLeftPercent);
 
 			if(app.IOon) {
-				app.socket.emit('interface', {
+				app.socket.emit('timer', {
 					view: 'game',
-					action: 'timer',
 					timer: timeLeftSeconds + 's',
 					timerPercentage: timeLeftPercent
 				});

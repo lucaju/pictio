@@ -35,6 +35,7 @@ function onConnection(socket){
 	socket.on('interface', (data) => socket.broadcast.emit('interface', data));
 	socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
 	socket.on('guess', (data) => socket.broadcast.emit('guess', data));
+	socket.on('timer', (data) => socket.broadcast.emit('timer', data));
 }
 
 io.on('connection', onConnection);

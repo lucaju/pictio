@@ -26,7 +26,8 @@ export default function (context) {
 	//emit to socker IO
 	if(app.IOon) {
 		app.socket.emit('interface', {
-			view: 'partner-color'
+			view: 'partners',
+			message: app.i18next.t('personas.dashboard.assembly'),
 		});
 	}
 
@@ -91,8 +92,9 @@ export default function (context) {
 
 				if(app.IOon) {
 					app.socket.emit('interface', {
-						view:'choose-color',
-						color: app.currentPersona.colour
+						view:'partners',
+						colour: app.currentPersona.colour,
+						message: app.i18next.t('personas.dashboard.assembly'),
 					});
 				}
 

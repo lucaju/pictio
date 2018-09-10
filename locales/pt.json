@@ -28,6 +28,9 @@
             "blue": "azul",
             "dark": "escuro",
             "yellow" : "amarelo"
+        },
+        "dashboard": {
+            "assembly": "Montando os times"
         }
     },
     "challenges": {
@@ -36,6 +39,9 @@
             "draw": "Desenhar",
             "ready": "Estou pront@",
             "back": "Voltar"
+        },
+        "dashboard": {
+            "selecting": "O time esta escolhendo o desafio"
         },
         "challenges": {
             "wall": {

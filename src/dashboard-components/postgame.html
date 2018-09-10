@@ -1,0 +1,38 @@
+<div id="postgame" class="uk-container uk-container-small uk-position-center uk-text-center">
+    <div class="{{inverseColour}}">
+        <h1 class="uk-heading-primary" data-i18n="postgmame.status.{{success}}">{{status}}</h1>
+    </div>
+
+    <div class="uk-margin-medium-top" uk-grid>
+
+        <div class="uk-width-expand"></div>
+            <div class="uk-card uk-card-default uk-width-2-3 uk-margin-small-left uk-padding-remove-left uk-box-shadow-large uk-border-rounded">
+            {{^success}}
+            <div class="uk-card-header">
+                <h4 class="uk-h4 uk-margin-remove-bottom" data-i18n="postgmame.supposedPhrase">{{supposedPhrase}}</h4>
+            </div>
+            {{/success}}
+            <div id="category" class="uk-card-body uk-background-primary uk-box-shadow-large uk-light">
+                <h2 class="uk-h2" data-i18n="categories.{{category}}">{{category}}</h2>
+            </div>
+
+            <div class="uk-card-footer uk-box-shadow-large">
+                <button id="back" class="uk-button uk-button-text"><span uk-icon="chevron-left" class="uk-margin-small-right data-i18n="postgmame.back"></span>{{back}}</button>
+            </div>
+        </div>
+
+        <div class="uk-width-expand"></div>
+    </div>
+
+    <div class="uk-margin-large-top {{inverseColour}}">
+        <div uk-grid>
+            <div class="uk-width-expand"></div>
+            <div class="uk-width-2-3">
+                <h3 class="uk-h3">{{bestGuessPhrase}}</h3>
+                <div class="tags"></div>
+            </div>
+            <div class="uk-width-expand"></div>
+        </div>
+    </div>
+
+</div>
