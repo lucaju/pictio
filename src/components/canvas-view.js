@@ -1,5 +1,6 @@
 //modules
 import paper from 'paper';
+import ee from 'event-emitter';
 
 
 export default function canvasView() {
@@ -9,7 +10,9 @@ export default function canvasView() {
 	this.path = undefined;
 	this.ink = [];
 	this.prevPoints = undefined;
-	this.lastTimestamp = 0,
+	this.lastTimestamp = 0;
+
+	ee(this);
 
 	//--- Initialize...
 
@@ -38,10 +41,9 @@ export default function canvasView() {
 
 			// Get Time [ms] for each Guess (needed for accurate Google AI Guessing)
 			let eventTimeStamp = event.event.timeStamp;
-			let time;
 	
 			let timeDelta = eventTimeStamp - _this.lastTimestamp;
-			time = _this.ink[2][_this.ink[2].length - 1] + timeDelta;
+			let time = _this.ink[2][_this.ink[2].length - 1] + timeDelta;
 
 			// Get XY point from event w/ time [ms] to update Ink Array
 			_this.updateInk(event.point, time);
@@ -74,9 +76,8 @@ export default function canvasView() {
 
 			// Reset Timestamps
 			_this.lastTimestamp = eventTimeStamp;
-
-			// Send update drawing evdent to the app 
-			_this.app.updateDrawing(eventTimeStamp,_this.ink);
+			
+			_this.emit('drawing',eventTimeStamp,_this.ink);
 
 			let canvasSize = _this.getCanvasDimensions();
 
@@ -120,11 +121,6 @@ export default function canvasView() {
 
 		// Init Ink Array
 		this.initInk();
-
-
-		console.log('vai')
-
-
 	};
 
 	//--- Get Paper Canvas Dimensions Width/Height

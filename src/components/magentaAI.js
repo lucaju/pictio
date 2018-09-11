@@ -1,5 +1,5 @@
 //modules
-import $ from 'jquery';
+import ee from 'event-emitter';
 import rwc from 'random-weighted-choice';
 
 
@@ -12,12 +12,17 @@ export default function magentaAI() {
 	this.lastTimestamp = 0;
 	this.lastTimestamp_check = 0;
 
+	this.currentCategory = '';
+
 	this.QUICK_DRAW_API = 'https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8'; // Set Base URL for Quickdraw Google AI API
+
+	ee(this);
 
 	//--- Initialize...
 
 	this.init = function(context) {
 		this.app = context;
+		this.currentCategory  = this.app.gameState.currentCategory;
 	};
 
 	this.read = function(eventTimeStamp,ink) {
@@ -104,7 +109,7 @@ export default function magentaAI() {
 		let attempt = activeScore[0][0];
 
 		//----TEST AND GET BACK TO THE INTERFACE
-		if (this.app.gameState.currentCategory != attempt) {
+		if (this.currentCategory != attempt) {
 			this.drawIsWrong(attempt);
 		} else {
 			this.drawIsRight(attempt);
@@ -220,7 +225,7 @@ export default function magentaAI() {
 		}
 
 		//update page
-		$('#guess')[0].innerHTML = verbal;
+		this.emit('guess', verbal);
 
 
 		//speak
@@ -240,7 +245,8 @@ export default function magentaAI() {
 
 		this.addToGuessAttemps(attempt);
 
-		this.app.gameState.timer.stop(); //stop timer
+		this.emit('stop');
+
 		this.app.gameState.success = true; 
 
 		let verbal = '';
@@ -263,7 +269,8 @@ export default function magentaAI() {
 
 		verbal = speech = `${iknow} ${translatedAttempt}.`;
 
-		$('#guess')[0].innerHTML = verbal;
+		//update page
+		this.emit('guess', verbal);
 
 		this.app.speak(speech,this.app.currentPersona.language);
 

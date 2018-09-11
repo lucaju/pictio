@@ -4,27 +4,27 @@
 
 //modules
 import $ from 'jquery';
+
 import UIkit from 'uikit';
 import uikiticons from 'uikit/dist/js/uikit-icons.min';
-import easytimer from 'easytimer'; // consider change to: moment-timer
-import Artyom from 'artyom.js';
-// import chroma from 'chroma-js';
-import io from 'socket.io-client';
+
 import i18next from 'i18next';
 import i18nextBackend from 'i18next-xhr-backend';
 import jqueryI18next from 'jquery-i18next';
 
+import Artyom from 'artyom.js';
+
+import io from 'socket.io-client';
+
+// import chroma from 'chroma-js';
+
 import gameMechanics from './data/game-mechanics.json';
 
 import interfaceView from './components/interface-view';
-
-import canvasPaper from './canvas-view';
-import magentaAI from './magentaAI';
-
-import loadingbar from '@loadingio/loading-bar';
+// import canvasPaper from './canvas-view';
+// import magentaAI from './magentaAI';
 
 import 'uikit/dist/css/uikit.min.css';
-import '@loadingio/loading-bar/dist/loading-bar.css';
 import './style.css';
 
 
@@ -48,16 +48,13 @@ const App = function () {
 	this.personas = gameMechanics.personas;
 	this.currentPersona = this.personas[0];
 
-	this.canvasPaper = new canvasPaper();
-	this.magentaAI = new magentaAI();
-
 	this.gameState = {
 		currentChallenge: '', //'', //current challenge
 		currentCategory: '', //'', //current draw category
 		firstSpeak: true, //regulates is it is the first time the machine speak on each time that users play the challenge
 		success: false,
 		attempts: [], //current list of guess attempts
-		timer: new easytimer() //innitiate timer object
+		// timer: new easytimer() //innitiate timer object
 	};
 
 	//methods
@@ -97,8 +94,8 @@ const App = function () {
 
 				app.interface.init();
 
-				app.canvasPaper.init(app);
-				app.magentaAI.init(app);
+				// app.canvasPaper.init(app);
+				// app.magentaAI.init(app);
 
 				// app.interface.changeView('game');
 
@@ -179,79 +176,22 @@ const App = function () {
 			firstSpeak: true,
 			success: false,
 			attempts: [],
-			timer: new easytimer()
+			// timer: new easytimer()
 		};
 	};
 
-	this.startDrawing = function() {
-		this.attempts = [];
-		this.timeGame();
-		this.canvasPaper.startCanvas();
-	};
+	// this.startDrawing = function() {
+	// 	this.attempts = [];
+	// 	this.canvasPaper.startCanvas();
+	// };
 
-	this.updateDrawing = function(eventTimeStamp,ink) {
-		this.magentaAI.read(eventTimeStamp,ink);
-	};
+	// this.updateDrawing = function(eventTimeStamp,ink) {
+	// 	this.magentaAI.read(eventTimeStamp,ink);
+	// };
 
-	this.clearDrawing = function() {
-		this.canvasPaper.clearCanvas();
-		console.log('oi')
-	};
-
-	// --- set timer for game
-	this.timeGame = function () {
-
-		const challenge = this.getChallenge(this.gameState.currentChallenge);
-		const challengeTime = challenge.time;
-
-		this.gameState.timer = new easytimer(); // reset timer
-
-		
-
-		this.gameState.timer.start({
-			countdown: true,
-			precision: 'secondTenths',
-			startValues: {
-				seconds: challengeTime
-			}
-		}); // start timer countdown
-
-		let timeLeftSeconds = challengeTime;
-		let timeLeftPercent = 100;// %
-
-		//loading bar
-		let timerTracker = new loadingbar('#ldBar');
-		timerTracker.set(timeLeftPercent);
-		$('.ldBar-label').remove();
-
-		// $('#timer #number').html(challengeTime + 's');
-
-		this.gameState.timer.addEventListener('secondTenthsUpdated', function (e) {
-
-			const  min = app.gameState.timer.getTimeValues().minutes;
-			const  sec = app.gameState.timer.getTimeValues().seconds;
-			const  tsec = app.gameState.timer.getTimeValues().secondTenths;
-
-			timeLeftSeconds = (min*60) + sec;
-			// $('#timer #number').html(timeLeftSeconds + 's');
-
-			const timeLeftSecondsTeeth = (min*60*10) + (sec*10) + tsec;
-			timeLeftPercent = (timeLeftSecondsTeeth / challengeTime)*10;
-			timerTracker.set(timeLeftPercent);
-
-			if(app.IOon) {
-				app.socket.emit('timer', {
-					view: 'game',
-					timer: timeLeftSeconds + 's',
-					timerPercentage: timeLeftPercent
-				});
-			}
-		});
-
-		this.gameState.timer.addEventListener('targetAchieved', function (e) {
-			app.interface.changeView('post-game');
-		});
-	};
+	// this.clearDrawing = function() {
+	// 	this.canvasPaper.clearCanvas();
+	// };
 
 	// ---  set limited list of best guesses
 	this.getBestGuesses = function (limit) {

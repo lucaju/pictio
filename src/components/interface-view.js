@@ -62,7 +62,8 @@ export default function interfaceView(context) {
 			break;
 
 		case 'game':
-			this.currentView = gameView(this.app);
+			this.currentView = gameView;
+			this.currentView.init(this.app);
 			break;
 
 		case 'post-game':
