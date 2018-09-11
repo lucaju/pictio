@@ -17,6 +17,8 @@ import jqueryI18next from 'jquery-i18next';
 import gameMechanics from './data/game-mechanics.json';
 
 import interfaceView from './components/interface-view';
+
+import canvasPaper from './canvas-view';
 import magentaAI from './magentaAI';
 
 import loadingbar from '@loadingio/loading-bar';
@@ -46,6 +48,7 @@ const App = function () {
 	this.personas = gameMechanics.personas;
 	this.currentPersona = this.personas[0];
 
+	this.canvasPaper = new canvasPaper();
 	this.magentaAI = new magentaAI();
 
 	this.gameState = {
@@ -94,6 +97,7 @@ const App = function () {
 
 				app.interface.init();
 
+				app.canvasPaper.init(app);
 				app.magentaAI.init(app);
 
 				// app.interface.changeView('game');
@@ -179,11 +183,19 @@ const App = function () {
 		};
 	};
 
-	this.startDrawing = function () {
+	this.startDrawing = function() {
 		this.attempts = [];
 		this.timeGame();
-		this.magentaAI.isOn = true;
-		this.magentaAI.startMagenta();
+		this.canvasPaper.startCanvas();
+	};
+
+	this.updateDrawing = function(eventTimeStamp,ink) {
+		this.magentaAI.read(eventTimeStamp,ink);
+	};
+
+	this.clearDrawing = function() {
+		this.canvasPaper.clearCanvas();
+		console.log('oi')
 	};
 
 	// --- set timer for game

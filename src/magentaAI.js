@@ -1,165 +1,34 @@
 //modules
 import $ from 'jquery';
-import paper from 'paper';
 import rwc from 'random-weighted-choice';
 
 
 export default function magentaAI() {
 
 	// Initialize Variables
-	this.path;
-	this.ink;
-	this.scores;
+
+	this.scores = [];
 	this.timerGoogle = 0;
-	this.lastTimestamp = 0,
+	this.lastTimestamp = 0;
 	this.lastTimestamp_check = 0;
-	this.d_scores = {};
 
-	this.isOn = false;
-
-	this.prevPoints;
-
-	this.quickDrawAPI = 'https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8'; // Set Base URL for Quickdraw Google AI API
+	this.QUICK_DRAW_API = 'https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8'; // Set Base URL for Quickdraw Google AI API
 
 	//--- Initialize...
 
 	this.init = function(context) {
 		this.app = context;
-		// Install Paper.js
-		paper.install(window);
-		// paper.install(this.app);
 	};
 
-	this.startMagenta = function() {
-
-		const _this = this;
-
-		this.initInk(); // Initialize Ink array ()
-		paper.setup('canvas'); // Setup Paper #canvas
-
-		let tool = new paper.Tool(); // Inititalize Paper Tool
-
-		// Paper Tool Mouse Down Event
-		tool.onMouseDown = function (event) {
-
-			if (_this.isOn == true) {
-				// New Paper Path and Settings
-				_this.path = new paper.Path();
-				_this.path.strokeColor = 'black';
-				_this.path.strokeWidth = 2; //7;
-
-				// Get Time [ms] for each Guess (needed for accurate Google AI Guessing)
-				let eventTimeStamp = event.event.timeStamp;
-				let time;
-				if (_this.timerGoogle === 0) {
-					_this.timerGoogle = 1;
-					// let timerGoogle = 0;
-				} else {
-					let timeDelta = eventTimeStamp - _this.lastTimestamp;
-					time = _this.ink[2][_this.ink[2].length - 1] + timeDelta;
-				}
-
-				// Get XY point from event w/ time [ms] to update Ink Array
-				_this.updateInk(event.point, time);
-				// Draw XY point to Paper Path
-				_this.path.add(event.point);
-
-				_this.prevPoints = event.point;
-
-				// Reset Timestamps
-				_this.lastTimestamp = eventTimeStamp;
-			}
-
-		};
-
-		// Paper Tool Mouse Drag Event
-		tool.onMouseDrag = function (event) {
-
-			if (_this.isOn == true) {
-				// Get Event Timestamp and Timestamp Delta
-				let eventTimeStamp = event.event.timeStamp;
-				let timeDelta = eventTimeStamp - _this.lastTimestamp;
-
-				// Get new Time for Ink Array
-				let time = _this.ink[2][_this.ink[2].length - 1] + timeDelta;
-
-				// Get XY point from event w/ time [ms] to update Ink Array
-				_this.updateInk(event.point, time);
-
-				// Draw XY point to Paper Path
-				_this.path.add(event.point);
-
-				// Reset Timestamps
-				_this.lastTimestamp = eventTimeStamp;
-
-				// Check Google AI Quickdraw every 250 m/s 
-				if (eventTimeStamp - _this.lastTimestamp_check > 1000) {
-					_this.checkQuickDraw();
-					_this.lastTimestamp_check = eventTimeStamp;
-				}
-
-				let canvasSize = _this.getCanvasDimensions();
-
-				if(_this.app.IOon) {
-					_this.app.socket.emit('drawing', {
-						x0: _this.prevPoints.x / canvasSize.width,
-						y0: _this.prevPoints.y / canvasSize.height,
-						x1: event.point.x / canvasSize.width,
-						y1: event.point.y / canvasSize.height
-					});
-				}
-
-				_this.prevPoints = event.point;
-
-			}
-		};
-
-	};
-
-	//--- Initialize Ink Array
-	this.initInk = function() {
-		this.ink = [
-			[],
-			[],
-			[]
-		];
-	};
-
-	//--- Update Ink Array w/ XY Point + Time
-	this.updateInk = function(point, time) {
-		this.ink[0].push(point.x);
-		this.ink[1].push(point.y);
-		this.ink[2].push(time);
-	};
-
-	//--- Clear Paper Drawing Canvas --/// only canvsas... interface is handled in interfaca.js
-	this.clearCanvas = function() {
-
-		// Remove Paper Path Layer
-		paper.project.activeLayer.removeChildren();
-		paper.view.draw();
-
-		// Init Ink Array
-		this.initInk();
-
-		// Resert Variables
-		this.timerGoogle = 0;
-		this.d_scores = {};
-
-	};
-
-	//--- Get Paper Canvas Dimensions Width/Height
-	this.getCanvasDimensions = function() {
-		let w = document.getElementById('canvas').offsetWidth;
-		let h = document.getElementById('canvas').offsetHeight;
-		return {
-			height: h,
-			width: w
-		};
+	this.read = function(eventTimeStamp,ink) {
+		if (eventTimeStamp - this.lastTimestamp_check > 1000) {
+			this.checkQuickDraw(ink);
+			this.lastTimestamp_check = eventTimeStamp;
+		}
 	};
 
 	//--- Check Quickdraw Google AI API
-	this.checkQuickDraw = function() {
+	this.checkQuickDraw = function(ink) {
 
 		const _this = this;
 
@@ -174,7 +43,7 @@ export default function magentaAI() {
 
 		// Init HTTP Request
 		let xhr = new XMLHttpRequest();
-		xhr.open('POST', this.quickDrawAPI);
+		xhr.open('POST', this.QUICK_DRAW_API);
 		Object.keys(headers).forEach(function (key, index) {
 			xhr.setRequestHeader(key, headers[key]);
 		});
@@ -198,7 +67,7 @@ export default function magentaAI() {
 					'width': c_dims.width,
 					'height': c_dims.height
 				},
-				'ink': [this.ink]
+				'ink': [ink]
 			}]
 		};
 
@@ -208,6 +77,16 @@ export default function magentaAI() {
 		// Send HTTP Request w/ Data Payload
 		xhr.send(request_data);
 
+	};
+
+	//--- Get Paper Canvas Dimensions Width/Height
+	this.getCanvasDimensions = function() {
+		let w = document.getElementById('canvas').offsetWidth;
+		let h = document.getElementById('canvas').offsetHeight;
+		return {
+			height: h,
+			width: w
+		};
 	};
 
 	// Parse Quickdraw Google AI API Response
@@ -310,7 +189,7 @@ export default function magentaAI() {
 			const choosenItemID = rwc(this.app.mechanics.interjection.phrases);
 
 			//phrase
-			const interjection = this.app.mechanics.interjection.phrases[choosenItemID].phrase;
+			// const interjection = this.app.mechanics.interjection.phrases[choosenItemID].phrase;
 			
 			//Phrease translation
 			let translatedInterjection = this.app.i18next.t(
@@ -363,8 +242,6 @@ export default function magentaAI() {
 
 		this.app.gameState.timer.stop(); //stop timer
 		this.app.gameState.success = true; 
-		
-		this.isOn = false;
 
 		let verbal = '';
 		let speech = '';
