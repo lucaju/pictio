@@ -5,24 +5,23 @@
 //modules
 import $ from 'jquery';
 
-import UIkit from 'uikit';
+import UIkit from 'uikit/dist/js/uikit.min';
 import uikiticons from 'uikit/dist/js/uikit-icons.min';
 
-import i18next from 'i18next';
-import i18nextBackend from 'i18next-xhr-backend';
-import jqueryI18next from 'jquery-i18next';
+import i18next from 'i18next/i18next.min';
+import i18nextBackend from 'i18next-xhr-backend/i18nextXHRBackend.min';
+import jqueryI18next from 'jquery-i18next/jquery-i18next.min';
 
 import Artyom from 'artyom.js';
 
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
+import io from 'socket.io-client/dist/socket.io.slim';
 
 // import chroma from 'chroma-js';
 
 import gameMechanics from './data/game-mechanics.json';
 
 import interfaceView from './components/interface-view';
-// import canvasPaper from './canvas-view';
-// import magentaAI from './magentaAI';
 
 import 'uikit/dist/css/uikit.min.css';
 import './style.css';
@@ -35,7 +34,7 @@ const App = function () {
 
 	//main variables
 	this.IOon = true;
-	this.socket;
+	this.socket = undefined;
 	this.i18next = i18next;
 	this.artyom = new Artyom();
 
@@ -93,9 +92,6 @@ const App = function () {
 				//       });
 
 				app.interface.init();
-
-				// app.canvasPaper.init(app);
-				// app.magentaAI.init(app);
 
 				// app.interface.changeView('game');
 
@@ -180,18 +176,6 @@ const App = function () {
 		};
 	};
 
-	// this.startDrawing = function() {
-	// 	this.attempts = [];
-	// 	this.canvasPaper.startCanvas();
-	// };
-
-	// this.updateDrawing = function(eventTimeStamp,ink) {
-	// 	this.magentaAI.read(eventTimeStamp,ink);
-	// };
-
-	// this.clearDrawing = function() {
-	// 	this.canvasPaper.clearCanvas();
-	// };
 
 	// ---  set limited list of best guesses
 	this.getBestGuesses = function (limit) {

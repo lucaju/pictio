@@ -1,30 +1,97 @@
 //modules
 import $ from 'jquery';
+import ee from 'event-emitter';
 import challengeMustache from './challenge.html';
 
 
-export default function (context) {
+function ChallengeView() {
 
-	const app = context;
-	
-	const challenge = app.getChallenge(app.gameState.currentChallenge);
+	//emitter
+	ee(this);
 
-	//pick a draw category
-	const filteredCatetories = filterCategories(challenge.code);
-	const randomDraw = filteredCatetories[Math.floor(Math.random() * filteredCatetories.length)];
-	const currentDrawChallenge = randomDraw.Category; // save current draw category
-	const categorySlug = currentDrawChallenge.replace(/\s/g, '-').toLowerCase();
+	this.app = undefined;
+	this.challenge = undefined;
+	this.currentDrawChallenge = undefined;
+	this.pageData = {
+		name: '',
+		short: '',
+		description: '',
+		draw: '',
+		drawCategory: '',
+		categorySlug: '',
+		time: 0,
+		ready: '',
+		back: '',
+		inverseColour: undefined,
+	};
 
-	app.gameState.currentCategory = currentDrawChallenge;
+	this.init = function (context) {
 
+		//setup
+		this.app = context;
+		this.challenge = this.app.getChallenge(this.app.gameState.currentChallenge);
+		this.currentDrawChallenge = this.pickDrawCategory();
+
+		this.app.gameState.currentCategory = this.currentDrawChallenge;
+
+
+		const categorySlug = this.currentDrawChallenge.replace(/\s/g, '-').toLowerCase();
+
+		//data
+		this.pageData = {
+			name: this.app.i18next.t(`challenges.challenges.${this.challenge.short}.name`),
+			short: this.challenge.short,
+			description: this.app.i18next.t(`challenges.challenges.${this.challenge.short}.description`),
+			draw: this.app.i18next.t('challenges.page.draw'),
+			drawCategory: this.app.i18next.t(`categories.${categorySlug}`),
+			categorySlug: categorySlug,
+			time: this.challenge.time,
+			ready: this.app.i18next.t('challenges.page.ready'),
+			back: this.app.i18next.t('challenges.page.back'),
+			inverseColour: this.app.interface.inverseClass(),
+		};
+
+		//buid page
+		const challengeHTML = challengeMustache(this.pageData);
+		$(challengeHTML).appendTo($('#view'));
+
+		//translate
+		this.translate();
+
+		//buttons actions
+		$('.uk-card').click(this, this.callGame);
+		$('#play').click(this, this.callGame);
+		$('#back').click(this, this.back);
+
+		//emit to socker IO
+		this.emitToDashboard({
+			name: this.pageData.name,
+			short: this.pageData.short,
+			description: this.pageData.description,
+			drawCategory: this.pageData.drawCategory,
+			time: this.pageData.time,
+			colourClass: this.pageData.inverseColour,
+		});
+
+		//animation
+		this.enterAnimation();
+
+	};
+
+	this.pickDrawCategory = function () {
+		//pick a draw category
+		const filteredCatetories = this.filterCategories(this.challenge.code);
+		const randomDraw = filteredCatetories[Math.floor(Math.random() * filteredCatetories.length)];
+		return randomDraw.Category; // save current draw category
+	};
 
 	//-- Filter category by cahllenge code 
-	function filterCategories(code) {
+	this.filterCategories = function (code) {
 
 		let filteredCat = [];
 
 		//loop categories draw
-		for (let cat of app.mechanics.catChallenges) {
+		for (let cat of this.app.mechanics.catChallenges) {
 			// $.each(catChallenges, function(i,cat) {
 
 			// if category fits in only one challenge
@@ -41,75 +108,46 @@ export default function (context) {
 				for (let chall of chArray) {
 					if (chall == code) filteredCat.push(cat);
 				}
-				
+
 			}
 		}
 
 		return filteredCat;
-	}
-
-	const pageData = {
-		name: app.i18next.t(`challenges.challenges.${challenge.short}.name`),
-		short: challenge.short,
-		description: app.i18next.t(`challenges.challenges.${challenge.short}.description`),
-		draw: app.i18next.t('challenges.page.draw'),
-		drawCategory: app.i18next.t(`categories.${categorySlug}`),
-		categorySlug: categorySlug,
-		time: challenge.time,
-		ready: app.i18next.t('challenges.page.ready'),
-		back: app.i18next.t('challenges.page.back'),
-		inverseColour: app.interface.inverseClass(),
 	};
 
-	const challengeHTML = challengeMustache(pageData);
+	this.translate = function () {
+		$('#challenge').localize();
+	};
 
-	$(challengeHTML).appendTo($('#view'));
+	this.callGame = function (e) {
+		const _this = e.data;
+		const duration = 1500;
 
-	$('#challenge').localize();
- 
-	//buttons
-	$('.uk-card').click(function () {
-		callGame();
-	});
-
-	$('#play').click(function () {
-		callGame();
-	});
-
-	function callGame() {
 		$('#challenge').animate({
 			marginTop: '-100',
 			opacity: 0,
-		}, 1500, function () {
-			app.interface.changeView('game');
+		}, duration, function () {
+			_this.emit('changeView', 'game');
 		});
-	}
+	};
 
-	$('#back').click(function () {
+	this.back = function (e) {
+		const _this = e.data;
+		const duration = 1500;
+
 		$('#challenge').animate({
 			marginTop: '-100',
 			opacity: 0,
-		}, 1500, function () {
-			app.interface.changeView('challenges');
+		}, duration, function () {
+			_this.emit('changeView', 'challenges');
 		});
-
-	});
-
-	if(app.IOon) {
-		app.socket.emit('interface', {
-			view: 'challenge',
-			name: pageData.name,
-			short: pageData.short,
-			description: pageData.description,
-			drawCategory: pageData.drawCategory,
-			time: pageData.time,
-			colourClass: pageData.inverseColour,
-		});
-	}
-
+	};
 
 	//animation
-	function enterAnimation() {
+	this.enterAnimation = function () {
+
+		const duration = 1500;
+
 		let container = $('#challenge');
 		container.css('opacity', 0);
 		container.css('marginTop', 100);
@@ -123,14 +161,38 @@ export default function (context) {
 		container.animate({
 			marginTop: 0,
 			opacity: 1,
-		}, 1500);
+		}, duration);
 
 		card.delay(1000).animate({
 			height: cardHeight,
 			opacity: 1,
-		}, 1500);
-	}
+		}, duration);
+	};
 
-	enterAnimation();
+	this.emitToDashboard = function (
+		type = 'interface',
+		view = 'challenge',
+		name = '',
+		short = '',
+		description = '',
+		drawCategory = '',
+		time = 0,
+		colourClass = ''
+	) {
+
+		if (this.app.IOon) {
+			this.app.socket.emit(type, {
+				view: view,
+				name: name,
+				short: short,
+				description: description,
+				drawCategory: drawCategory,
+				time: time,
+				colourClass: colourClass
+			});
+		}
+	};
 
 }
+
+export default new ChallengeView();

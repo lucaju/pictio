@@ -1,5 +1,5 @@
 //modules
-import paper from 'paper';
+import paper from 'paper/dist/paper-core.min';
 import ee from 'event-emitter';
 
 

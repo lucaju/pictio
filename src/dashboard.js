@@ -3,7 +3,7 @@
 */
 
 //modules
-import $ from 'jquery/dist/jquery.min';
+import $ from 'jquery';
 import UIkit from 'uikit/dist/js/uikit.min';
 import uikiticons from 'uikit/dist/js/uikit-icons.min';
 import io from 'socket.io-client';

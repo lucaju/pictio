@@ -1,135 +1,201 @@
-
 //modules
 import $ from 'jquery';
+import ee from 'event-emitter';
 import partnersMustache from './partners.html';
 
+function PartnersView() {
 
-export default function (context) {
+	//emitter
+	ee(this);
 
-	const app = context;
-
-	const pageData = {
-		title: 'Choose your partner',
-		inverseColour: app.interface.inverseClass(),
-		done: app.i18next.t('personas.done'),
-		personas:  app.personas,
+	this.app = undefined;
+	this.pageData = {
+		title: '',
+		inverseColour: undefined,
+		done: '',
+		personas: [],
 		showName: false,
 		individualAccent: false
 	};
 
-	const partnerHTML = partnersMustache(pageData);
-	
-	$(partnerHTML).appendTo($('#view'));
+	this.init = function (context) {
 
-	$('#partner-choice').localize();
-	
-	//emit to socker IO
-	if(app.IOon) {
-		app.socket.emit('interface', {
-			view: 'partners',
-			message: app.i18next.t('personas.dashboard.assembly'),
-		});
-	}
+		this.app = context;
 
-	//buttons
-	$.each(app.personas,function(i,persona) {
+		//data
+		this.pageData = {
+			title: 'Choose your partner',
+			inverseColour: this.app.interface.inverseClass(),
+			done: this.app.i18next.t('personas.done'),
+			personas: this.app.personas,
+			showName: false,
+			individualAccent: false
+		};
 
-		let bt = $(`#${persona.slug}`);
+		//build page
+		const partnerHTML = partnersMustache(this.pageData);
+		$(partnerHTML).appendTo($('#view'));
 
-		let colorClass;
-
-		if(persona.colour == 'light') {
-			colorClass = 'uk-button-default uk-background-default';
-		} else if(persona.colour == 'blue') {
-			colorClass = 'uk-button-primary';
-		} else if(persona.colour == 'dark') {
-			colorClass = 'uk-button-secondary';
-		} else if(persona.colour == 'yellow') {
-			colorClass = 'uk-button-default background-yellow';
+		//buttons - personas
+		for (let persona of this.app.personas) {
+			const bt = $(`#${persona.slug}`);
+			bt.addClass(this.getClass(persona.colour));
+			bt.data({id: persona.slug});
+			bt.click(this,this.personaClick);
 		}
 
-		//a button for each color
-		bt.addClass(colorClass);
-		
+		//translate
+		this.translate();
 
-		bt.click(function() {
+		//done
+		$('#done').click(this,this.exitAnimation);
 
-			let persona = app.getPersona($(this).attr('id'));
+		//animation
+		this.enterAnimation();
 
-			if (app.currentPersona != persona) {
-
-				app.currentPersona = persona;
-
-				//colour
-				app.interface.changeColour(persona.colour);
-
-				if (app.interface.inverseClassToggle == true) {
-					$('#title').addClass('uk-light', {duration:500}); 
-				} else {
-					$('#title').removeClass('uk-light', {duration:500}); 
-				}
-
-				//translation colour
-				let translatedColor = '';
-
-				if (pageData.individualAccent) {
-					translatedColor = app.i18next.t(
-						`personas.colours.${persona.colour}`,
-						{lng:app.getLanguageCode(persona.language)}
-					);
-				} else {
-					translatedColor = app.i18next.t(
-						`personas.colours.${persona.colour}`
-					);
-				}
-				
-				//speak
-				let textToSpeak = '';
-				if (pageData.showName) textToSpeak = `${persona.name}. `;
-				textToSpeak += translatedColor;
-
-				app.speak(textToSpeak,persona.language);
-
-				if(app.IOon) {
-					app.socket.emit('interface', {
-						view:'partners',
-						colour: app.currentPersona.colour,
-						message: app.i18next.t('personas.dashboard.assembly'),
-					});
-				}
-
-			}
-
+		//emit to socker IO
+		this.emitToDashboard({
+			message: this.app.i18next.t('personas.dashboard.assembly'),
 		});
 
-	});
+	};
 
-	//button
-	$('#done').click(function() {
-		exitAnimation();
-	});
+	this.translate = function() {
+		$('#partner-choice').localize();
+	};
 
-	function enterAnimation() {
-		//animation
-		$('#partner-choice').css('opacity',0);
-		$('#partner-choice').css('marginTop',100);
-		
-		//animation
+	this.personaClick = function (e) {
+
+		const _this = e.data;
+		const app = _this.app;
+		const bt = $(e.currentTarget);
+
+		//get persona
+		const persona = _this.app.getPersona(bt.attr('id'));
+
+		//if it is not selected
+		if (app.currentPersona != persona) {
+
+			app.currentPersona = persona;
+
+			//colour
+			app.interface.changeColour(persona.colour);
+			_this.invertColour();
+
+			//translation colour
+			let translatedColor = _this.translateColour(persona,_this.pageData.individualAccent);
+
+			//speak
+			_this.speak(persona,translatedColor);
+
+			//emit to deashboard
+			_this.emitToDashboard({
+				colour: app.currentPersona.colour,
+				message: app.i18next.t('personas.dashboard.assembly'),
+			});
+
+		}
+
+	};
+
+	this.invertColour = function() {
+		const duration = 500;
+
+		if (this.app.interface.inverseClassToggle == true) {
+			$('#title').addClass('uk-light', {
+				duration: duration
+			});
+		} else {
+			$('#title').removeClass('uk-light', {
+				duration: duration
+			});
+		}
+	};
+
+	this.getClass = function (colour) {
+
+		if (colour == 'light') {
+			return 'uk-button-default uk-background-default';
+		} else if (colour == 'blue') {
+			return 'uk-button-primary';
+		} else if (colour == 'dark') {
+			return 'uk-button-secondary';
+		} else if (colour == 'yellow') {
+			return 'uk-button-default background-yellow';
+		}
+
+		// default
+		return 'uk-button-default uk-background-default';
+
+	};
+
+	this.enterAnimation = function () {
+
+		const duration = 1500;
+
+		$('#partner-choice').css('opacity', 0);
+		$('#partner-choice').css('marginTop', 100);
+
 		$('#partner-choice').animate({
 			marginTop: 0,
 			opacity: 1,
-		}, 1500);
-	}
+		}, duration);
+	};
 
-	function exitAnimation() {
+	this.exitAnimation = function (e) {
+		const _this = e.data;
+		const duration = 1500;
+
 		$('#partner-choice').animate({
 			marginTop: '-100',
 			opacity: 0,
-		}, 1500, function() {
-			app.interface.changeView('challenges');
-		} );
-	}
+		}, duration, function () {
+			_this.emit('changeView', 'challenges');
+		});
+	};
 
-	enterAnimation();
+	this.translateColour = function(persona,accent) {
+		if (accent) {
+			return this.app.i18next.t(
+				`personas.colours.${persona.colour}`, {
+					lng: this.app.getLanguageCode(persona.language)
+				}
+			);
+		} else {
+			return this.app.i18next.t(
+				`personas.colours.${persona.colour}`
+			);
+		}
+
+	};
+
+	this.speak = function(persona,translatedColor) {
+
+		//speak
+		let textToSpeak = '';
+		if (this.pageData.showName) textToSpeak = `${persona.name}. `;
+		textToSpeak += translatedColor;
+
+		this.app.speak(textToSpeak, persona.language);
+
+	};
+
+	this.emitToDashboard = function(
+		type = 'interface',
+		view = 'partners',
+		colour = '',
+		message = ''
+	) {
+
+		if (this.app.IOon) {
+			this.app.socket.emit(type, {
+				view: view,
+				colour: colour,
+				message: message,
+			});
+		}
+	};
 
 }
+
+export default new PartnersView();

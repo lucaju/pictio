@@ -1,87 +1,139 @@
 //modules
 import $ from 'jquery';
+import ee from 'event-emitter';
 import challengesMustache from './challenges.html';
 
 
-export default function (context) {
+function ChallengesView() {
 
-	const app = context;
+	//emitter
+	ee(this);
 
-	//reset gameState
-	app.resetGameState();
-
-	const pageData = {
-		title: app.i18next.t('challenges.page.title'),
-		inverseColour: app.interface.inverseClass(),
-		challenges:  app.mechanics.challenges
+	this.app = undefined;
+	this.pageData = {
+		title: '',
+		inverseColour: undefined,
+		challenges: undefined
 	};
 
-	const challengesHTML = challengesMustache(pageData);
+	this.init = function (context) {
+		this.app = context;
 
-	$(challengesHTML).appendTo($('#view'));
+		//reset gameState
+		this.app.resetGameState();
 
-	$('#challenges').localize();
+		//data
+		this.pageData = {
+			title: this.app.i18next.t('challenges.page.title'),
+			inverseColour: this.app.interface.inverseClass(),
+			challenges: this.app.mechanics.challenges
+		};
 
-	//emit to socker IO
-	if(app.IOon) {
-		app.socket.emit('interface', {
-			view: 'challenges',
-			message: app.i18next.t('challenges.dashboard.selecting'),
+		//build page
+		const challengesHTML = challengesMustache(this.pageData);
+		$(challengesHTML).appendTo($('#view'));
+
+		// get challenges
+		this.getChallenges();
+
+		//transalate
+		this.translate();
+
+		//emit to socker IO
+		this.emitToDashboard({
+			message: this.app.i18next.t('challenges.dashboard.selecting'),
 		});
-	}
 
-	// get challenges
-	// $.each(app.gameVariables.challenges, function (i, challenge) {
-	let i = 0;
-	for (let challenge of app.mechanics.challenges) {
+		//animation
+		this.enterAnimation();
 
-		let card = $(`#${challenge.short}`);
+	};
 
-		card.css('cursor', 'pointer');
+	this.translate = function() {
+		$('#challenges').localize();
+	};
 
-		//button controll
-		card.click(function () {
-			$('#challenges').animate({
-				marginTop: '-100',
-				opacity: 0,
-			}, 1500, function () {
-				app.gameState.currentChallenge = challenge.name;
-				app.interface.changeView('challenge');
+	this.getChallenges = function() {
+
+		// const _this = this;
+		const duration = 1000;
+
+		//loop
+		let i = 0;
+		for (let challenge of this.app.mechanics.challenges) {
+
+			let card = $(`#${challenge.short}`);
+			card.data({
+				short: challenge.short,
+				name:challenge.name
+			});
+			card.click(this,this.challengeButtonAction);
+
+			//visual initial state
+			let cDelay = 400 + (i * 100) + (Math.random() * 200);
+			let ctop = -500 + (Math.random() * 1000);
+
+			card.css('cursor', 'pointer');
+			card.css('left', -1500);
+			card.css('top', ctop);
+
+			card.delay(cDelay).animate({
+				top: 0,
+				left: 0,
+			}, {
+				duration: duration,
+				specialEasing: {
+					width: 'linear',
+					height: 'easeOutBounce'
+				}
 			});
 
+		}
+	};
+
+	this.challengeButtonAction = function(e) {
+		const _this = e.data;
+		const card = $(e.currentTarget);
+		const challengeName = card.data('name');
+
+		$('#challenges').animate({
+			marginTop: '-100',
+			opacity: 0,
+		}, 1500, function () {
+			_this.app.gameState.currentChallenge = challengeName;
+			_this.emit('changeView', 'challenge');
 		});
+	};
 
-		//visual initial state
-		let cDelay = 400 + (i * 100) + (Math.random() * 200);
-		let ctop = -500 + (Math.random() * 1000);
-
-		card.css('left', -1500);
-		card.css('top', ctop);
-
-		card.delay(cDelay).animate({
-			top: 0,
-			left: 0,
-		}, {
-			duration: 1000,
-			specialEasing: {
-				width: 'linear',
-				height: 'easeOutBounce'
-			}
-		});
-
-	}
-	// });
 
 	//animation
-	function enterAnimation() {
+	this.enterAnimation = function () {
+
+		const duration = 1100;
+
 		$('#challenges').css('opacity', 0);
 		$('#challenges').css('marginTop', 100);
-	
+
 		$('#challenges').animate({
 			marginTop: 0,
 			opacity: 1,
-		}, 1100);
-	}
+		}, duration);
+	};
 
-	enterAnimation();
+	this.emitToDashboard = function(
+		type = 'interface',
+		view = 'challenges',
+		message = ''
+	) {
+
+		if (this.app.IOon) {
+			this.app.socket.emit(type, {
+				view: view,
+				message: message,
+			});
+		}
+	};
+
 }
+
+export default new ChallengesView();

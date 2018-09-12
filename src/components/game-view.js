@@ -1,6 +1,7 @@
 //modules
 import $ from 'jquery';
-import easytimer from 'easytimer'; 
+import ee from 'event-emitter';
+import easytimer from 'easytimer/dist/easytimer.min';
 
 import loadingbar from '@loadingio/loading-bar';
 
@@ -14,11 +15,12 @@ import '@loadingio/loading-bar/dist/loading-bar.css';
 
 function GameView() {
 
-	this.app = undefined;
+	//emitter
+	ee(this);
 
+	this.app = undefined;
 	this.challenge = undefined;
 	this.timer = undefined;
-
 	this.pageData = {
 		time: 0,
 		clear: '',
@@ -27,17 +29,15 @@ function GameView() {
 		showBackButton: false,
 		inverseColour: undefined
 	};
-
 	this.canvasPaper = new canvasPaper();
 	this.magentaAI = new magentaAI();
-
-
 
 
 	this.init = function (context) {
 
 		this.app = context;
 
+		//setup
 		this.canvasPaper.init(this.app);
 		this.magentaAI.init(this.app);
 
@@ -54,43 +54,52 @@ function GameView() {
 			inverseColour: this.app.interface.inverseClass()
 		};
 
-		//generate the page
+		//Build page
 		const gameHTML = gameMustache(this.pageData);
 		$(gameHTML).appendTo($('#view'));
 
-		//translate the page
-		$('#game').localize();
+		//translate
+		this.translate();
 
 		//set button actions
-		this.setStart();
-		this.setClear();
+		$('#start-drawing-overlay').click(this, this.start);
+		$('#clear-drawing').click(this, this.clear);
+		if (this.pageData.showBackButton) $('#back').click(this, this.back);
+
 		this.addListeners();
-		if (this.pageData.showBackButton) this.setBack();
 
 		//animation
 		this.enterAnimation();
 
-		//IO
-		if (this.app.IOon) {
-			this.app.socket.emit('interface', {
-				view: 'game'
-			});
-		}
+		//emit to socker IO
+		this.emitToDashboard({
+			type: 'interface',
+			view: 'game'
+		});
+
+		// if (this.app.IOon) {
+		// 	this.app.socket.emit('interface', {
+		// 		view: 'game'
+		// 	});
+		// }
 
 
 	};
 
-	this.updatePage = function(guess) {
+	this.translate = function () {
+		$('#game').localize();
+	};
+
+	this.updatePage = function (guess) {
 		$('#guess')[0].innerHTML = guess;
 	};
 
-	this.addListeners = function() {
+	this.addListeners = function () {
 		const _this = this;
 
-		this.canvasPaper.on('drawing', function (ets,ink) {
-			_this.magentaAI.read(ets,ink);
+		this.canvasPaper.on('drawing', function (ets, ink) {
+			_this.magentaAI.read(ets, ink);
 		});
-
 
 		this.magentaAI.on('guess', function (guess) {
 			_this.updatePage(guess);
@@ -102,50 +111,55 @@ function GameView() {
 
 	};
 
-	this.setStart = function () {
-		const _this = this;
+	this.start = function (e) {
+		const _this = e.data;
 
-		$('#start-drawing-overlay').click(function () {
-			$('#start-drawing-overlay').remove();
 
-			_this.app.gameState.attempts = [];
+		$(e.currentTarget).remove();
+		// $('#start-drawing-overlay').remove();
 
-			_this.timeGame();
-			_this.canvasPaper.startCanvas();
-		});
+		_this.app.gameState.attempts = [];
+
+		_this.timeGame();
+		_this.canvasPaper.startCanvas();
+
 	};
 
 
-	this.setClear = function () {
-		const _this = this;
+	this.clear = function (e) {
+		const _this = e.data;
 
-		$('#clear-drawing').click(function () {
-
-			$('#guess')[0].innerHTML = '...';
-			_this.canvasPaper.clearCanvas();
+		$('#guess')[0].innerHTML = '...';
+		_this.canvasPaper.clearCanvas();
 
 
-			if (_this.app.IOon) {
-				_this.app.socket.emit('guess', {
-					view: 'game',
-					action: 'clear',
-					attempt: '...',
-				});
-			}
-
+		//emit to socker IO
+		_this.emitToDashboard({
+			type: 'guess',
+			view: 'game',
+			action: 'clear',
+			attempt: '...',
 		});
+
+
+		// if (_this.app.IOon) {
+		// 	_this.app.socket.emit('guess', {
+		// 		view: 'game',
+		// 		action: 'clear',
+		// 		attempt: '...',
+		// 	});
+		// }
 	};
 
-	this.setBack = function () {
-		const _this = this;
+	this.back = function (e) {
+		const _this = e.data;
+		const duration = 1500;
 
-		$('#back').click(function () {
-			$('#game').animate({
-				marginTop: '-100',
-				opacity: 0,
-			}, 1500, function () {
-				_this.app.interface.changeView('challenge');
-			});
+		$('#game').animate({
+			marginTop: '-100',
+			opacity: 0,
+		}, duration, function () {
+			_this.app.interface.changeView('challenge');
 		});
 
 	};
@@ -157,9 +171,9 @@ function GameView() {
 
 		const challengeTime = this.challenge.time;
 
-		this.timer  = new easytimer(); // reset timer
+		this.timer = new easytimer(); // reset timer
 
-		this.timer .start({
+		this.timer.start({
 			countdown: true,
 			precision: 'secondTenths',
 			startValues: {
@@ -168,7 +182,7 @@ function GameView() {
 		}); // start timer countdown
 
 		let timeLeftSeconds = challengeTime;
-		let timeLeftPercent = 100;// %
+		let timeLeftPercent = 100; // %
 
 		//loading bar
 		let timerTracker = new loadingbar('#ldBar');
@@ -183,16 +197,16 @@ function GameView() {
 			const sec = _this.timer.getTimeValues().seconds;
 			const tsec = _this.timer.getTimeValues().secondTenths;
 
-			timeLeftSeconds = (min*60) + sec;
+			timeLeftSeconds = (min * 60) + sec;
 			// $('#timer #number').html(timeLeftSeconds + 's');
 
-			const timeLeftSecondsTeeth = (min*60*10) + (sec*10) + tsec;
-			timeLeftPercent = (timeLeftSecondsTeeth / challengeTime)*10;
+			const timeLeftSecondsTeeth = (min * 60 * 10) + (sec * 10) + tsec;
+			timeLeftPercent = (timeLeftSecondsTeeth / challengeTime) * 10;
 
 			timerTracker.set(timeLeftPercent);
 
 			//IO - emit timer
-			if(_this.app.IOon) {
+			if (_this.app.IOon) {
 				_this.app.socket.emit('timer', {
 					view: 'game',
 					timer: timeLeftSeconds + 's',
@@ -208,6 +222,8 @@ function GameView() {
 
 	//animation
 	this.enterAnimation = function () {
+		const duration = 1500;
+
 		let container = $('#game');
 		container.css('opacity', 0);
 		container.css('marginTop', 100);
@@ -221,12 +237,28 @@ function GameView() {
 		container.animate({
 			marginTop: 0,
 			opacity: 1,
-		}, 1500);
+		}, duration);
 
 		card.delay(1000).animate({
 			height: cardHeight,
 			opacity: 1,
-		}, 1500);
+		}, duration);
+	};
+
+	this.emitToDashboard = function (
+		type = 'interface',
+		view = 'game',
+		action = '',
+		attempt = ''
+	) {
+
+		if (this.app.IOon) {
+			this.app.socket.emit(type, {
+				view: view,
+				action: action,
+				attempt: attempt
+			});
+		}
 	};
 
 }

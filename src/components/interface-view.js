@@ -37,6 +37,8 @@ export default function interfaceView(context) {
 
 	this.changeView = function(viewName) {
 
+		const _this = this;
+
 		//clean view
 		const view = $('#view');
 		view.empty();
@@ -46,19 +48,27 @@ export default function interfaceView(context) {
 		switch(viewName) {
 
 		case 'home':
-			this.currentView = homeView(this.app);
+			this.currentView = homeView;
+			this.currentView.init(this.app);
+			this.currentView.on('changeView', view => _this.changeView(view));
 			break;
 
 		case 'partners':
-			this.currentView = partnersView(this.app);
+			this.currentView = partnersView;
+			this.currentView.init(this.app);
+			this.currentView.on('changeView', view => _this.changeView(view));
 			break;
 
 		case 'challenges':
-			this.currentView = challengesView(this.app);
+			this.currentView = challengesView;
+			this.currentView.init(this.app);
+			this.currentView.on('changeView', view => _this.changeView(view));
 			break;
 
 		case 'challenge':
-			this.currentView = challengeView(this.app);
+			this.currentView = challengeView;
+			this.currentView.init(this.app);
+			this.currentView.on('changeView', view => _this.changeView(view));
 			break;
 
 		case 'game':
