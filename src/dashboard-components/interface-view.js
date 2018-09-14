@@ -8,28 +8,19 @@ import gameView from './game-view';
 // import postgameView from './postgame-view';
 
 
-function interfaceView(context) {
+export default function interfaceView(context) {
 
-	this.app;
-
-	this.classColor; //Class colour (can be the same as playercolour) -> change the interface color
-
-	this.classElement;
-	this.classBlend;
-
-	this.classColor; //Class colour (can be the same as playercolour) -> chanfe the interface color
-
-	this.inverseClassToggle = false;
+	this.app = context;
 
 	this.currentViewName = 'waiting';
-	this.currentView;
+	this.currentView = '';
 
-	this.invertedColor;
+	this.inverseClassToggle = false;
+	this.classColor = '';	//Class colour (can be the same as playercolour) -> change the interface color
+	this.classBlend = '';  // blend
 
-	this.init = function (context) {
 
-		this.app = context;
-
+	this.init = function () {
 		this.currentViewName = 'waiting';
 		this.changeView(this.currentViewName);
 	};
@@ -42,28 +33,16 @@ function interfaceView(context) {
 
 		this.currentViewName = viewName;
 
-		switch (viewName) {
-
-		case 'waiting':
+		if(viewName == 'waiting') {
 			this.currentView = waitingView;
-			break;
-
-		case 'challenge':
+		} else if(viewName == 'challenge') {
 			this.currentView = challengeView;
-			break;
-
-		case 'game':
+		} else if(viewName == 'game') {
 			this.currentView = gameView;
-			break;
-
-			// case 'post-game':
-			// 	this.currentView = postgameView(this.app);
-			// 	break;
-
-		default:
-			this.currentView = waitingView(this.app);
-			break;
 		}
+		//  else if(viewName == 'post-game') {
+		// 	this.currentView = postgameView;
+		// }
 
 		this.currentView.init(this.app);
 
@@ -104,46 +83,40 @@ function interfaceView(context) {
 		return this.inverseClassToggle ? 'uk-light' : 'uk-dark';
 	};
 
-	this.changeColour = function (colour) {
+	this.changeColour = function(colour) {
 
-		// let prevElementClass = this.classElement;
+		const duration = 1000;
+
 		let prevColorClass = this.classColor;
 		let prevBlendClass = this.classBlend;
-
-		let elementClass;
+	
 		let colorClass;
 		let blendClass;
-
-		if (colour == 'light') {
+	
+		if(colour == 'light') {
 			this.inverseClassToggle = false;
-			elementClass = 'uk-background-default uk-background-blend-multiply';
 			colorClass = 'uk-background-default';
 			blendClass = 'uk-background-blend-multiply';
-		} else if (colour == 'blue') {
+		} else if(colour == 'blue') {
 			this.inverseClassToggle = true;
-			elementClass = 'uk-background-primary uk-background-blend-multiply';
 			colorClass = 'uk-background-primary';
 			blendClass = 'uk-background-blend-multiply';
-		} else if (colour == 'dark') {
+		} else if(colour == 'dark') {
 			this.inverseClassToggle = true;
-			elementClass = 'uk-background-secondary uk-background-blend-color-burn';
 			colorClass = 'uk-background-secondary';
 			blendClass = 'uk-background-blend-color-burn';
-		} else if (colour == 'yellow') {
+		} else if(colour == 'yellow') {
 			this.inverseClassToggle = false;
-			elementClass = ' background-yellow uk-background-blend-multiply';
 			colorClass = 'background-yellow';
 			blendClass = 'uk-background-blend-multiply';
 		}
-
-		this.classElement = elementClass;
+	
+		// this.classElement = elementClass;
 		this.classColor = colorClass;
 		this.classBlend = blendClass;
-
-		$('#view').switchClass(prevColorClass, colorClass, 1000, 'easeInOutQuad');
-		if (prevBlendClass != this.classBlend) $('#view').switchClass(prevBlendClass, this.classBlend, 1000, 'easeInOutQuad');
+	
+		$('#view').switchClass( prevColorClass, colorClass, duration, 'easeInOutQuad');
+		if (prevBlendClass != this.classBlend) $('#view').switchClass( prevBlendClass, this.classBlend, duration, 'easeInOutQuad');
 	};
 
 }
-
-export default new interfaceView();

@@ -5,8 +5,6 @@ import challengeMustache from './challenge.html';
 
 function challengeView () {
 
-	this.app;
-
 	this.pageData = {
 		name: '',
 		short: '',
@@ -19,20 +17,25 @@ function challengeView () {
 		colourClass: ''
 	};
 
-	this.init = function(context) {
-		this.app = context;
+	this.init = function() {
 		this.update();
 	};
 
 	this.update = function(data) {
+		
+		//build page
 		const challengeHTML = challengeMustache(data);
 		$('#view').html(challengeHTML);
+
+		//animation
 		this.animation();
 	};
 
 
 	//animation
 	this.animation = function() {
+		const duration = 1500;
+
 		let container = $('#challenge');
 		container.css('opacity', 0);
 		container.css('marginTop', 100);
@@ -46,15 +49,13 @@ function challengeView () {
 		container.animate({
 			marginTop: 0,
 			opacity: 1,
-		}, 1500);
+		}, duration);
 
 		card.delay(1000).animate({
 			height: cardHeight,
 			opacity: 1,
-		}, 1500);
-	}
-
-	
+		}, duration);
+	};
 
 }
 

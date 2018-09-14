@@ -234,12 +234,12 @@ function GameView() {
 		}, duration);
 	};
 
-	this.emitToDashboard = function (
+	this.emitToDashboard = function ({
 		type = 'interface',
 		view = 'game',
 		action = '',
 		attempt = ''
-	) {
+	}) {
 
 		if (this.app.IOon) {
 			this.app.socket.emit(type, {

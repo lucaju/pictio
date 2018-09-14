@@ -4,9 +4,12 @@
 
 //modules
 import $ from 'jquery';
+
 import UIkit from 'uikit/dist/js/uikit.min';
 import uikiticons from 'uikit/dist/js/uikit-icons.min';
+
 import io from 'socket.io-client';
+
 import interfaceView from './dashboard-components/interface-view';
 // import magentaAI from './magentaAI';
 
@@ -20,8 +23,8 @@ import './dashboard-style.css';
 const AppDashboard = function () {
 
 	// main variables
-	this.socket;
-	this.interface = interfaceView;
+	this.socket = undefined;
+	this.interface = new interfaceView(this);
 	// this.magentaAI = new magentaAI();
 
 	this.persona;
@@ -43,12 +46,7 @@ const AppDashboard = function () {
 
 		app.interface.init(this);
 
-
-
-
 		// app.magentaAI.init(app);
-
-
 
 	};
 

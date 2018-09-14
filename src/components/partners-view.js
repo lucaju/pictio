@@ -180,12 +180,12 @@ function PartnersView() {
 
 	};
 
-	this.emitToDashboard = function(
+	this.emitToDashboard = function({
 		type = 'interface',
 		view = 'partners',
 		colour = '',
 		message = ''
-	) {
+	}) {
 
 		if (this.app.IOon) {
 			this.app.socket.emit(type, {

@@ -109,12 +109,12 @@ function PostGameView() {
 
 	};
 
-	this.emitToDashboard = function (
+	this.emitToDashboard = function ({
 		type = 'interface',
 		view = 'post-game',
 		action = '',
 		bestGuesses = ''
-	) {
+	}) {
 		if (this.app.IOon) {
 			this.app.socket.emit(type, {
 				view: view,

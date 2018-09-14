@@ -120,11 +120,11 @@ function ChallengesView() {
 		}, duration);
 	};
 
-	this.emitToDashboard = function(
+	this.emitToDashboard = function({
 		type = 'interface',
 		view = 'challenges',
 		message = ''
-	) {
+	}) {
 
 		if (this.app.IOon) {
 			this.app.socket.emit(type, {

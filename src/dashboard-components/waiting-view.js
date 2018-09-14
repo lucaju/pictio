@@ -2,10 +2,9 @@
 import $ from 'jquery';
 import waitingMustache from './waiting.html';
 
-function waitingView () {
+function WaitingView () {
 	
-	this.app;
-
+	this.app = undefined;
 	this.waitingData = {
 		status: '',
 		colourClass: ''
@@ -17,24 +16,35 @@ function waitingView () {
 	};
 	
 	this.update = function(data) {
+
+		//receive data
 		if (data) {
 			this.waitingData.status = data.message;
-			// if (data.colour) this.waitingData.colourClass = this.app.interface.inverseClass();
 		}
 
+		//build page
 		const waitingHTML = waitingMustache(this.waitingData);
 		$('#view').html(waitingHTML);
-		
-		// $(waitingHTML).appendTo($('#view'));
+
+
+		this.invertColour();
+
+	};
+
+	this.invertColour = function() {
+		const duration = 500;
 
 		if (this.app.interface.inverseClassToggle == true) {
-			$('#waiting').addClass('uk-light', {duration:500}); 
+			$('#waiting').addClass('uk-light', {
+				duration: duration
+			});
 		} else {
-			$('#waiting').removeClass('uk-light', {duration:500}); 
+			$('#title').removeClass('uk-light', {
+				waiting: duration
+			});
 		}
-
 	};
 
 }
 
-export default new waitingView();
+export default new WaitingView();

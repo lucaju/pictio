@@ -169,7 +169,7 @@ function ChallengeView() {
 		}, duration);
 	};
 
-	this.emitToDashboard = function (
+	this.emitToDashboard = function ({
 		type = 'interface',
 		view = 'challenge',
 		name = '',
@@ -178,7 +178,7 @@ function ChallengeView() {
 		drawCategory = '',
 		time = 0,
 		colourClass = ''
-	) {
+	}) {
 		if (this.app.IOon) {
 			this.app.socket.emit(type, {
 				view: view,

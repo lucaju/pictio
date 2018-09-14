@@ -14,8 +14,8 @@ import jqueryI18next from 'jquery-i18next/jquery-i18next.min';
 
 import Artyom from 'artyom.js';
 
-// import io from 'socket.io-client';
-import io from 'socket.io-client/dist/socket.io.slim';
+import io from 'socket.io-client';
+// import io from 'socket.io-client/dist/socket.io.slim';
 
 // import chroma from 'chroma-js';
 

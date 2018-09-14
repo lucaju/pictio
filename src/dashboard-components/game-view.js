@@ -8,23 +8,29 @@ import '@loadingio/loading-bar/dist/loading-bar.css';
 
 function gameView () {
 
-	this.app;
-	this.timerTracker;
+	this.app = undefined;
+	this.timerTracker = undefined;
 
 	this.pageData = {
 		colourClass: ''
 	};
 
 	this.init = function(context) {
+
 		this.app = context;
 		this.pageData.colourClass = this.app.interface.inverseClass();
 
+		//build page
 		const gameHTML = gameMustache(this.pageData);
 		$('#view').html(gameHTML);
+
+		//animate
 		this.animation();
 
+		//upadate
 		this.update();
 
+		//timer
 		this.timerTracker = new loadingbar('#ldBar');
 		$('.ldBar-label').remove();
 		this.timerTracker.set(100);
@@ -49,6 +55,9 @@ function gameView () {
 
 	//animation
 	this.animation = function() {
+
+		const duration = 1500;
+
 		let container = $('#game');
 		container.css('opacity', 0);
 		container.css('marginTop', 100);
@@ -62,12 +71,12 @@ function gameView () {
 		container.animate({
 			marginTop: 0,
 			opacity: 1,
-		}, 1500);
+		}, duration);
 
 		card.delay(1000).animate({
 			height: cardHeight,
 			opacity: 1,
-		}, 1500);
+		}, duration);
 	};
 
 }

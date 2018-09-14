@@ -20,8 +20,8 @@ export default function interfaceView(context) {
 	this.currentView = '';
 
 	this.inverseClassToggle = false;
-	this.classColor;	//Class colour (can be the same as playercolour) -> change the interface color
-	this.classBlend;  // blend
+	this.classColor = '';	//Class colour (can be the same as playercolour) -> change the interface color
+	this.classBlend = '';  // blend
 
 
 	this.init = function() {
