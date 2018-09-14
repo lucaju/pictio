@@ -5,14 +5,16 @@ import ee from 'event-emitter';
 
 export default function canvasView() {
 
+	//emitter
+	ee(this);
+
 	// Variables
 	this.app = undefined;
 	this.path = undefined;
 	this.ink = [];
 	this.prevPoints = undefined;
 	this.lastTimestamp = 0;
-
-	ee(this);
+	
 
 	//--- Initialize...
 
@@ -121,6 +123,10 @@ export default function canvasView() {
 
 		// Init Ink Array
 		this.initInk();
+	};
+
+	this.stop = function() {
+		paper.tool.remove();
 	};
 
 	//--- Get Paper Canvas Dimensions Width/Height

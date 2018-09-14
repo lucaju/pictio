@@ -179,7 +179,6 @@ function ChallengeView() {
 		time = 0,
 		colourClass = ''
 	) {
-
 		if (this.app.IOon) {
 			this.app.socket.emit(type, {
 				view: view,

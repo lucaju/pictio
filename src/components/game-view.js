@@ -77,13 +77,6 @@ function GameView() {
 			view: 'game'
 		});
 
-		// if (this.app.IOon) {
-		// 	this.app.socket.emit('interface', {
-		// 		view: 'game'
-		// 	});
-		// }
-
-
 	};
 
 	this.translate = function () {
@@ -105,8 +98,13 @@ function GameView() {
 			_this.updatePage(guess);
 		});
 
-		this.magentaAI.on('stop', function (guess) {
+		this.magentaAI.on('stop', function () {
+			_this.canvasPaper.stop();
 			_this.timer.stop();
+		});
+
+		this.magentaAI.on('changeView', function () {
+			_this.emit('changeView', 'post-game');
 		});
 
 	};
@@ -140,15 +138,6 @@ function GameView() {
 			action: 'clear',
 			attempt: '...',
 		});
-
-
-		// if (_this.app.IOon) {
-		// 	_this.app.socket.emit('guess', {
-		// 		view: 'game',
-		// 		action: 'clear',
-		// 		attempt: '...',
-		// 	});
-		// }
 	};
 
 	this.back = function (e) {

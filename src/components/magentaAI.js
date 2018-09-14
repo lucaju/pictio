@@ -5,6 +5,9 @@ import rwc from 'random-weighted-choice';
 
 export default function magentaAI() {
 
+	//emiter
+	ee(this);
+
 	// Initialize Variables
 
 	this.scores = [];
@@ -16,7 +19,7 @@ export default function magentaAI() {
 
 	this.QUICK_DRAW_API = 'https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8'; // Set Base URL for Quickdraw Google AI API
 
-	ee(this);
+	
 
 	//--- Initialize...
 
@@ -227,7 +230,6 @@ export default function magentaAI() {
 		//update page
 		this.emit('guess', verbal);
 
-
 		//speak
 		this.app.speak(speech,this.app.currentPersona.language);
 
@@ -243,10 +245,11 @@ export default function magentaAI() {
 	////-- if  draw is right
 	this.drawIsRight = function (attempt) {
 
-		this.addToGuessAttemps(attempt);
+		const _this = this;
 
 		this.emit('stop');
 
+		this.addToGuessAttemps(attempt);
 		this.app.gameState.success = true; 
 
 		let verbal = '';
@@ -274,9 +277,11 @@ export default function magentaAI() {
 
 		this.app.speak(speech,this.app.currentPersona.language);
 
+		//wait 3 second before change view
+		const duration = 3000;
 		setTimeout(function () {
-			this.app.interface.changeView('post-game');
-		}, 3000);
+			_this.emit('changeView', 'post-game');
+		}, duration);
 
 	};
 
