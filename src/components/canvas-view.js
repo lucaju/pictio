@@ -24,7 +24,6 @@ export default function canvasView() {
 	};
 
 	this.startCanvas = function() {
-
 		const _this = this;
 
 		this.initInk(); // Initialize Ink array ()
@@ -34,7 +33,6 @@ export default function canvasView() {
 
 		// Paper Tool Mouse Down Event
 		tool.onMouseDown = function (event) {
-
 
 			// New Paper Path and Settings
 			_this.path = new paper.Path();

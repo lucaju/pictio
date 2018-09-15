@@ -2,7 +2,6 @@
 import $ from 'jquery';
 import ee from 'event-emitter';
 import easytimer from 'easytimer/dist/easytimer.min';
-
 import loadingbar from '@loadingio/loading-bar';
 
 import gameMustache from './game.html';
@@ -112,9 +111,7 @@ function GameView() {
 	this.start = function (e) {
 		const _this = e.data;
 
-
 		$(e.currentTarget).remove();
-		// $('#start-drawing-overlay').remove();
 
 		_this.app.gameState.attempts = [];
 
@@ -157,7 +154,6 @@ function GameView() {
 	this.timeGame = function () {
 
 		const _this = this;
-
 		const challengeTime = this.challenge.time;
 
 		this.timer = new easytimer(); // reset timer

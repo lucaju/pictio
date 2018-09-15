@@ -1,6 +1,7 @@
 //modules
 import $ from 'jquery';
 import ee from 'event-emitter';
+
 import challengesMustache from './challenges.html';
 
 
@@ -104,7 +105,6 @@ function ChallengesView() {
 			_this.emit('changeView', 'challenge');
 		});
 	};
-
 
 	//animation
 	this.enterAnimation = function () {

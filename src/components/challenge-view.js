@@ -1,6 +1,7 @@
 //modules
 import $ from 'jquery';
 import ee from 'event-emitter';
+
 import challengeMustache from './challenge.html';
 
 
@@ -33,7 +34,6 @@ function ChallengeView() {
 		this.currentDrawChallenge = this.pickDrawCategory();
 
 		this.app.gameState.currentCategory = this.currentDrawChallenge;
-
 
 		const categorySlug = this.currentDrawChallenge.replace(/\s/g, '-').toLowerCase();
 

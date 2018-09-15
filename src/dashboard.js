@@ -16,8 +16,6 @@ import interfaceView from './dashboard-components/interface-view';
 import 'uikit/dist/css/uikit.min.css';
 import './dashboard-style.css';
 
-
-
 /// APP
 
 const AppDashboard = function () {

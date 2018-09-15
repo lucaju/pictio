@@ -15,15 +15,10 @@ import jqueryI18next from 'jquery-i18next/jquery-i18next.min';
 import Artyom from 'artyom.js';
 
 import io from 'socket.io-client';
-// import io from 'socket.io-client/dist/socket.io.slim';
-
-// import chroma from 'chroma-js';
 
 import gameMechanics from './data/game-mechanics.json';
 
 import interfaceView from './components/interface-view';
-
-// import speech from './speech';
 
 import 'uikit/dist/css/uikit.min.css';
 import './style.css';
@@ -95,11 +90,6 @@ const App = function () {
 
 				app.interface.init();
 
-				// app.interface.changeView('game');
-
-				// console.log(speechSynthesis.getVoices())
-				// app.sortCat();
-				// app.sortPort();
 			});
 	};
 
@@ -148,7 +138,7 @@ const App = function () {
 			lang: this.getLanguageCode(this.language), // GreatBritain english
 			continuous: true, // Listen forever
 			soundex: true, // Use the soundex algorithm to increase accuracy
-			debug: true, // Show messages in the console
+			debug: false, // Show messages in the console
 			executionKeyword: 'and do it now',
 			listen: true, // Start to listen commands !
 			// name: 'Jarvis' // If providen, you can only trigger a command if you say its name e.g to trigger Good Morning, you need to say 'Jarvis Good Morning'

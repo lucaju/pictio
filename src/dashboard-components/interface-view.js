@@ -70,7 +70,6 @@ export default function interfaceView(context) {
 			} else {
 				this.currentView.guess(data.attempt);
 			}
-
 		}
 	};
 

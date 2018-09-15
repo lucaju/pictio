@@ -2,6 +2,7 @@
 import $ from 'jquery';
 import waitingMustache from './waiting.html';
 
+
 function WaitingView () {
 	
 	this.app = undefined;
@@ -25,7 +26,6 @@ function WaitingView () {
 		//build page
 		const waitingHTML = waitingMustache(this.waitingData);
 		$('#view').html(waitingHTML);
-
 
 		this.invertColour();
 

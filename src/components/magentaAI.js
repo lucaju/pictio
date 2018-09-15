@@ -18,7 +18,6 @@ export default function magentaAI() {
 	this.currentCategory = '';
 
 	this.QUICK_DRAW_API = 'https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8'; // Set Base URL for Quickdraw Google AI API
-
 	
 
 	//--- Initialize...

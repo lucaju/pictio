@@ -1,7 +1,9 @@
 //modules
 import $ from 'jquery';
 import ee from 'event-emitter';
+
 import partnersMustache from './partners.html';
+
 
 function PartnersView() {
 
@@ -115,7 +117,6 @@ function PartnersView() {
 			});
 
 		}
-
 	};
 
 	this.invertColour = function() {
@@ -150,7 +151,6 @@ function PartnersView() {
 	};
 
 	this.enterAnimation = function () {
-
 		const duration = 1500;
 
 		$('#partner-choice').css('opacity', 0);

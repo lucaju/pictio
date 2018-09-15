@@ -1,6 +1,7 @@
 //modules
 import $ from 'jquery';
 import ee from 'event-emitter';
+
 import postgameMustache from './postgame.html';
 
 
@@ -47,7 +48,6 @@ function PostGameView() {
 		//build page
 		const postgameHTML = postgameMustache(this.pageData);
 		$(postgameHTML).appendTo($('#view'));
-
 
 		// get limited list of best guess
 		const list = this.app.getBestGuesses();
@@ -101,7 +101,6 @@ function PostGameView() {
 	};
 
 	this.speak = function() {
-
 		//speak
 		let speech = '';
 		if (this.app.gameState.success) {
@@ -111,8 +110,6 @@ function PostGameView() {
 		}
 
 		this.app.speak(speech, this.app.currentPersona.language);
-
-
 	};
 
 	this.emitToDashboard = function ({
@@ -142,7 +139,6 @@ function PostGameView() {
 			});
 		}
 	};
-
 
 }
 

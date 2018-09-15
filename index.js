@@ -1,36 +1,19 @@
 //Modules
 const express = require('express');
-
-
-// const webpack = require('webpack');
-// const webpackDevMiddleware = require('webpack-dev-middleware');
-
 const app = express();
+
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+
 const port = process.env.PORT || 3000;
 
-// const webpackConfig= require('./webpack.config.js');
-// const compiler = webpack(webpackConfig);
-
-// app.use(express.static(__dirname + '/public'));
-// app.use(express.static(__dirname + '/Pictio'));
-// app.get('/public', express.static(__dirname + '/public'));
-
-// app.get('/', function (req, res) {
-  
-// });
-
+//Router
 app.use('/', express.static(__dirname + '/dist'));
 app.use('/dashboard', express.static(__dirname + '/dashboard'));
 app.use('/locales', express.static(__dirname + '/locales'));
 app.use('/assets', express.static(__dirname + '/assets'));
 
-// app.use(webpackDevMiddleware(compiler, {
-// 	publicPath: webpackConfig.output.publicPath
-// }));
-
-
+//IO Connection
 function onConnection(socket){
 	socket.on('interface', (data) => socket.broadcast.emit('interface', data));
 	socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));

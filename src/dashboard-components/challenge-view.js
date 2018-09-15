@@ -18,7 +18,7 @@ function challengeView () {
 		//animation
 		this.animation();
 	};
-
+	
 
 	//animation
 	this.animation = function() {

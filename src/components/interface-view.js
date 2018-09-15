@@ -1,7 +1,6 @@
-
 //modules
 import $ from 'jquery';
-// require('webpack-jquery-ui');
+
 require('webpack-jquery-ui/effects');
 
 import homeView from './home-view';

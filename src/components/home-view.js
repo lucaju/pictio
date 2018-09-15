@@ -1,8 +1,10 @@
 //modules
 import $ from 'jquery';
 import ee from 'event-emitter';
+
 import homeMustache from './home.html';
 import instructionsMustache from './instructions.html';
+
 
 function HomeView() {
 
@@ -53,7 +55,6 @@ function HomeView() {
 
 		const instructionsHTML = instructionsMustache(this.instructionData);
 		$(instructionsHTML).appendTo($('#view'));
-
 
 		//translation
 		this.translate();
