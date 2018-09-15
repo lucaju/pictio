@@ -27,7 +27,11 @@
             "light": "claro",
             "blue": "azul",
             "dark": "escuro",
-            "yellow" : "amarelo"
+            "yellow" : "amarelo",
+            "claro": "light",
+            "azul": "blue",
+            "escuro": "dark",
+            "amarelo": "yellow"
         },
         "dashboard": {
             "assembly": "Montando os times"

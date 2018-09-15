@@ -23,6 +23,8 @@ import gameMechanics from './data/game-mechanics.json';
 
 import interfaceView from './components/interface-view';
 
+// import speech from './speech';
+
 import 'uikit/dist/css/uikit.min.css';
 import './style.css';
 
@@ -113,18 +115,23 @@ const App = function () {
 		});
 	};
 
+	this.getPersonaByColour = function (colour) {
+		const colourTraslated = this.i18next.t(`personas.colours.${colour}`);
+		return this.personas.find(function (p) {
+			return colourTraslated.toLowerCase() == p.colour.toLowerCase();
+		});
+	};
+
 	this.getLanguageCode = function (lang) {
-		switch (lang) {
-		case 'American English':
+
+		if(lang == 'American English' || lang == 'en') {
 			return 'en-US';
-		case 'British English':
+		} else 	if(lang == 'British English' || lang == 'en') {
 			return 'en-GB';
-		case 'Português Brasil':
+		} else 	if(lang == 'Português Brasil' || lang == 'pt') {
 			return 'pt-BR';
-		case 'Français':
+		} else 	if(lang == 'Français' || lang == 'fr') {
 			return 'fr-FR';
-		default:
-			return 'en-GB';
 		}
 	};
 
@@ -138,13 +145,13 @@ const App = function () {
 
 		// Start the commands !
 		this.artyom.initialize({
-			lang: app.getLanguageCode(app.language), // GreatBritain english
+			lang: this.getLanguageCode(this.language), // GreatBritain english
 			continuous: true, // Listen forever
 			soundex: true, // Use the soundex algorithm to increase accuracy
-			debug: false, // Show messages in the console
+			debug: true, // Show messages in the console
 			executionKeyword: 'and do it now',
 			listen: true, // Start to listen commands !
-			name: 'Jarvis' // If providen, you can only trigger a command if you say its name e.g to trigger Good Morning, you need to say 'Jarvis Good Morning'
+			// name: 'Jarvis' // If providen, you can only trigger a command if you say its name e.g to trigger Good Morning, you need to say 'Jarvis Good Morning'
 		}).then(() => {
 			console.log('Artyom has been succesfully initialized');
 		}).catch((err) => {

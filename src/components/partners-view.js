@@ -20,13 +20,15 @@ function PartnersView() {
 
 	this.init = function (context) {
 
+		const _this = this;
+
 		this.app = context;
 
 		//data
 		this.pageData = {
 			title: 'Choose your partner',
 			inverseColour: this.app.interface.inverseClass(),
-			done: this.app.i18next.t('personas.done'),
+			done: this.app.i18next.t('personas.page.done'),
 			personas: this.app.personas,
 			showName: false,
 			individualAccent: false
@@ -42,13 +44,24 @@ function PartnersView() {
 			bt.addClass(this.getClass(persona.colour));
 			bt.data({id: persona.slug});
 			bt.click(this,this.personaClick);
+
+			const colourTraslated = this.app.i18next.t(`personas.colours.${persona.colour}`);
+
+			this.app.artyom.on([colourTraslated]).then(function (i) {
+				_this.personaSpeak(this.indexes[i]);
+			});
+
 		}
 
 		//translate
 		this.translate();
 
 		//done
-		$('#done').click(this,this.exitAnimation);
+		$('#done').click(this,this.done);
+
+		this.app.artyom.on([this.pageData.done]).then(function (i) {
+			_this.doneSpeak();
+		});
 
 		//animation
 		this.enterAnimation();
@@ -65,33 +78,40 @@ function PartnersView() {
 	};
 
 	this.personaClick = function (e) {
-
 		const _this = e.data;
-		const app = _this.app;
 		const bt = $(e.currentTarget);
-
 		//get persona
 		const persona = _this.app.getPersona(bt.attr('id'));
+		_this.changePersona(persona);
+	};
+
+	this.personaSpeak = function (colour) {
+		// //get persona
+		const persona = this.app.getPersonaByColour(colour);
+		this.changePersona(persona);
+	};
+
+	this.changePersona = function (persona) {
 
 		//if it is not selected
-		if (app.currentPersona != persona) {
+		if (this.app.currentPersona != persona) {
 
-			app.currentPersona = persona;
+			this.app.currentPersona = persona;
 
 			//colour
-			app.interface.changeColour(persona.colour);
-			_this.invertColour();
+			this.app.interface.changeColour(persona.colour);
+			this.invertColour();
 
 			//translation colour
-			let translatedColor = _this.translateColour(persona,_this.pageData.individualAccent);
+			let translatedColor = this.translateColour(persona,this.pageData.individualAccent);
 
 			//speak
-			_this.speak(persona,translatedColor);
+			this.speak(persona,translatedColor);
 
 			//emit to deashboard
-			_this.emitToDashboard({
-				colour: app.currentPersona.colour,
-				message: app.i18next.t('personas.dashboard.assembly'),
+			this.emitToDashboard({
+				colour: this.app.currentPersona.colour,
+				message: this.app.i18next.t('personas.dashboard.assembly'),
 			});
 
 		}
@@ -142,8 +162,17 @@ function PartnersView() {
 		}, duration);
 	};
 
-	this.exitAnimation = function (e) {
+	this.done = function(e) {
 		const _this = e.data;
+		_this.exitAnimation();
+	};
+
+	this.doneSpeak = function() {
+		this.exitAnimation();
+	};
+
+	this.exitAnimation = function () {
+		const _this = this;
 		const duration = 1500;
 
 		$('#partner-choice').animate({
