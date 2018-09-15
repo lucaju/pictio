@@ -4,7 +4,6 @@ import gameMustache from './game.html';
 
 import loadingbar from '@loadingio/loading-bar';
 import '@loadingio/loading-bar/dist/loading-bar.css';
-import { throws } from 'assert';
 
 
 function gameView () {
