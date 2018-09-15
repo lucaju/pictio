@@ -25,9 +25,6 @@ const AppDashboard = function () {
 	// main variables
 	this.socket = undefined;
 	this.interface = new interfaceView(this);
-	// this.magentaAI = new magentaAI();
-
-	this.persona;
 
 	//methods
 	this.init = function () {
@@ -55,7 +52,7 @@ const AppDashboard = function () {
 	};
 
 	this.onDrawingEvent = function (data) {
-		// console.log(data)
+		app.interface.draw(data);
 	};
 
 	this.onGuessEvent = function (data) {

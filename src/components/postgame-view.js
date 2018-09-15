@@ -70,7 +70,13 @@ function PostGameView() {
 
 		//emit to socker IO
 		this.emitToDashboard({
-			action: 'initiate',
+			inverseColour: this.pageData.inverseColour,
+			success:this.pageData.success,
+			status: this.pageData.status,
+			supposedPhrase: this.pageData.supposedPhrase,
+			itis: this.pageData.itis,
+			category: this.pageData.category,
+			bestGuessPhrase: this.pageData.bestGuessPhrase,
 			bestGuesses: list
 		});
 
@@ -112,13 +118,26 @@ function PostGameView() {
 	this.emitToDashboard = function ({
 		type = 'interface',
 		view = 'post-game',
-		action = '',
+		inverseColour = '',
+		success = false,
+		status = '',
+		supposedPhrase = '',
+		itis = '',
+		category = '',
+		bestGuessPhrase = '',
 		bestGuesses = ''
 	}) {
+
 		if (this.app.IOon) {
 			this.app.socket.emit(type, {
 				view: view,
-				action: action,
+				inverseColour: inverseColour,
+				success: success,
+				status: status,
+				supposedPhrase: supposedPhrase,
+				itis: itis,
+				category: category,
+				bestGuessPhrase: bestGuessPhrase,
 				bestGuesses: bestGuesses,
 			});
 		}

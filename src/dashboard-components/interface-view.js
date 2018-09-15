@@ -5,7 +5,7 @@ require('webpack-jquery-ui/effects');
 import waitingView from './waiting-view';
 import challengeView from './challenge-view';
 import gameView from './game-view';
-// import postgameView from './postgame-view';
+import postgameView from './postgame-view';
 
 
 export default function interfaceView(context) {
@@ -39,10 +39,9 @@ export default function interfaceView(context) {
 			this.currentView = challengeView;
 		} else if(viewName == 'game') {
 			this.currentView = gameView;
+		} else if(viewName == 'post-game') {
+			this.currentView = postgameView;
 		}
-		//  else if(viewName == 'post-game') {
-		// 	this.currentView = postgameView;
-		// }
 
 		this.currentView.init(this.app);
 
@@ -56,6 +55,8 @@ export default function interfaceView(context) {
 			this.changeView('challenge');
 		} else if(data.view == 'game') {
 			this.changeView('game');
+		}else if(data.view == 'post-game') {
+			this.changeView('post-game');
 		}
 
 		this.currentView.update(data);
@@ -76,6 +77,12 @@ export default function interfaceView(context) {
 	this.updateTimer = function (data) {
 		if (this.currentViewName == 'game') {
 			this.currentView.timer(data);
+		}
+	};
+
+	this.draw = function(data) {
+		if(this.currentViewName == 'game') {
+			this.currentView.draw(data);
 		}
 	};
 

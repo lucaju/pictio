@@ -5,18 +5,6 @@ import challengeMustache from './challenge.html';
 
 function challengeView () {
 
-	this.pageData = {
-		name: '',
-		short: '',
-		description: '',
-		draw: '',
-		drawCategory: '',
-		categorySlug: '',
-		time: 0,
-		ready: '',
-		colourClass: ''
-	};
-
 	this.init = function() {
 		this.update();
 	};
