@@ -7,13 +7,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	mode: 'development', //production
-	entry: './src/app.js',
+	entry: './src/dashboard.js',
 	output: {
-		filename: 'app.bundle.js',
-		path: path.resolve(__dirname, 'dist'),
+		filename: 'dashboard.bundle.js',
+		path: path.resolve(__dirname, 'dashboard'),
 	},
 	devServer: {
-		contentBase: './dist'
+		contentBase: './dashboard'
 	},
 	devtool: 'inline-source-map',
 	module: {
@@ -55,7 +55,7 @@ module.exports = {
 	},
 	plugins: [
 		new CleanWebpackPlugin([
-			'./dist',
+			'./dashboard'
 		]),
 		new HtmlWebpackPlugin({
 			inject: false,
@@ -83,7 +83,7 @@ module.exports = {
 					content: 'yes'
 				}
 			],
-			title: 'Pict.io'
+			title: 'Pict.io - dashboard'
 		}),
 		new webpack.ProvidePlugin({
 			$: 'jquery',
