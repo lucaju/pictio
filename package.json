@@ -34,7 +34,8 @@
     "webpackServer": "webpack-dev-server --open",
     "build": "webpack",
     "production": "webpack -p --progress",
-    "watchDashboard": "webpack --config webpack.dashboard.config.js --watch ",
+    "productionDashboard": "webpack --config webpack.dashboard.config.js -p --progress",
+    "watchDashboard": "webpack --config webpack.dashboard.config.js --watch",
     "watchGame": "webpack --watch",
     "server": "node index.js"
   },
