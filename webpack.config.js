@@ -62,7 +62,7 @@ module.exports = {
 			template: require('html-webpack-template'),
 			appMountId: 'app',
 			appMountHtmlSnippet: `  <div class="uk-offcanvas-content" uk-height-viewport>
-			  <div id="view" class="uk-height-1-1 uk-section uk-background-default"></div>
+			  <div id="view" class="uk-height-1-1 uk-section uk-background-default" uk-height-viewport></div>
 			</div>`,
 			// googleAnalytics: {
 			// 	trackingId: 'UA-XXXX-XX',
