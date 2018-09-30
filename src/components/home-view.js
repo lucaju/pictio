@@ -4,6 +4,7 @@ import ee from 'event-emitter';
 
 import homeMustache from './home.html';
 import instructionsMustache from './instructions.html';
+import aboutMustache from './about.html';
 
 
 function HomeView() {
@@ -18,6 +19,10 @@ function HomeView() {
 		languages: []
 	};
 	this.instructionData = {
+		title: '',
+		text: ''
+	};
+	this.aboutData = {
 		title: '',
 		text: ''
 	};
@@ -49,12 +54,20 @@ function HomeView() {
 			text: this.app.i18next.t('instructions.text')
 		};
 
+		this.aboutData = {
+			title: this.app.i18next.t('about.title'),
+			text: this.app.i18next.t('about.text')
+		};
+
 		//build page
 		const homeHTML = homeMustache(this.homeData);
 		$(homeHTML).appendTo($('#view'));
 
 		const instructionsHTML = instructionsMustache(this.instructionData);
 		$(instructionsHTML).appendTo($('#view'));
+
+		const aboutHTML = aboutMustache(this.aboutData);
+		$(aboutHTML).appendTo($('#view'));
 
 		//translation
 		this.translate();
@@ -70,10 +83,16 @@ function HomeView() {
 		$('#instructions').localize().localize({
 			joinArrays: ' '
 		});
+		$('#about').localize().localize({
+			joinArrays: ' '
+		});
 
 		this.app.i18next.on('languageChanged', () => {
 			$('#intro').localize();
 			$('#instructions').localize({
+				joinArrays: ' '
+			});
+			$('#about').localize({
 				joinArrays: ' '
 			});
 		});

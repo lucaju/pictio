@@ -3,7 +3,8 @@
         "subtitle": "An inclusive mini-game for <strong>humans</strong> and <strong>quasi-humans!</strong>",
         "buttons": {
             "play": "Let's Play",
-            "intructions": "How to play?"
+            "instructions": "How to play?",
+            "about": "About"
         }
     },
     "instructions": {
@@ -18,6 +19,13 @@
             "<p>4. The drawers can not use other means of communication rather than those indicated for each challenge.</p>",
             "<p>5. If the team is able to complete the challenge, they can throw the dice and play one more time. After that, it is the other team’s turn to throw the dice.</p>",
             "<p>6. The game continues this way until one of the pawns completes the entire course.</p>"
+        ]
+    },
+    "about": {
+        "title": "About",
+        "text": [
+            "<p>PICT.IO is a game for human and machines to work together in teams. PICT.IO is also a tool for instigating debates on AI within a science popularization approach.</p>",
+            "<p>PICT.IO was developed by <a href='https://squiggle.fluxo.art.br' target='_blank'>Squiggle Collective</a> using <a href='https://github.com/googlecreativelab/quickdraw-dataset' target='_blank'>Quick Draw's API</a> with the support of <a href='https://milieux.concordia.ca' target='_blank'>Milieux Institute for Arts, Culture and Technology</a> and <a  href='https://tag.hexagram.ca' target='_blank'></a>TAG - Technology Arts and Games</a> at Concordia University (Montreal, Canada).</p>"
         ]
     },
     "personas": {

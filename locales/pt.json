@@ -2,8 +2,9 @@
     "intro": {
         "subtitle": "Um jogo colaborativo entre <strong>humanos</strong> e <strong>máquinas!</strong>",
         "buttons": {
-            "play": "COMEÇAR O JOGO ",
-            "intructions": "COMO JOGAR? "
+            "play": "COMEÇAR O JOGO",
+            "instructions": "COMO JOGAR?",
+            "about": "Sobre"
         }
     },
     "instructions": {
@@ -16,6 +17,13 @@
             "<p>4. Os desenhistas não podem usar outros meios de comunicação, a não ser aqueles indicados para cada desafio.</p>",
             "<p>5. Se a equipe for capaz de completar o desafio, eles podem lançar os dados e jogar mais uma vez. Depois disso, é a vez da outra equipe lançar os dados.</p>",
             "<p>6. O jogo continua assim até que um dos peões complete todo o percurso.</p>"
+        ]
+    },
+    "about": {
+        "title": "Sobre",
+        "text": [
+            "<p>PICT.IO é um jogo para humano e máquinas em que eles tem que trabalhar em equipe. O PICT.IO também é uma ferramenta para instigar debates sobre Inteligência Artificial dentro de uma abordagem de popularização da ciência.</p>",
+            "<p>O PICT.IO foi desenvolvido pelo <a href='https://squiggle.fluxo.art.br' target='_blank'>Coletivo Squiggle</a> usando a API do <a href='https://github.com/googlecreativelab/quickdraw-dataset' target='_blank'>Quick Draw</a> com o apoio do <a href='https://milieux.concordia.ca' target='_blank'>Milieux Institute for Arts, Culture and Technology</a> e <a  href='https://tag.hexagram.ca' target='_blank'></a>TAG - Technology Arts and Games</a> na Concordia University (Montreal, Canada).</p>"
         ]
     },
     "personas": {
