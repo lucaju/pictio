@@ -24,7 +24,8 @@ function HomeView() {
 	};
 	this.aboutData = {
 		title: '',
-		text: ''
+		text: '',
+		sponsorTitle:''
 	};
 
 	this.init = function (context) {
@@ -56,8 +57,11 @@ function HomeView() {
 
 		this.aboutData = {
 			title: this.app.i18next.t('about.title'),
-			text: this.app.i18next.t('about.text')
+			text: this.app.i18next.t('about.text'),
+			sponsortitle: this.app.i18next.t('about.sponsortitle'),
+			youtubeid: this.app.i18next.t('about.youtubeid')
 		};
+		
 
 		//build page
 		const homeHTML = homeMustache(this.homeData);
@@ -78,12 +82,14 @@ function HomeView() {
 	};
 
 	this.translate = function() {
+		const _this = this;
+
 		$('#intro').localize();
 
-		$('#instructions').localize().localize({
+		$('#instructions').localize({
 			joinArrays: ' '
 		});
-		$('#about').localize().localize({
+		$('#about').localize({
 			joinArrays: ' '
 		});
 
@@ -92,9 +98,20 @@ function HomeView() {
 			$('#instructions').localize({
 				joinArrays: ' '
 			});
-			$('#about').localize({
-				joinArrays: ' '
-			});
+			_this.udpateAboutVideo();
+
+			//change about 
+		});
+	};
+
+	this.udpateAboutVideo = function() {
+		this.aboutData.youtubeid = this.app.i18next.t('about.youtubeid');
+		const aboutHTML = aboutMustache(this.aboutData);
+		$('#about').remove();
+		$(aboutHTML).appendTo($('#view'));
+
+		$('#about').localize({
+			joinArrays: ' '
 		});
 	};
 

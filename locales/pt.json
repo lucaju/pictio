@@ -1,6 +1,6 @@
 {
     "intro": {
-        "subtitle": "Um jogo colaborativo entre <strong>humanos</strong> e <strong>máquinas!</strong>",
+        "subtitle": "Um jogo colaborativo para <strong>humanos</strong> e <strong>máquinas</strong>",
         "buttons": {
             "play": "COMEÇAR O JOGO",
             "instructions": "COMO JOGAR?",
@@ -10,8 +10,11 @@
     "instructions": {
         "title": "Como Jogar ",
         "text": [
-            "<p>Este jogo fornece aos humanos e às máquinas um problema comum para resolver em equipes, no qual os jogadores devem se fazer entender através de desenhos.</p>Participantes: 2 equipes compostas por 2 humanos e 1 máquina.</p>",
-            "<p>Conteúdos: 1 tabuleiro, 1 dado, 1 moldura e 2 peões.</p><p>Objetivo do jogo: Promover o peão do time até completar todo o percurso do tabuleiro.</p><p>1. Cada equipe escolhe um peão e coloca-o no início do tabuleiro.</p>",
+            "<p>Este jogo fornece aos humanos e às máquinas um problema comum para resolver em equipes, no qual os jogadores devem se fazer entender através de desenhos.</p>",
+            "<p><strong>Participantes</strong>: 2 equipes compostas por 2 humanos e 1 máquina.</p>",
+            "<p><strong>Conteúdos</strong>: 1 tabuleiro, 1 dado, 1 moldura e 2 peões.</p>",
+            "<p><strong>Objetivo do jogo</strong>: Promover o peão do time até completar todo o percurso do tabuleiro.</p>",
+            "<p>1. Cada equipe escolhe um peão e coloca-o no início do tabuleiro.</p>",
             "<p>2. Cada equipe seleciona uma pessoa para ser a primeira desenhista. Os jogadores da equipe alternam a vez de desenhar em cada rodada.</p>",
             "<p>3. Os primeiros desenhistas de cada equipe jogam os dados e avançam no tabuleiro, que lhes fornece o primeiro desafio. Existem três categorias de desafios:</p> <ul><li>A. Desenho na parede</li><li>B. Desenho Cego com a mão Esquerda / Direita</li><li>C. Descrição verbal</li></ul>",
             "<p>4. Os desenhistas não podem usar outros meios de comunicação, a não ser aqueles indicados para cada desafio.</p>",
@@ -22,9 +25,11 @@
     "about": {
         "title": "Sobre",
         "text": [
-            "<p>PICT.IO é um jogo para humano e máquinas em que eles tem que trabalhar em equipe. O PICT.IO também é uma ferramenta para instigar debates sobre Inteligência Artificial dentro de uma abordagem de popularização da ciência.</p>",
+            "<p>PICT.IO é um jogo para humanos e máquinas em que eles tem que trabalhar em equipe. O PICT.IO também é uma ferramenta para instigar debates sobre Inteligência Artificial dentro de uma abordagem de popularização da ciência.</p>",
             "<p>O PICT.IO foi desenvolvido pelo <a href='https://squiggle.fluxo.art.br' target='_blank'>Coletivo Squiggle</a> usando a API do <a href='https://github.com/googlecreativelab/quickdraw-dataset' target='_blank'>Quick Draw</a> com o apoio do <a href='https://milieux.concordia.ca' target='_blank'>Milieux Institute for Arts, Culture and Technology</a> e <a  href='https://tag.hexagram.ca' target='_blank'></a>TAG - Technology Arts and Games</a> na Concordia University (Montreal, Canada).</p>"
-        ]
+        ],
+        "sponsortitle": "Patrocinadores",
+        "youtubeid": "ffwH93X_pKg"
     },
     "personas": {
         "page": {

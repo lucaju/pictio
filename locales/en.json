@@ -1,6 +1,6 @@
 {
     "intro": {
-        "subtitle": "An inclusive mini-game for <strong>humans</strong> and <strong>quasi-humans!</strong>",
+        "subtitle": "A collaborative game for <strong>humans</strong> and <strong>machines</strong>",
         "buttons": {
             "play": "Let's Play",
             "instructions": "How to play?",
@@ -14,7 +14,8 @@
             "<p><strong>Participants:</strong> 2 teams composed of 2 humans and 1 tablet.</p>",
             "<p><strong>Contents:</strong> 1 board, 1 dice, 1 frame and 2 pawns.</p>",
             "<p><strong>The goal of the game:</strong> Make the team's pawn the first to go all the way through the board.</p>",
-            "<p>1. Each team chooses a pawn and places it at the beginning of the board.</p><p>2. Each team selects one person to be the first drawer. The team players alternate the drawer at each round.</p>",
+            "<p>1. Each team chooses a pawn and places it at the beginning of the board.</p>",
+            "<p>2. Each team selects one person to be the first drawer. The team players alternate the drawer at each round.</p>",
             "<p>3. The first drawers of each team throw the dice and advance into the board, which provides them with the first challenge. There are three categories of challenges:</p> <ul><li>A. Drawing on the Wall</li><li>B. Blind Drawing with Left/ Right Hand</li><li>C. Verbal Description</li></ul>",
             "<p>4. The drawers can not use other means of communication rather than those indicated for each challenge.</p>",
             "<p>5. If the team is able to complete the challenge, they can throw the dice and play one more time. After that, it is the other team’s turn to throw the dice.</p>",
@@ -24,9 +25,11 @@
     "about": {
         "title": "About",
         "text": [
-            "<p>PICT.IO is a game for human and machines to work together in teams. PICT.IO is also a tool for instigating debates on AI within a science popularization approach.</p>",
+            "<p>PICT.IO is a game for humans and machines to work together in teams. PICT.IO is also a tool for instigating debates on AI within a science popularization approach.</p>",
             "<p>PICT.IO was developed by <a href='https://squiggle.fluxo.art.br' target='_blank'>Squiggle Collective</a> using <a href='https://github.com/googlecreativelab/quickdraw-dataset' target='_blank'>Quick Draw's API</a> with the support of <a href='https://milieux.concordia.ca' target='_blank'>Milieux Institute for Arts, Culture and Technology</a> and <a  href='https://tag.hexagram.ca' target='_blank'></a>TAG - Technology Arts and Games</a> at Concordia University (Montreal, Canada).</p>"
-        ]
+        ],
+        "sponsortitle": "Sponsors",
+        "youtubeid": "o-Q1gIdlIHg"
     },
     "personas": {
         "page": {
