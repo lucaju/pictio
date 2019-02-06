@@ -28,6 +28,7 @@ export default function magentaAI() {
 	};
 
 	this.read = function(eventTimeStamp,ink) {
+		//delay
 		if (eventTimeStamp - this.lastTimestamp_check > 1000) {
 			this.checkQuickDraw(ink);
 			this.lastTimestamp_check = eventTimeStamp;
