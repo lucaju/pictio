@@ -26,6 +26,7 @@ function PartnersView() {
 
 		this.app = context;
 
+		//lintit option by language
 		const personas = this.app.personas.filter(persona => persona.languageCode == this.app.language);
 
 		//data
@@ -75,6 +76,8 @@ function PartnersView() {
 			message: this.app.i18next.t('personas.dashboard.assembly'),
 		});
 
+		//pre-select first option
+		this.changePersona(this.app.getPersona(personas[0].slug));
 	};
 
 	this.translate = function() {
