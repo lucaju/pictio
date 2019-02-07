@@ -46,6 +46,10 @@ function HomeView() {
 			{
 				name: 'Português',
 				iso: 'pt',
+			},
+			{
+				name: 'Français',
+				iso: 'fr',
 			}
 			]
 		};

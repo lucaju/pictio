@@ -26,12 +26,14 @@ function PartnersView() {
 
 		this.app = context;
 
+		const personas = this.app.personas.filter(persona => persona.languageCode == this.app.language);
+
 		//data
 		this.pageData = {
 			title: 'Choose your partner',
 			inverseColour: this.app.interface.inverseClass(),
 			done: this.app.i18next.t('personas.page.done'),
-			personas: this.app.personas,
+			personas: personas,
 			showName: false,
 			individualAccent: false
 		};
@@ -39,7 +41,7 @@ function PartnersView() {
 		//build page
 		const partnerHTML = partnersMustache(this.pageData);
 		$(partnerHTML).appendTo($('#view'));
-
+		
 		//buttons - personas
 		for (let persona of this.app.personas) {
 			const bt = $(`#${persona.slug}`);
