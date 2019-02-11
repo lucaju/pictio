@@ -169,6 +169,12 @@ function PartnersView() {
 
 	this.done = function(e) {
 		const _this = e.data;
+
+		let persona = _this.app.currentPersona;
+		
+		let translatedColor = _this.translateColour(persona,_this.pageData.individualAccent);
+
+		_this.speak(persona,translatedColor);
 		_this.exitAnimation();
 	};
 
