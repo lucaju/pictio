@@ -102,7 +102,10 @@ function ChallengesView() {
 			opacity: 0,
 		}, 1500, function () {
 			_this.app.gameState.currentChallenge = challengeName;
-			_this.emit('changeView', 'challenge');
+			_this.emit('changeView', {
+				source: 'challenges',
+				target:'challenge'
+			});
 		});
 	};
 

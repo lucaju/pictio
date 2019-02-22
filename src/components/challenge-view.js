@@ -127,7 +127,10 @@ function ChallengeView() {
 			marginTop: '-100',
 			opacity: 0,
 		}, duration, function () {
-			_this.emit('changeView', 'game');
+			_this.emit('changeView', {
+				source: 'challenge',
+				target:'game'
+			});
 		});
 	};
 
@@ -139,7 +142,10 @@ function ChallengeView() {
 			marginTop: '-100',
 			opacity: 0,
 		}, duration, function () {
-			_this.emit('changeView', 'challenges');
+			_this.emit('changeView', {
+				source: 'challenge',
+				target:'challenges'
+			});
 		});
 	};
 

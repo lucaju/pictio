@@ -64,7 +64,7 @@ function PartnersView() {
 		//done
 		$('#done').click(this,this.done);
 
-		this.app.artyom.on([this.pageData.done]).then(function (i) {
+		this.app.artyom.on([this.pageData.done]).then(function () {
 			_this.doneSpeak();
 		});
 
@@ -190,7 +190,10 @@ function PartnersView() {
 			marginTop: '-100',
 			opacity: 0,
 		}, duration, function () {
-			_this.emit('changeView', 'challenges');
+			_this.emit('changeView', {
+				source: 'partners',
+				target:'challenges'
+			});
 		});
 	};
 

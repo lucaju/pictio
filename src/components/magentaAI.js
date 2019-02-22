@@ -280,7 +280,7 @@ export default function magentaAI() {
 		//wait 3 second before change view
 		const duration = 3000;
 		setTimeout(function () {
-			_this.emit('changeView', 'post-game');
+			_this.emit('win');
 		}, duration);
 
 	};
