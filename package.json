@@ -41,7 +41,7 @@
   "author": "Luciano Frizzera",
   "license": "MIT",
   "devDependencies": {
-    "clean-webpack-plugin": "^1.0.1",
+    "clean-webpack-plugin": "^2.0.1",
     "copy-webpack-plugin": "^5.0.1",
     "css-loader": "^2.1.1",
     "eslint": "^5.15.3",
