@@ -5,6 +5,7 @@ require('webpack-jquery-ui/effects');
 
 import homeView from './home-view';
 import partnersView from './partners-view';
+import playersView from './human-players-view';
 import challengesView from './challenges-view';
 import challengeView from './challenge-view';
 import gameView from './game-view';
@@ -30,6 +31,8 @@ export default function interfaceView(context) {
 
 	this.changeView = function(event) {
 
+		console.log(event)
+
 		const _this = this;
 
 		//clean view
@@ -39,9 +42,13 @@ export default function interfaceView(context) {
 		this.currentViewName = event.target;
 
 		if(event.target == 'home') {
+			//reset gameState
+			this.app.resetGameState();
 			this.currentView = homeView;
 		} else if(event.target == 'partners') {
 			this.currentView = partnersView;
+		} else if(event.target == 'players') {
+			this.currentView = playersView;
 		} else if(event.target == 'challenges') {
 			this.currentView = challengesView;
 		} else if(event.target == 'challenge') {

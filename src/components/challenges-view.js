@@ -20,19 +20,32 @@ function ChallengesView() {
 	this.init = function (context) {
 		this.app = context;
 
-		//reset gameState
-		this.app.resetGameState();
+		// //reset gameState
+		// this.app.resetGameState();
+
+		const challenges = [];
+		for (const challenge of this.app.mechanics.challenges) {
+			if (challenge.players > 1) {
+				challenges.push(challenge);
+			}
+		}
 
 		//data
 		this.pageData = {
 			title: this.app.i18next.t('challenges.page.title'),
 			inverseColour: this.app.interface.inverseClass(),
-			challenges: this.app.mechanics.challenges
+			challenges: challenges
 		};
 
 		//build page
 		const challengesHTML = challengesMustache(this.pageData);
 		$(challengesHTML).appendTo($('#view'));
+
+
+		//home button
+		$('#home-button').click(() => {
+			this.homeButton('home');
+		});
 
 		// get challenges
 		this.getChallenges();
@@ -44,6 +57,8 @@ function ChallengesView() {
 		this.emitToDashboard({
 			message: this.app.i18next.t('challenges.dashboard.selecting'),
 		});
+
+		this.app.speak('Pick a challenge!');
 
 		//animation
 		this.enterAnimation();
@@ -61,9 +76,9 @@ function ChallengesView() {
 
 		//loop
 		let i = 0;
-		for (let challenge of this.app.mechanics.challenges) {
+		for (const challenge of this.pageData.challenges) {
 
-			let card = $(`#${challenge.short}`);
+			const card = $(`#${challenge.short}`);
 			card.data({
 				short: challenge.short,
 				name:challenge.name
@@ -88,8 +103,21 @@ function ChallengesView() {
 					height: 'easeOutBounce'
 				}
 			});
+			
 
 		}
+	};
+
+	this.homeButton = function() {
+		$('#challenges').animate({
+			marginTop: '-100',
+			opacity: 0,
+		}, 1500, () => {
+			this.emit('changeView', {
+				source: 'challenges',
+				target:'home'
+			});
+		});
 	};
 
 	this.challengeButtonAction = function(e) {

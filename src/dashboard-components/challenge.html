@@ -1,10 +1,15 @@
 <div id="waiting" class="uk-margin-medium-top uk-text-center">
-    <h3 class="uk-heading-line uk-text-uppercase {{colourClass}}"><span>Pict.io Dashboard</span></h3>
-    <h2 id="title" class="uk-h2 {{colourClass}}">{{name}}</h2>
+    <h3 class="uk-heading-line uk-text-uppercase uk-text-center {{colourClass}}"><span>Pict.io Dashboard</span></h3>
+    <button id="{{slug}}" class="uk-button uk-button-large uk-border-pill {{colour}} uk-margin-small-right uk-margin-small-bottom uk-padding-small uk-width-1-1">
+        <span uk-icon="icon: user; ratio: 1.5"></span>
+        {{#extraIcon}}<span uk-icon="icon: user; ratio: 1.5"></span>{{/extraIcon}}
+        <br/>{{players}}
+    </button>
+    <h2 id="title" class="uk-h2">{{name}}</h2>
     <div class="uk-margin-remove-top" uk-grid>
         <div class="uk-width-expand"></div>
         <div id="description" class="uk-width-2-3">
-            <div class="uk-margin-medium-bottom {{colourClass}}">
+            <div class="uk-margin-medium-bottom">
                 <p>{{description}}</p>
             </div>
             <div uk-grid>

@@ -25,7 +25,7 @@ export default function interfaceView(context) {
 		this.changeView(this.currentViewName);
 	};
 
-	this.changeView = function (viewName) {
+	this.changeView = function (viewName, data) {
 
 		//clean view
 		const view = $('#view');
@@ -43,20 +43,22 @@ export default function interfaceView(context) {
 			this.currentView = postgameView;
 		}
 
-		this.currentView.init(this.app);
+		this.currentView.init(this.app, data);
 
 	};
 
 	this.updateView = function (data) {
-		if (data.view == 'partners' || data.view == 'challenges') {
+		if (data.view == 'partners' || data.view == 'challenges' || data.view == 'players') {
 			if (this.currentViewName != 'waiting') this.changeView('waiting');
 			if (data.colour) this.changeColour(data.colour);
 		} else if(data.view == 'challenge') {
 			this.changeView('challenge');
 		} else if(data.view == 'game') {
-			this.changeView('game');
-		}else if(data.view == 'post-game') {
+			this.changeView('game', data);
+		} else if(data.view == 'post-game') {
 			this.changeView('post-game');
+		} else if(data.view == 'waiting') {
+			if (this.currentViewName != 'waiting') this.changeView('waiting');
 		}
 
 		this.currentView.update(data);

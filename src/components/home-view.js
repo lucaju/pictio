@@ -83,6 +83,14 @@ function HomeView() {
 		//button
 		$('#go-play').click(this,this.play);
 
+		this.emitToDashboard({
+			view: 'waiting'
+		});
+
+		this.emitToCard({
+			action: 'new',
+		});
+
 	};
 
 	this.translate = function() {
@@ -126,16 +134,41 @@ function HomeView() {
 
 		_this.app._initArtyom(); // initialize languate
 
+		_this.app.speak('Awesome. Lets play Pict io!');
+
 		$('#intro').animate({
 			marginTop: '-100',
 			opacity: 0,
 		}, duration, function () {
 			_this.emit('changeView', {
 				source: 'home',
-				target:'partners'
+				target:'players' //'partners'
 			});
 		});
 
+	};
+
+	this.emitToCard = function ({
+		type = 'card',
+		action = 'new'
+	}) {
+		if (this.app.IOon) {
+			this.app.socket.emit(type, {
+				action: action,
+			});
+		}
+	};
+
+	this.emitToDashboard = function ({
+		type = 'interface',
+		view = 'waiting',
+	}) {
+		if (this.app.IOon) {
+			this.app.socket.emit(type, {
+				view: view,
+				message: ''
+			});
+		}
 	};
 
 }

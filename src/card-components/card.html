@@ -1,0 +1,22 @@
+<div id="card" class="uk-container uk-position-center uk-text-center">
+    <h1 id="title" class="uk-h1 {{inverseColour}}" data-i18n="challenges.challenges.{{short}}.name">Pict.io</h1>
+    {{^name}}
+    <p id="challenge" class="{{inverseColour}}">Cards are drawn at the appropriate momment.</p>
+    {{/name}}
+    {{#name}}
+    <h3 id="challenge" class="uk-h3 {{inverseColour}}" data-i18n="challenges.challenges.{{short}}.name">{{name}}</h3>
+    
+    <div class="uk-card uk-card-default uk-width-1-1@m uk-box-shadow-large uk-border-rounded">
+        <div class="uk-card-body uk-background-primary uk-box-shadow-large uk-light">
+            <h2 class="uk-h2" data-i18n="categories.{{categorySlug}}">{{drawCategory}}</h2>
+            <p  id="clock" class="uk-text-small"><span uk-icon="future" class="uk-margin-small-right"></span><span id="time" >{{time}}s</span></p>
+        </div>
+        <div class="uk-card-footer uk-box-shadow-large">
+            <button id="play" class="uk-button uk-button-text uk-button-large uk-border-rounded uk-width-1-1"
+                data-i18n="challenges.page.ready">{{ready}}<span uk-icon="chevron-right"
+                class="uk-margin-small-left"></span></button>
+            <span id="guess"></span>
+        </div>
+    </div>
+    {{/name}}
+</div>

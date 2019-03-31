@@ -6,13 +6,23 @@ import challengeMustache from './challenge.html';
 function challengeView () {
 
 	this.init = function() {
-		this.update();
+		// this.update();
 	};
 
 	this.update = function(data) {
+
+		if (data.players == 1) {
+			data.extraIcon = false;
+			data.players = `${data.players} Human Player`;
+		} else {
+			data.extraIcon = true;
+			data.players = `${data.players} Human Players`;
+		}
+		
 		
 		//build page
 		const challengeHTML = challengeMustache(data);
+		
 		$('#view').html(challengeHTML);
 
 		//animation

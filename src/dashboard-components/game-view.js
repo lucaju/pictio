@@ -2,14 +2,14 @@
 import $ from 'jquery';
 import gameMustache from './game.html';
 
-import loadingbar from '@loadingio/loading-bar';
-import '@loadingio/loading-bar/dist/loading-bar.css';
+import ProgressBar from 'progressbar.js';
 
 
 function gameView () {
 
 	this.app = undefined;
-	this.timerTracker = undefined;
+	let progressBar = undefined;
+	let timeLeftSeconds = 0;
 	this.canvas = '';
 	this.canvasContext = '';
 
@@ -17,10 +17,11 @@ function gameView () {
 		colourClass: ''
 	};
 
-	this.init = function(context) {
+	this.init = function(context, data) {
 
 		this.app = context;
 		this.pageData.colourClass = this.app.interface.inverseClass();
+		this.pageData.challenge = data.challenge;
 
 		//build page
 		const gameHTML = gameMustache(this.pageData);
@@ -31,9 +32,34 @@ function gameView () {
 		this.canvasContext = this.canvas.getContext('2d');
 
 		//timer
-		this.timerTracker = new loadingbar('#ldBar');
-		$('.ldBar-label').remove();
-		this.timerTracker.set(100);
+		progressBar = new ProgressBar.SemiCircle('#progress', {
+			strokeWidth: 12,
+			color: '#FFEA82',
+			duration: 1400,
+			svgStyle: null,
+			text: {
+				value: '',
+				alignToBottom: true,
+			},
+			from: {
+				color: '#ED6A5A'
+			},
+			to: {
+				color: '#FFEA82'
+			},
+			// Set default step function for all animate calls
+			step: (state, bar) => {
+				bar.path.setAttribute('stroke', state.color);
+
+				if ((timeLeftSeconds + 1) === 0) {
+					bar.setText('');
+				} else {
+					bar.setText(`${timeLeftSeconds + 1}'`);
+				}
+
+				bar.text.style.color = state.color;
+			}
+		});
 
 		window.addEventListener('resize', this.onResize, false);
 		this.onResize();
@@ -69,10 +95,13 @@ function gameView () {
 
 	this.guess = function(attempt) {
 		$('#guess')[0].innerHTML = attempt;
+		$('#container-guess').fadeIn('fast');
+		$('#container-guess').fadeOut('slow');
 	};
 
 	this.timer = function(data) {
-		this.timerTracker.set(data.timerPercentage);
+		timeLeftSeconds = data.timer;
+		progressBar.set(data.timerPercentage / 100);
 	};
 
 	this.onResize = function () {

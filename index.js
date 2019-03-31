@@ -7,15 +7,47 @@ const io = require('socket.io')(http);
 
 const port = process.env.PORT || 3000;
 
+let lang = 'en';
+
 //Router
-app.use('/', express.static(__dirname + '/dist'));
+app.use(express.static('dist'));
+// app.use('/fr', express.static('dist'));
+// app.use('/', express.static(__dirname + '/dist'));
+// app.use('/fr', express.static(__dirname + '/dist'));
 app.use('/dashboard', express.static(__dirname + '/dashboard'));
 app.use('/locales', express.static(__dirname + '/locales'));
 app.use('/assets', express.static(__dirname + '/assets'));
+app.use('/card', express.static(__dirname + '/card'));
+
+app.use('/lang', function (req, res) {
+	console.log(lang);
+	res.send({lang:lang});
+});
+
+app.use('/en', function (req, res) {
+	lang = 'pt';
+	res.redirect('/');
+});
+
+app.use('/fr', function (req, res) {
+	lang = 'fr';
+	res.redirect('/');
+});
+
+app.use('/pt', function (req, res) {
+	lang = 'pt';
+	res.redirect('/');
+});
+
+app.use('/', function (req, res) {
+	lang = 'en';
+	res.redirect('/');
+});
 
 //IO Connection
 function onConnection(socket){
 	socket.on('interface', (data) => socket.broadcast.emit('interface', data));
+	socket.on('card', (data) => socket.broadcast.emit('card', data));
 	socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
 	socket.on('guess', (data) => socket.broadcast.emit('guess', data));
 	socket.on('timer', (data) => socket.broadcast.emit('timer', data));

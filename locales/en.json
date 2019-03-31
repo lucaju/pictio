@@ -46,6 +46,18 @@
             "assembly": "Assembling teams"
         }
     },
+    "players": {
+        "page": {
+            "title": "How many human players?"
+        },        
+        "playersOptions": {
+            "onePlayer": "1 Human Player",
+            "twoPlayers": "2 Human Players"
+        },
+        "dashboard": {
+            "message": "Selecting human players"
+        }
+    },
     "challenges": {
         "page": {
             "title": "Pick a challenge",

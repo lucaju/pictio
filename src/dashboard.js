@@ -11,7 +11,6 @@ import uikiticons from 'uikit/dist/js/uikit-icons.min';
 import io from 'socket.io-client';
 
 import interfaceView from './dashboard-components/interface-view';
-// import magentaAI from './magentaAI';
 
 import 'uikit/dist/css/uikit.min.css';
 import './dashboard-style.css';

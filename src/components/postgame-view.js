@@ -49,6 +49,10 @@ function PostGameView() {
 		const postgameHTML = postgameMustache(this.pageData);
 		$(postgameHTML).appendTo($('#view'));
 
+		$('#home-button').click(() => {
+			this.homeButton('home');
+		});
+
 		// get limited list of best guess
 		const list = this.app.getBestGuesses();
 		const guessList = $('#view').find('.tags'); //DOM
@@ -68,6 +72,21 @@ function PostGameView() {
 		//action
 		$('#back').click(this, this.back);
 
+		if (this.app.gameState.players > 1) {
+			this.emitToCard({
+				name: '',
+			});
+		}
+
+		console.log(this.pageData);
+
+		this.emitToCard({
+			action: 'postGame',
+			time: -1,
+			guess: this.pageData.status
+		});
+
+
 		//emit to socker IO
 		this.emitToDashboard({
 			inverseColour: this.pageData.inverseColour,
@@ -86,10 +105,31 @@ function PostGameView() {
 		$('postgame').localize();
 	};
 
+	this.homeButton = function() {
+
+		this.emitToCard({
+			action: 'new',
+		});
+
+		$('#postgame').animate({
+			marginTop: '-100',
+			opacity: 0,
+		}, 1500, () => {
+			this.emit('changeView', {
+				source: 'post-game',
+				target:'home'
+			});
+		});
+	};
+
 	this.back = function(e) {
 
 		const _this = e.data;
 		const duration = 1500;
+
+		_this.emitToCard({
+			action: 'new',
+		});
 
 		$('#postgame').animate({
 			marginTop: '-100',
@@ -97,7 +137,7 @@ function PostGameView() {
 		}, duration, function () {
 			_this.emit('changeView', {
 				source: 'post-game',
-				target:'challenges'
+				target:'players'
 			});
 		});
 
@@ -113,6 +153,31 @@ function PostGameView() {
 		}
 
 		this.app.speak(speech, this.app.currentPersona.language);
+	};
+
+	this.emitToCard = function ({
+		type = 'card',
+		view = 'challenge',
+		action = 'postGame',
+		name = '',
+		short = '',
+		draw = '',
+		drawCategory = '',
+		time = 0,
+		guess = ''
+	}) {
+		if (this.app.IOon) {
+			this.app.socket.emit(type, {
+				view: view,
+				action: action,
+				name: name,
+				short: short,
+				draw: draw,
+				drawCategory: drawCategory,
+				time: time,
+				guess: guess
+			});
+		}
 	};
 
 	this.emitToDashboard = function ({

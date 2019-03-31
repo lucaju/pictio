@@ -25,3 +25,47 @@
 .bordered {
   border: 1px solid #aaaaaa;
 }
+
+#home-button {
+  position: absolute;
+  left: 5px;
+  top: 10px;
+}
+
+#container-guess {
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  width: 100%;
+  z-index: 1000;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+#container-clear {
+  position: absolute;
+  right: 5px;
+  top: 20px;
+}
+
+#container-progress {
+  position: absolute;
+  top: 0px;
+  z-index: 1200;
+  left: calc(50% - 50px);
+  pointer-events: none;
+  transform: rotate(180deg)
+}
+
+#progress {
+  margin-bottom: -50px;
+  width: 100px;
+  height: 100px;
+}
+
+.progressbar-text {
+  position: absolute;
+  margin-left: 50px;
+  transform: translate(-50%, 50%) rotate(-180deg) !important;
+  bottom: 64px !important;
+}

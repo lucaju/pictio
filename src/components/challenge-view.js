@@ -49,19 +49,47 @@ function ChallengeView() {
 			ready: this.app.i18next.t('challenges.page.ready'),
 			back: this.app.i18next.t('challenges.page.back'),
 			inverseColour: this.app.interface.inverseClass(),
+			onePlayer: this.app.gameState.players == 1
 		};
 
 		//buid page
 		const challengeHTML = challengeMustache(this.pageData);
 		$(challengeHTML).appendTo($('#view'));
 
+		this.app.speak(`The chalenge is ${this.pageData.name}`);
+
+		if (this.app.gameState.players === 1) {
+			this.app.speak(`You must draw ${this.pageData.drawCategory} in ${this.pageData.time} seconds`);
+			this.app.speak('Are you ready?');
+			$('.uk-card').click(this, this.callGame);
+			$('#play').click(this, this.callGame);
+		} else if (this.app.gameState.players === 2) {
+			this.app.speak('Access game pict io dott com slash card on your phone to pick a card.');
+			$('#back').click(this, this.back);
+		}
+		
+
 		//translate
 		this.translate();
 
-		//buttons actions
-		$('.uk-card').click(this, this.callGame);
-		$('#play').click(this, this.callGame);
-		$('#back').click(this, this.back);
+
+		//home button
+		$('#home-button').click(() => {
+			this.homeButton('home');
+		});
+
+		//emit to socker IO
+		if (this.app.gameState.players > 1) {
+			this.emitToCard({
+				action: 'new',
+				name: this.pageData.name,
+				short: this.pageData.short,
+				draw: this.pageData.draw,
+				drawCategory: this.pageData.drawCategory,
+				time: this.pageData.time,
+				ready: this.pageData.ready
+			});
+		}
 
 		//emit to socker IO
 		this.emitToDashboard({
@@ -71,6 +99,7 @@ function ChallengeView() {
 			drawCategory: this.pageData.drawCategory,
 			time: this.pageData.time,
 			colourClass: this.pageData.inverseColour,
+			players: this.app.gameState.players
 		});
 
 		//animation
@@ -134,9 +163,54 @@ function ChallengeView() {
 		});
 	};
 
+	//comming from the card (on another device)
+	this.ready = function ready(data) {
+
+		const _this = this;
+		const duration = 1500;
+
+		$('#challenge').animate({
+			marginTop: '-100',
+			opacity: 0,
+		}, duration, function () {
+			_this.emit('changeView', {
+				source: 'challenge',
+				target:'game'
+			});
+		});
+	};
+
+	this.homeButton = function() {
+		$('#challenge').animate({
+			marginTop: '-100',
+			opacity: 0,
+		}, 1500, () => {
+			this.emit('changeView', {
+				source: 'challenge',
+				target:'home'
+			});
+		});
+
+		this.emitToCard({
+			action: 'new',
+		});
+
+		//emit to socker IO
+		if (this.app.IOon) {
+			this.emitToDashboard({
+				view: 'waiting',
+				message: '',
+			});
+		}
+	};
+
 	this.back = function (e) {
 		const _this = e.data;
 		const duration = 1500;
+
+		_this.emitToCard({
+			action: 'new',
+		});
 
 		$('#challenge').animate({
 			marginTop: '-100',
@@ -175,6 +249,31 @@ function ChallengeView() {
 		}, duration);
 	};
 
+	this.emitToCard = function ({
+		type = 'card',
+		view = 'challenge',
+		action = 'new',
+		name = '',
+		short = '',
+		draw = '',
+		drawCategory = '',
+		time = 0,
+		ready = ''
+	}) {
+		if (this.app.IOon) {
+			this.app.socket.emit(type, {
+				view: view,
+				action: action,
+				name: name,
+				short: short,
+				draw: draw,
+				drawCategory: drawCategory,
+				time: time,
+				ready: ready
+			});
+		}
+	};
+
 	this.emitToDashboard = function ({
 		type = 'interface',
 		view = 'challenge',
@@ -183,7 +282,8 @@ function ChallengeView() {
 		description = '',
 		drawCategory = '',
 		time = 0,
-		colourClass = ''
+		colourClass = '',
+		players = 0
 	}) {
 		if (this.app.IOon) {
 			this.app.socket.emit(type, {
@@ -193,7 +293,8 @@ function ChallengeView() {
 				description: description,
 				drawCategory: drawCategory,
 				time: time,
-				colourClass: colourClass
+				colourClass: colourClass,
+				players
 			});
 		}
 	};

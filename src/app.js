@@ -38,11 +38,6 @@ const App = function () {
 	this.interface = new interfaceView(this);
 	this.mute = gameMechanics.options.mute;
 	this.language = gameMechanics.options.language.code;
-	// this.language = 'British English';
-	// this.language = {
-	// 	name: 'British English',
-	// 	code: 'en-GB'
-	// };
 	
 
 	this.mechanics = gameMechanics;
@@ -60,14 +55,21 @@ const App = function () {
 	};
 
 	//methods
-	this.init = function () {
+	this.init = async function () {
 
 		uikiticons(UIkit);
+
+		await $.getJSON('/lang')
+			.then ( (d) =>{
+				console.log(d);
+				this.language = d.lang;
+			});
 
 		//socket.io
 		if(this.IOon) {
 			$(document).ready(function () {
 				app.socket = io();
+				app.socket.on('card', app.onCard);
 			});
 		}
 
@@ -75,7 +77,7 @@ const App = function () {
 			.use(i18nextBackend)
 			.init({
 				debug: false,
-				lng: 'en',
+				lng: this.language,
 				fallbackLng: 'en',
 				backend: {
 					loadPath: 'locales/{{lng}}.json'
@@ -96,7 +98,14 @@ const App = function () {
 
 				app.interface.init();
 
+				
+
 			});
+
+			// $.getJSON('/lang', (d) => {
+			// 	console.log(d);
+			// 	window.app.changeContexLanguage(d.lang);
+			// });
 	};
 
 	this.changeContexLanguage = function (lang) {
@@ -170,6 +179,7 @@ const App = function () {
 
 	this.resetGameState = function () {
 		this.gameState = {
+			players: 0,
 			currentChallenge: '',
 			currentCategory: '',
 			firstSpeak: true,
@@ -184,6 +194,10 @@ const App = function () {
 	this.getBestGuesses = function (limit) {
 		if (limit) return this.gameState.attempts.slice(0, limit);
 		return this.gameState.attempts;
+	};
+
+	this.onCard = function (data) {
+		app.interface.currentView.ready(data);
 	};
 
 
