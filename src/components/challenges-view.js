@@ -58,7 +58,7 @@ function ChallengesView() {
 			message: this.app.i18next.t('challenges.dashboard.selecting'),
 		});
 
-		this.app.speak('Pick a challenge!');
+		this.app.speak(this.app.i18next.t('challenges.speak.pick-a-challenge'));
 
 		//animation
 		this.enterAnimation();

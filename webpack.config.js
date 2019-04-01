@@ -87,8 +87,8 @@ module.exports = {
 			'window.$': 'jquery'
 		}),
 		new CopyWebpackPlugin([
-			{ from: './locales/', to: 'locales/' },
-			{ from: './src/assets', to: 'assets/' }
+			{ from: './locales/', to: 'locales' },
+			{ from: './src/assets', to: 'assets' }
 		]),
 		new WebpackBar(),
 		// new BundleAnalyzerPlugin()

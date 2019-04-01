@@ -134,7 +134,7 @@ function HomeView() {
 
 		_this.app._initArtyom(); // initialize languate
 
-		_this.app.speak('Awesome. Lets play Pict io!');
+		_this.app.speak(_this.app.i18next.t('intro.speak.play'));
 
 		$('#intro').animate({
 			marginTop: '-100',

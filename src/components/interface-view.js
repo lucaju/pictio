@@ -30,9 +30,7 @@ export default function interfaceView(context) {
 	};
 
 	this.changeView = function(event) {
-
-		console.log(event)
-
+		
 		const _this = this;
 
 		//clean view

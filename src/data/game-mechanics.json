@@ -44,7 +44,7 @@
       "code": "B",
       "short": "blind",
       "players": 1,
-      "time": 10,
+      "time": 45,
       "description": "This is an individual challenge, where the drawer sketch representations for the word selected without looking at the screen and using her/his non-dominant hand. While the human player draws, the machine will attempt to guess what is being drawn."
 
     },

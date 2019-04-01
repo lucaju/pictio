@@ -152,7 +152,7 @@ function PostGameView() {
 			speech = `${this.pageData.status}. ${this.pageData.supposedPhrase} ${this.pageData.category}.`;
 		}
 
-		this.app.speak(speech, this.app.currentPersona.language);
+		this.app.speak(speech, this.app.language);
 	};
 
 	this.emitToCard = function ({

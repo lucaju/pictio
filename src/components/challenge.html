@@ -20,9 +20,11 @@
                         <p class="uk-text-small"><span uk-icon="future" class="uk-margin-small-right"></span>{{time}}s</p>
                         {{/onePlayer}}
                         {{^onePlayer}}
-                        <h3 class="uk-h3" data-i18n="page.access">Access
-                            <br /><span class="uk-text-warning">gamepictio.com/card</span>
-                            <br /> on your phone to pick a card.</h3>
+                        <p>
+                            <span data-i18n="page.access">{{access}}</span><br/>
+                            <span class="uk-text-lead">{{externalCardURL}}</span><br/>
+                            <span data-i18n="page.on-device">{{onDevice}}</span>
+                        </p>
                         {{/onePlayer}}
                     </div>
                     {{#onePlayer}}

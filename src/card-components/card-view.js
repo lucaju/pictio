@@ -18,7 +18,8 @@ export default function cardView (context) {
 		if (!data) data = {action: 'new'};
 
 		if (data.action == 'new') {
-			pageData = data;	
+			pageData = data;
+			
 			//build page
 			const challengeHTML = cardMustache(pageData);
 			

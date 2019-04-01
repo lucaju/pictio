@@ -38,7 +38,7 @@ const App = function () {
 	this.interface = new interfaceView(this);
 	this.mute = gameMechanics.options.mute;
 	this.language = gameMechanics.options.language.code;
-	
+
 
 	this.mechanics = gameMechanics;
 
@@ -55,18 +55,17 @@ const App = function () {
 	};
 
 	//methods
-	this.init = async function () {
+	this.init = function () {
 
 		uikiticons(UIkit);
 
-		await $.getJSON('/lang')
-			.then ( (d) =>{
-				console.log(d);
-				this.language = d.lang;
-			});
+		// await $.getJSON('/lang')
+		// 	.then ( (d) =>{
+		// 		this.language = d.lang;
+		// 	});
 
 		//socket.io
-		if(this.IOon) {
+		if (this.IOon) {
 			$(document).ready(function () {
 				app.socket = io();
 				app.socket.on('card', app.onCard);
@@ -98,14 +97,14 @@ const App = function () {
 
 				app.interface.init();
 
-				
+
 
 			});
 
-			// $.getJSON('/lang', (d) => {
-			// 	console.log(d);
-			// 	window.app.changeContexLanguage(d.lang);
-			// });
+		// $.getJSON('/lang', (d) => {
+		// 	console.log(d);
+		// 	window.app.changeContexLanguage(d.lang);
+		// });
 	};
 
 	this.changeContexLanguage = function (lang) {
@@ -129,13 +128,13 @@ const App = function () {
 
 	this.getLanguageCode = function (lang) {
 
-		if(lang == 'American English' || lang == 'en') {
+		if (lang == 'American English' || lang == 'en') {
 			return 'en-US';
-		} else 	if(lang == 'British English' || lang == 'en') {
+		} else if (lang == 'British English' || lang == 'en') {
 			return 'en-GB';
-		} else 	if(lang == 'Português Brasil' || lang == 'pt') {
+		} else if (lang == 'Português Brasil' || lang == 'pt') {
 			return 'pt-BR';
-		} else 	if(lang == 'Français' || lang == 'fr') {
+		} else if (lang == 'Français' || lang == 'fr') {
 			return 'fr-FR';
 		}
 	};

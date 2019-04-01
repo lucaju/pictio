@@ -88,7 +88,7 @@ function GameView() {
 			challenge: this.app.gameState.currentChallenge
 		});
 
-		this.app.speak('Touch on play to start.');
+		this.app.speak(this.app.i18next.t('game.speak.play'));
 
 	};
 

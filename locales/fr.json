@@ -5,6 +5,9 @@
             "play": "Jouer",
             "instructions": "Comment jouer?",
             "about": "À propos"
+        },
+        "speak": {
+            "play": "Awesome. Lets play Pict io!"
         }
     },
     "instructions": {
@@ -46,12 +49,30 @@
             "assembly": "Assembler les équipes"
         }
     },
+    "players": {
+        "page": {
+            "title": "How many human players?"
+        },        
+        "playersOptions": {
+            "onePlayer": "1 Human Player",
+            "twoPlayers": "2 Human Players"
+        },
+        "dashboard": {
+            "message": "Selecting human players"
+        },
+        "speak": {
+            "onePlayer": "Alright then",
+            "twoPlayers": "Great"
+        }
+    },
     "challenges": {
         "page": {
             "title": "Choisissez un défi",
             "draw": "Dessiner",
             "ready": "Je suis prêt",
-            "back": "Retour"
+            "back": "Retour",
+            "access": "access",
+            "on-device": "on your phone to pick a card"
         },
         "dashboard": {
             "selecting": "L'équipe choisit son défi"
@@ -69,6 +90,15 @@
               "name": "Description verbale",
               "description":"Dans ce défi, les deux joueurs humains travaillent ensemble pour produire un dessin représentant le mot donné par la tablette. Le joueur qui a vu le mot doit le décrire verbalement, en utilisant uniquement des figures géométriques et d'orientations spatiales. Le deuxième humain agit en tant que proxy en suivant les instructions et en essayant de les reproduire à l'écran des tablettes. La machine a une minute pour deviner ce qui est dessiné."
             }
+        },
+        "speak": {
+            "pick-a-challenge": "Pick a challenge",
+            "the-challenge-is": "The chalenge is",
+            "you-must-draw": "You must draw",
+            "in": "in",
+            "seconds": "seconds",
+            "are-you-ready": "Are you ready?",
+            "access-card": "Access game pict io dott com slash card on your phone to pick a card"
         }
     },
     "game": {
@@ -79,6 +109,9 @@
         },
         "phrases": {
             "i-know": "Je sais! Je sais! C'est "
+        },
+        "speak": {
+            "play": "Touch on play to start"
         }
     },
     "postgame": {

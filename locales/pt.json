@@ -5,6 +5,9 @@
             "play": "COMEÇAR O JOGO",
             "instructions": "COMO JOGAR?",
             "about": "Sobre"
+        },
+        "speak": {
+            "play": "Legal. Vamos jogar!"
         }
     },
     "instructions": {
@@ -50,12 +53,30 @@
             "assembly": "Montando os times"
         }
     },
+    "players": {
+        "page": {
+            "title": "Quantos jogadores humanos?"
+        },        
+        "playersOptions": {
+            "onePlayer": "1 Jogador Humano",
+            "twoPlayers": "2 Jogadores Humanos"
+        },
+        "dashboard": {
+            "message": "Selecionando jogadores humanos"
+        },
+        "speak": {
+            "onePlayer": "Massa",
+            "twoPlayers": "Obá"
+        }
+    },
     "challenges": {
         "page": {
             "title": "Escolha um Desafio",
             "draw": "Desenhar",
             "ready": "Estou pront@",
-            "back": "Voltar"
+            "back": "Voltar",
+            "access": "Acesse",
+            "on-device": "no seu telefone para ver o que desenhar"
         },
         "dashboard": {
             "selecting": "O time esta escolhendo o desafio"
@@ -73,6 +94,15 @@
               "name": "Descrição Verbal",
               "description":"Neste desafio, os dois jogadores humanos trabalham juntos para produzir um esboço representando a palavra selecionada. O jogador que viu a palavra deve descrevê-la verbalmente, usando apenas figuras geométricas e orientação espacial. O segundo humano atua como um proxy, seguindo as instruções e tentando reproduzi-las na tela do tablet. O programa de IA tem um minuto para adivinhar o que está sendo desenhado."
             }
+        },
+        "speak": {
+            "pick-a-challenge": "Escolha um desafio",
+            "the-challenge-is": "O desafio é",
+            "you-must-draw": "Você deve desenhar",
+            "in": "em",
+            "seconds": "segundos",
+            "are-you-ready": "Você tá pronto?",
+            "access-card": "Acesse o cartão de desenho no seu telefone"
         }
     },
     "game": {
@@ -83,6 +113,9 @@
         },
         "phrases": {
             "i-know": "Eu sei! Eu sei! É "
+        },
+        "speak": {
+            "play": "Toque em Jogar para começar"
         }
     },
     "postgame": {

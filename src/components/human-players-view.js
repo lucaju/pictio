@@ -30,11 +30,11 @@ function PartnersView() {
 			playersOptions: [
 				{
 					name: this.app.i18next.t('players.playersOptions.onePlayer'),
-					slug: this.app.i18next.t('players.playersOptions.onePlayer').toLowerCase().replace(/\s+/g, '-'),
+					slug:'one',
 					colour: 'background-yellow'
 				},{
 					name: this.app.i18next.t('players.playersOptions.twoPlayers'),
-					slug:  this.app.i18next.t('players.playersOptions.twoPlayers').toLowerCase().replace(/\s+/g, '-'),
+					slug:  'two',
 					colour: 'uk-button-primary',
 					extraIcon: true
 				}
@@ -56,23 +56,19 @@ function PartnersView() {
 		//buttons human players
 		for (const option of this.pageData.playersOptions) {
 			const bt = $(`#${option.slug}`);
-			// bt.click(this,this.done);
 
 			bt.click(() =>{
 
-				// this.playerSpeak(option.name);
-				
-
 				let target;
-				if (option.slug == '1-human-player') {
+				if (option.slug == 'one') {
 					this.app.gameState.currentChallenge = 'Blind Drawing with Left/Right Hand';
 					this.app.gameState.players = 1;
 					target = 'challenge';
-					this.app.speak('Allright then.');
+					this.app.speak(this.app.i18next.t('players.speak.onePlayer'));
 				} else {
 					this.app.gameState.players = 2;
 					target = 'challenges';
-					this.app.speak('Great.');
+					this.app.speak(this.app.i18next.t('players.speak.twoPlayers'));
 				}
 
 				this.exitAnimation(target);
@@ -80,7 +76,7 @@ function PartnersView() {
 		}
 
 		//translate
-		// this.translate();
+		this.translate();
 
 		this.app.artyom.on([this.pageData.done]).then(function () {
 			_this.doneSpeak();

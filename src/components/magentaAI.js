@@ -52,7 +52,7 @@ export default function magentaAI() {
 		// Init HTTP Request
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', this.QUICK_DRAW_API);
-		Object.keys(headers).forEach(function (key, index) {
+		Object.keys(headers).forEach(function (key) {
 			xhr.setRequestHeader(key, headers[key]);
 		});
 
@@ -182,7 +182,7 @@ export default function magentaAI() {
 		//translate word
 		let translatedAttempt = this.app.i18next.t(
 			`categories.${attemptSlug}`,
-			{lng:this.app.getLanguageCode(this.app.currentPersona.language)}
+			{lng:this.app.getLanguageCode(this.app.language)}
 		);
 
 		//Throigh interjection. Change: [20%?] Or if the word is unknown
@@ -202,7 +202,7 @@ export default function magentaAI() {
 			//Phrease translation
 			let translatedInterjection = this.app.i18next.t(
 				`interjection.${choosenItemID}`,
-				{lng:this.app.getLanguageCode(this.app.currentPersona.language)}
+				{lng:this.app.getLanguageCode(this.app.language)}
 			);
 
 			//wild card *  ||  replace * for the attempt word
@@ -231,7 +231,7 @@ export default function magentaAI() {
 		this.emit('guess', verbal);
 
 		//speak
-		this.app.speak(speech,this.app.currentPersona.language);
+		this.app.speak(speech,this.app.language);
 
 		if(this.app.IOon) {
 			this.app.socket.emit('guess', {
@@ -261,13 +261,13 @@ export default function magentaAI() {
 		//translate word
 		let translatedAttempt = this.app.i18next.t(
 			`categories.${attemptSlug}`,
-			{lng:this.app.getLanguageCode(this.app.currentPersona.language)}
+			{lng:this.app.getLanguageCode(this.app.language)}
 		);
 
 		//translate "i know" phrase"
 		let iknow = this.app.i18next.t(
 			'game.phrases.i-know',
-			{lng:this.app.getLanguageCode(this.app.currentPersona.language)}
+			{lng:this.app.getLanguageCode(this.app.language)}
 		);
 
 		verbal = speech = `${iknow} ${translatedAttempt}.`;
@@ -275,7 +275,7 @@ export default function magentaAI() {
 		//update page
 		this.emit('guess', verbal);
 
-		this.app.speak(speech,this.app.currentPersona.language);
+		this.app.speak(speech,this.app.language);
 
 		//wait 3 second before change view
 		const duration = 3000;

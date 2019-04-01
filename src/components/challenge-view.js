@@ -37,6 +37,9 @@ function ChallengeView() {
 
 		const categorySlug = this.currentDrawChallenge.replace(/\s/g, '-').toLowerCase();
 
+		const externalCardURL = 'gamepictio.com/card';
+		const accesCardText = `${this.app.i18next.t('challenges.page.access')} ${externalCardURL} ${this.app.i18next.t('challenges.page.on-device')}`;
+
 		//data
 		this.pageData = {
 			name: this.app.i18next.t(`challenges.challenges.${this.challenge.short}.name`),
@@ -49,22 +52,33 @@ function ChallengeView() {
 			ready: this.app.i18next.t('challenges.page.ready'),
 			back: this.app.i18next.t('challenges.page.back'),
 			inverseColour: this.app.interface.inverseClass(),
-			onePlayer: this.app.gameState.players == 1
+			onePlayer: this.app.gameState.players == 1,
+			accessCard: accesCardText,
+			access: this.app.i18next.t('challenges.page.access'),
+			onDevice: this.app.i18next.t('challenges.page.on-device'),
+			externalCardURL: externalCardURL
 		};
 
 		//buid page
 		const challengeHTML = challengeMustache(this.pageData);
 		$(challengeHTML).appendTo($('#view'));
 
-		this.app.speak(`The chalenge is ${this.pageData.name}`);
+		this.app.speak(`${this.app.i18next.t('challenges.speak.the-challenge-is')} ${this.pageData.name}`);
+
+		let toSpeak;
 
 		if (this.app.gameState.players === 1) {
-			this.app.speak(`You must draw ${this.pageData.drawCategory} in ${this.pageData.time} seconds`);
-			this.app.speak('Are you ready?');
+
+			toSpeak = `${this.app.i18next.t('challenges.speak.you-must-draw')} ${this.pageData.drawCategory} ${this.app.i18next.t('challenges.speak.in')} ${this.pageData.time} ${this.app.i18next.t('challenges.speak.seconds')}`;
+			this.app.speak(toSpeak);
+
+			toSpeak = `${this.app.i18next.t('challenges.speak.are-you-ready')}`;
+			this.app.speak(toSpeak);
+
 			$('.uk-card').click(this, this.callGame);
 			$('#play').click(this, this.callGame);
 		} else if (this.app.gameState.players === 2) {
-			this.app.speak('Access game pict io dott com slash card on your phone to pick a card.');
+			this.app.speak(this.app.i18next.t('challenges.speak.access-card'));
 			$('#back').click(this, this.back);
 		}
 		

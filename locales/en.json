@@ -5,6 +5,9 @@
             "play": "Let's Play",
             "instructions": "How to play?",
             "about": "About"
+        },
+        "speak": {
+            "play": "Awesome. Lets play Pict io!"
         }
     },
     "instructions": {
@@ -56,6 +59,10 @@
         },
         "dashboard": {
             "message": "Selecting human players"
+        },
+        "speak": {
+            "onePlayer": "Alright then",
+            "twoPlayers": "Great"
         }
     },
     "challenges": {
@@ -63,7 +70,9 @@
             "title": "Pick a challenge",
             "draw": "Draw",
             "ready": "I'm ready",
-            "back": "Back"
+            "back": "Back",
+            "access": "access",
+            "on-device": "on your phone to pick a card"
         },
         "dashboard": {
             "selecting": "The team is selecting a challenge"
@@ -81,6 +90,15 @@
               "name": "Verbal Description",
               "description":"In this challenge, the two human players work together to produce one sketch representing the word selected. The player who saw the word must verbally describe it, using only geometrical figures and spatial orientation. The second human acts as a proxy, following the instructions and trying to reproduce it on the screen of the tablets. The AI program has one minute to guess what is being drawn."
             }
+        },
+        "speak": {
+            "pick-a-challenge": "Pick a challenge",
+            "the-challenge-is": "The chalenge is",
+            "you-must-draw": "You must draw",
+            "in": "in",
+            "seconds": "seconds",
+            "are-you-ready": "Are you ready?",
+            "access-card": "Access the drawing card on your phone"
         }
     },
     "game": {
@@ -91,6 +109,9 @@
         },
         "phrases": {
             "i-know": "I know! I know! It is"
+        },
+        "speak": {
+            "play": "Touch on play to start"
         }
     },
     "postgame": {
