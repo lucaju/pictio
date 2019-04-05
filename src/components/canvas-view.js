@@ -5,11 +5,12 @@ import ee from 'event-emitter';
 
 export default function canvasView() {
 
+	let app;
+
 	//emitter
 	ee(this);
 
 	// Variables
-	this.app = undefined;
 	this.path = undefined;
 	this.ink = [];
 	this.prevPoints = undefined;
@@ -18,86 +19,86 @@ export default function canvasView() {
 
 	//--- Initialize...
 
-	this.init = function(context) {
-		this.app = context;
+	this.init = (context) => {
+		app = context;
 		paper.install(window);
 	};
 
-	this.startCanvas = function() {
-		const _this = this;
+	this.startCanvas = () => {
 
-		this.initInk(); // Initialize Ink array ()
+		initInk(); // Initialize Ink array ()
 		paper.setup('canvas'); // Setup Paper #canvas
 
 		let tool = new paper.Tool(); // Inititalize Paper Tool
 
 		// Paper Tool Mouse Down Event
-		tool.onMouseDown = function (event) {
+		tool.onMouseDown = (event) => {
 
 			// New Paper Path and Settings
-			_this.path = new paper.Path();
-			_this.path.strokeColor = 'black';
-			_this.path.strokeWidth = 2; //7;
+			this.path = new paper.Path();
+			this.path.strokeColor = 'black';
+			this.path.strokeWidth = 2; //7;
 
 			// Get Time [ms] for each Guess (needed for accurate Google AI Guessing)
 			let eventTimeStamp = event.event.timeStamp;
 	
-			let timeDelta = eventTimeStamp - _this.lastTimestamp;
-			let time = _this.ink[2][_this.ink[2].length - 1] + timeDelta;
+			let timeDelta = eventTimeStamp - this.lastTimestamp;
+			let time = this.ink[2][this.ink[2].length - 1] + timeDelta;
 
 			// Get XY point from event w/ time [ms] to update Ink Array
-			_this.updateInk(event.point, time);
+			updateInk(event.point, time);
 
 			// Draw XY point to Paper Path
-			_this.path.add(event.point);
+			this.path.add(event.point);
 
-			_this.prevPoints = event.point;
+			this.prevPoints = event.point;
 
 			// Reset Timestamps
-			_this.lastTimestamp = eventTimeStamp;
+			this.lastTimestamp = eventTimeStamp;
 
 		};
 
 		// Paper Tool Mouse Drag Event
-		tool.onMouseDrag = function (event) {
+		tool.onMouseDrag = (event) => {
 
 			// Get Event Timestamp and Timestamp Delta
 			let eventTimeStamp = event.event.timeStamp;
-			let timeDelta = eventTimeStamp - _this.lastTimestamp;
+			let timeDelta = eventTimeStamp - this.lastTimestamp;
 
 			// Get new Time for Ink Array
-			let time = _this.ink[2][_this.ink[2].length - 1] + timeDelta;
+			let time = this.ink[2][this.ink[2].length - 1] + timeDelta;
 
 			// Get XY point from event w/ time [ms] to update Ink Array
-			_this.updateInk(event.point, time);
+			updateInk(event.point, time);
 
 			// Draw XY point to Paper Path
-			_this.path.add(event.point);
+			this.path.add(event.point);
 
 			// Reset Timestamps
-			_this.lastTimestamp = eventTimeStamp;
+			this.lastTimestamp = eventTimeStamp;
 			
-			_this.emit('drawing',eventTimeStamp,_this.ink);
+			this.emit('drawing',eventTimeStamp, this.ink);
 
-			let canvasSize = _this.getCanvasDimensions();
+			const canvasSize = getCanvasDimensions();
 
-			if(_this.app.IOon) {
-				_this.app.socket.emit('drawing', {
-					x0: _this.prevPoints.x / canvasSize.width,
-					y0: _this.prevPoints.y / canvasSize.height,
+			if (canvasSize) {
+				app.socket.emit('drawing', {
+					room: app.socket.id,
+					x0: this.prevPoints.x / canvasSize.width,
+					y0: this.prevPoints.y / canvasSize.height,
 					x1: event.point.x / canvasSize.width,
 					y1: event.point.y / canvasSize.height
 				});
 			}
-
-			_this.prevPoints = event.point;
+			
+			this.prevPoints = event.point;
 
 		};
 
 	};
 
 	//--- Initialize Ink Array
-	this.initInk = function() {
+	const initInk = () => {
 		this.ink = [
 			[],
 			[],
@@ -106,29 +107,31 @@ export default function canvasView() {
 	};
 
 	//--- Update Ink Array w/ XY Point + Time
-	this.updateInk = function(point, time) {
+	const updateInk = (point, time) => {
 		this.ink[0].push(point.x);
 		this.ink[1].push(point.y);
 		this.ink[2].push(time);
 	};
 
 	//--- Clear Paper Drawing Canvas
-	this.clearCanvas = function() {
+	this.clearCanvas = () => {
 
 		// Remove Paper Path Layer
 		paper.project.activeLayer.removeChildren();
 		paper.view.draw();
 
 		// Init Ink Array
-		this.initInk();
+		initInk();
 	};
 
-	this.stop = function() {
+	this.stop = () => {
 		if (paper.tool) paper.tool.remove();
 	};
 
 	//--- Get Paper Canvas Dimensions Width/Height
-	this.getCanvasDimensions = function() {
+	const getCanvasDimensions = () => {
+		if (! document.getElementById('canvas'))  return;
+
 		let w = document.getElementById('canvas').offsetWidth;
 		let h = document.getElementById('canvas').offsetHeight;
 		return {

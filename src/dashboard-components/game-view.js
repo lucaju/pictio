@@ -7,7 +7,8 @@ import ProgressBar from 'progressbar.js';
 
 function gameView () {
 
-	this.app = undefined;
+	let app;
+
 	let progressBar = undefined;
 	let timeLeftSeconds = 0;
 	this.canvas = '';
@@ -17,10 +18,10 @@ function gameView () {
 		colourClass: ''
 	};
 
-	this.init = function(context, data) {
+	this.init = (context, data) => {
 
-		this.app = context;
-		this.pageData.colourClass = this.app.interface.inverseClass();
+		app = context;
+		this.pageData.colourClass = app.interface.inverseClass();
 		this.pageData.challenge = data.challenge;
 
 		//build page
@@ -61,24 +62,24 @@ function gameView () {
 			}
 		});
 
-		window.addEventListener('resize', this.onResize, false);
-		this.onResize();
+		window.addEventListener('resize', onResize, false);
+		onResize();
 
 		//animate
-		this.animation();
+		animation();
 	};
 
-	this.update = function() {
+	this.update = () => {
 		//must exists as an interface for the views
 	};
 
-	this.draw = function(data) {
+	this.draw = (data) => {
 		let w = this.canvas.width;
 		let h = this.canvas.height;
 		this.drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
 	};
 
-	this.drawLine = function(x0, y0, x1, y1, color) {
+	this.drawLine = (x0, y0, x1, y1, color) => {
 		this.canvasContext.beginPath();
 		this.canvasContext.moveTo(x0, y0);
 		this.canvasContext.lineTo(x1, y1);
@@ -88,23 +89,23 @@ function gameView () {
 		this.canvasContext.closePath();
 	};
  
-	this.clear = function() {
+	this.clear = () => {
 		$('#guess')[0].innerHTML = '...';
 		this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	};
 
-	this.guess = function(attempt) {
+	this.guess = (attempt) => {
 		$('#guess')[0].innerHTML = attempt;
 		$('#container-guess').fadeIn('fast');
 		$('#container-guess').fadeOut('slow');
 	};
 
-	this.timer = function(data) {
+	this.timer = (data) => {
 		timeLeftSeconds = data.timer;
 		progressBar.set(data.timerPercentage / 100);
 	};
 
-	this.onResize = function () {
+	const onResize = () => {
 		if(this.canvas) {
 			this.canvas.width = window.innerWidth;
 			this.canvas.height = window.innerHeight;
@@ -112,7 +113,7 @@ function gameView () {
 	};
 
 	//animation
-	this.animation = function() {
+	const animation = () => {
 
 		const duration = 1500;
 

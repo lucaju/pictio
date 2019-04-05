@@ -71,8 +71,8 @@
             "draw": "Dessiner",
             "ready": "Je suis prêt",
             "back": "Retour",
-            "access": "access",
-            "on-device": "on your phone to pick a card"
+            "qrcodeText": "Point your smartphone's camera to the QRcode to get a drawing card",
+            "no-phone-text": "No smartphone? Touch here to get a card."
         },
         "dashboard": {
             "selecting": "L'équipe choisit son défi"
@@ -94,11 +94,9 @@
         "speak": {
             "pick-a-challenge": "Pick a challenge",
             "the-challenge-is": "The chalenge is",
-            "you-must-draw": "You must draw",
-            "in": "in",
+            "you-must-draw": "You must draw the object in the card in",
             "seconds": "seconds",
-            "are-you-ready": "Are you ready?",
-            "access-card": "Access game pict io dott com slash card on your phone to pick a card"
+            "are-you-ready": "Are you ready?"
         }
     },
     "game": {

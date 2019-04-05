@@ -75,8 +75,8 @@
             "draw": "Desenhar",
             "ready": "Estou pront@",
             "back": "Voltar",
-            "access": "Acesse",
-            "on-device": "no seu telefone para ver o que desenhar"
+            "qrcodeText": "Aponte a camera do seu celular para o QRcode para pegar um cartão de desenho",
+            "no-phone-text": "Sem celular? Toque aqui para ver um cartão"
         },
         "dashboard": {
             "selecting": "O time esta escolhendo o desafio"
@@ -98,11 +98,9 @@
         "speak": {
             "pick-a-challenge": "Escolha um desafio",
             "the-challenge-is": "O desafio é",
-            "you-must-draw": "Você deve desenhar",
-            "in": "em",
+            "you-must-draw": "Você deve desenhar o objeto no cartão em",
             "seconds": "segundos",
-            "are-you-ready": "Você tá pronto?",
-            "access-card": "Acesse o cartão de desenho no seu telefone"
+            "are-you-ready": "Você esta pronto?"
         }
     },
     "game": {

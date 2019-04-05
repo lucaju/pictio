@@ -3,8 +3,6 @@
 */
 
 //modules
-import $ from 'jquery';
-
 import UIkit from 'uikit/dist/js/uikit.min';
 import uikiticons from 'uikit/dist/js/uikit-icons.min';
 
@@ -24,39 +22,47 @@ const AppDashboard = function () {
 	this.interface = new interfaceView(this);
 
 	//methods
-	this.init = function () {
+	this.init = () => {
 
 		uikiticons(UIkit);
 
 		//socket.io
-		$(document).ready(function () {
-			app.socket = io();
-			app.socket.on('interface', app.onInterfaceEvent);
-			app.socket.on('drawing', app.onDrawingEvent);
-			app.socket.on('timer', app.onTimerEvent);
-			app.socket.on('guess', app.onGuessEvent);
+		app.socket = io();
+		app.socket = io();
+		app.socket.on('connected', () => {
+			// console.log(app.socket);
+			// console.log('socket client connected');
+
+			app.socket.emit('dashboardAdded', {
+				msg: 'dashboardAdded',
+				socketID: app.socket.id,
+			});
+
 		});
-		
 
+		app.socket.on('interface', onInterfaceEvent);
+		app.socket.on('drawing', onDrawingEvent);
+		app.socket.on('timer', onTimerEvent);
+		app.socket.on('guess', onGuessEvent);
+
+	
 		app.interface.init(this);
-
-		// app.magentaAI.init(app);
 
 	};
 
-	this.onInterfaceEvent = function (data) {
+	const onInterfaceEvent = function (data) {
 		app.interface.updateView(data);
 	};
 
-	this.onDrawingEvent = function (data) {
+	const onDrawingEvent = function (data) {
 		app.interface.draw(data);
 	};
 
-	this.onGuessEvent = function (data) {
+	const onGuessEvent = function (data) {
 		app.interface.updateGuess(data);
 	};
 
-	this.onTimerEvent = function (data) {
+	const onTimerEvent = function (data) {
 		app.interface.updateTimer(data);
 	};
 

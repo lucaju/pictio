@@ -7,10 +7,12 @@ import playerssMustache from './human-players.html';
 
 function PartnersView() {
 
+	let app;
+
 	//emitter
 	ee(this);
 
-	this.app = undefined;
+	app = undefined;
 	this.pageData = {
 		title: '',
 		playersOptions: [],
@@ -18,39 +20,37 @@ function PartnersView() {
 		individualAccent: false
 	};
 
-	this.init = function (context) {
+	this.init = (context) => {
 
-		const _this = this;
-
-		this.app = context;
+		app = context;
 
 		//data
 		this.pageData = {
-			title: this.app.i18next.t('players.page.title'),
+			title: app.i18next.t('players.page.title'),
 			playersOptions: [
 				{
-					name: this.app.i18next.t('players.playersOptions.onePlayer'),
+					name: app.i18next.t('players.playersOptions.onePlayer'),
 					slug:'one',
 					colour: 'background-yellow'
 				},{
-					name: this.app.i18next.t('players.playersOptions.twoPlayers'),
+					name: app.i18next.t('players.playersOptions.twoPlayers'),
 					slug:  'two',
 					colour: 'uk-button-primary',
 					extraIcon: true
 				}
 			],
-			inverseColour: this.app.interface.inverseClass(),
+			inverseColour: app.interface.inverseClass(),
 			individualAccent: false
 		};
 
-		this.app.speak(this.pageData.title);
+		speak(this.pageData.title);
 
 		//build page
 		const playersHTML = playerssMustache(this.pageData);
 		$(playersHTML).appendTo($('#view'));
 
 		$('#home-button').click(() => {
-			this.homeButton('home');
+			homeButton('home');
 		});
 
 		//buttons human players
@@ -61,60 +61,51 @@ function PartnersView() {
 
 				let target;
 				if (option.slug == 'one') {
-					this.app.gameState.currentChallenge = 'Blind Drawing with Left/Right Hand';
-					this.app.gameState.players = 1;
+					app.gameState.currentChallenge = 'Blind Drawing with Left/Right Hand';
+					app.gameState.players = 1;
 					target = 'challenge';
-					this.app.speak(this.app.i18next.t('players.speak.onePlayer'));
+					speak(app.i18next.t('players.speak.onePlayer'));
 				} else {
-					this.app.gameState.players = 2;
+					app.gameState.players = 2;
 					target = 'challenges';
-					this.app.speak(this.app.i18next.t('players.speak.twoPlayers'));
+					speak(app.i18next.t('players.speak.twoPlayers'));
 				}
 
-				this.exitAnimation(target);
+				exitAnimation(target);
 			});
 		}
 
 		//translate
-		this.translate();
-
-		this.app.artyom.on([this.pageData.done]).then(function () {
-			_this.doneSpeak();
-		});
+		translate();
 
 		//animation
-		this.enterAnimation();
+		enterAnimation();
 
 		//emit to socker IO
-		this.emitToDashboard({
-			message: this.app.i18next.t('players.dashboard.message'),
+		emitToDashboard({
+			message: app.i18next.t('players.dashboard.message'),
 		});
 
-		//pre-select first option
-		// this.changePersona(this.app.getPersona(this.pageData.playersOptions[0].slug));
 	};
 
-	this.translate = function() {
+	const translate = () => {
 		$('#human-players').localize();
 	};
 
-	this.enterAnimation = function () {
+	const enterAnimation = () => {
 		const duration = 1500;
 
-		$('#partner-choice').css('opacity', 0);
-		$('#partner-choice').css('marginTop', 100);
+		const container = $('#human-players');
+		container.css('opacity', 0);
+		container.css('marginTop', 100);
 
-		$('#partner-choice').animate({
+		container.animate({
 			marginTop: 0,
 			opacity: 1,
 		}, duration);
 	};
 
-	this.doneSpeak = function() {
-		this.exitAnimation();
-	};
-
-	this.homeButton = function() {
+	const homeButton = () => {
 		$('#human-players').animate({
 			marginTop: '-100',
 			opacity: 0,
@@ -124,42 +115,39 @@ function PartnersView() {
 				target:'home'
 			});
 		});
+
+		emitToDashboard({
+			view: 'waiting'
+		});
 	};
 
-	this.exitAnimation = function (target) {
-		const _this = this;
+	const exitAnimation = (target) => {
 		const duration = 1500;
 
 		$('#human-players').animate({
 			marginTop: '-100',
 			opacity: 0,
-		}, duration, function () {
-			_this.emit('changeView', {
+		}, duration, () => {
+			this.emit('changeView', {
 				source: 'players',
 				target:target
 			});
 		});
 	};
 
-	this.speak = function(msg) {
-		//speack
-		this.app.speak(msg);
+	//speack
+	const speak = (msg) => {
+		app.speak(msg);
 	};
 
-	this.emitToDashboard = function({
+	const emitToDashboard = ({
 		type = 'interface',
 		view = 'players',
+		room = app.socket.id,
 		colour = '',
 		message = ''
-	}) {
-
-		if (this.app.IOon) {
-			this.app.socket.emit(type, {
-				view: view,
-				colour: colour,
-				message: message,
-			});
-		}
+	}) => {
+		app.socket.emit(type, { view, room, colour, message});
 	};
 
 }

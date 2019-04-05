@@ -7,10 +7,11 @@ import partnersMustache from './partners.html';
 
 function PartnersView() {
 
+	let app;
+
 	//emitter
 	ee(this);
 
-	this.app = undefined;
 	this.pageData = {
 		title: '',
 		inverseColour: undefined,
@@ -20,20 +21,18 @@ function PartnersView() {
 		individualAccent: false
 	};
 
-	this.init = function (context) {
+	this.init = (context) => {
 
-		const _this = this;
-
-		this.app = context;
+		app = context;
 
 		//lintit option by language
-		const personas = this.app.personas.filter(persona => persona.languageCode == this.app.language);
+		const personas = app.personas.filter(persona => persona.languageCode == app.language);
 
 		//data
 		this.pageData = {
 			title: 'Choose your partner',
-			inverseColour: this.app.interface.inverseClass(),
-			done: this.app.i18next.t('personas.page.done'),
+			inverseColour: app.interface.inverseClass(),
+			done: app.i18next.t('personas.page.done'),
 			personas: personas,
 			showName: false,
 			individualAccent: false
@@ -44,90 +43,91 @@ function PartnersView() {
 		$(partnerHTML).appendTo($('#view'));
 		
 		//buttons - personas
-		for (let persona of this.app.personas) {
+		for (let persona of app.personas) {
 			const bt = $(`#${persona.slug}`);
-			bt.addClass(this.getClass(persona.colour));
+			bt.addClass(getClass(persona.colour));
 			bt.data({id: persona.slug});
-			bt.click(this,this.personaClick);
+			bt.click(this, personaClick);
 
-			const colourTraslated = this.app.i18next.t(`personas.colours.${persona.colour}`);
+			const colourTraslated = app.i18next.t(`personas.colours.${persona.colour}`);
 
-			this.app.artyom.on([colourTraslated]).then(function (i) {
-				_this.personaSpeak(this.indexes[i]);
-			});
+			app.artyom.on([colourTraslated])
+				.then( (i) => {
+					personaSpeak(this.indexes[i]);
+				});
 
 		}
 
 		//translate
-		this.translate();
+		translate();
 
 		//done
-		$('#done').click(this,this.done);
+		$('#done').click(this, done);
 
-		this.app.artyom.on([this.pageData.done]).then(function () {
-			_this.doneSpeak();
-		});
+		app.artyom.on([this.pageData.done])
+			.then( () => {
+				doneSpeaking();
+			});
 
 		//animation
-		this.enterAnimation();
+		enterAnimation();
 
 		//emit to socker IO
-		this.emitToDashboard({
-			message: this.app.i18next.t('personas.dashboard.assembly'),
+		emitToDashboard({
+			message: app.i18next.t('personas.dashboard.assembly'),
 		});
 
 		//pre-select first option
-		this.changePersona(this.app.getPersona(personas[0].slug));
+		changePersona(app.getPersona(personas[0].slug));
 	};
 
-	this.translate = function() {
+	const translate = () => {
 		$('#partner-choice').localize();
 	};
 
-	this.personaClick = function (e) {
-		const _this = e.data;
+	const personaClick = (e) => {
 		const bt = $(e.currentTarget);
 		//get persona
-		const persona = _this.app.getPersona(bt.attr('id'));
-		_this.changePersona(persona);
+		const persona = app.getPersona(bt.attr('id'));
+		changePersona(persona);
 	};
 
-	this.personaSpeak = function (colour) {
+	const personaSpeak = (colour) => {
 		// //get persona
-		const persona = this.app.getPersonaByColour(colour);
-		this.changePersona(persona);
+		const persona = app.getPersonaByColour(colour);
+		changePersona(persona);
 	};
 
-	this.changePersona = function (persona) {
+	const changePersona = (persona) => {
 
 		//if it is not selected
-		if (this.app.currentPersona != persona) {
+		if (app.currentPersona != persona) {
 
-			this.app.currentPersona = persona;
+			app.currentPersona = persona;
 
 			//colour
-			this.app.interface.changeColour(persona.colour);
-			this.invertColour();
+			app.interface.changeColour(persona.colour);
+			invertColour();
 
 			//translation colour
-			let translatedColor = this.translateColour(persona,this.pageData.individualAccent);
+			let translatedColor = translateColour(persona,this.pageData.individualAccent);
 
 			//speak
-			this.speak(persona,translatedColor);
+			speak(persona,translatedColor);
 
 			//emit to deashboard
-			this.emitToDashboard({
-				colour: this.app.currentPersona.colour,
-				message: this.app.i18next.t('personas.dashboard.assembly'),
+			emitToDashboard({
+				colour: app.currentPersona.colour,
+				message: app.i18next.t('personas.dashboard.assembly'),
 			});
 
 		}
 	};
 
-	this.invertColour = function() {
+	const invertColour = () => {
 		const duration = 500;
 
-		if (this.app.interface.inverseClassToggle == true) {
+		if (app.interface.inverseClassToggle == true) {
 			$('#title').addClass('uk-light', {
 				duration: duration
 			});
@@ -138,7 +138,7 @@ function PartnersView() {
 		}
 	};
 
-	this.getClass = function (colour) {
+	const getClass = (colour) => {
 
 		if (colour == 'light') {
 			return 'uk-button-default uk-background-default';
@@ -155,7 +155,7 @@ function PartnersView() {
 
 	};
 
-	this.enterAnimation = function () {
+	const enterAnimation =  () => {
 		const duration = 1500;
 
 		$('#partner-choice').css('opacity', 0);
@@ -167,76 +167,67 @@ function PartnersView() {
 		}, duration);
 	};
 
-	this.done = function(e) {
-		const _this = e.data;
+	const done = () => {
 
-		let persona = _this.app.currentPersona;
+		let persona = app.currentPersona;
 		
-		let translatedColor = _this.translateColour(persona,_this.pageData.individualAccent);
+		let translatedColor = translateColour(persona, this.pageData.individualAccent);
 
-		_this.speak(persona,translatedColor);
-		_this.exitAnimation();
+		speak(persona,translatedColor);
+		exitAnimation();
 	};
 
-	this.doneSpeak = function() {
-		this.exitAnimation();
+	const doneSpeaking = () => {
+		exitAnimation();
 	};
 
-	this.exitAnimation = function () {
-		const _this = this;
+	const exitAnimation =  () => {
 		const duration = 1500;
 
 		$('#partner-choice').animate({
 			marginTop: '-100',
 			opacity: 0,
-		}, duration, function () {
-			_this.emit('changeView', {
+		}, duration, () => {
+			this.emit('changeView', {
 				source: 'partners',
 				target:'challenges'
 			});
 		});
 	};
 
-	this.translateColour = function(persona,accent) {
+	const translateColour = (persona,accent) => {
 		if (accent) {
-			return this.app.i18next.t(
+			return app.i18next.t(
 				`personas.colours.${persona.colour}`, {
-					lng: this.app.getLanguageCode(persona.language)
+					lng: app.getLanguageCode(persona.language)
 				}
 			);
 		} else {
-			return this.app.i18next.t(
+			return app.i18next.t(
 				`personas.colours.${persona.colour}`
 			);
 		}
-
 	};
 
-	this.speak = function(persona,translatedColor) {
+	const speak = (persona,translatedColor) => {
 
 		//speak
 		let textToSpeak = '';
 		if (this.pageData.showName) textToSpeak = `${persona.name}. `;
 		textToSpeak += translatedColor;
 
-		this.app.speak(textToSpeak, persona.language);
+		app.speak(textToSpeak, persona.language);
 
 	};
 
-	this.emitToDashboard = function({
+	const emitToDashboard = ({
 		type = 'interface',
 		view = 'partners',
+		room = app.socket.id,
 		colour = '',
 		message = ''
-	}) {
-
-		if (this.app.IOon) {
-			this.app.socket.emit(type, {
-				view: view,
-				colour: colour,
-				message: message,
-			});
-		}
+	}) => {
+		app.socket.emit(type, {view, room, colour, message});
 	};
 
 }

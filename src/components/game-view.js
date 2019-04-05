@@ -13,12 +13,14 @@ import magentaAI from './magentaAI';
 
 function GameView() {
 
+	let app;
+
 	//emitter
 	ee(this);
 
 	let progressBar;
 
-	this.app = undefined;
+	app = undefined;
 	this.challenge = undefined;
 	this.timer = undefined;
 	this.pageData = {
@@ -34,25 +36,25 @@ function GameView() {
 	this.initiated = false;
 
 
-	this.init = function (context) {
+	this.init = (context) => {
 
-		this.app = context;
+		app = context;
 
 		//setup
-		this.canvasPaper.init(this.app);
-		this.magentaAI.init(this.app);
+		this.canvasPaper.init(app);
+		this.magentaAI.init(app);
 
 		//set challenge
-		this.challenge = this.app.getChallenge(this.app.gameState.currentChallenge);
+		this.challenge = app.getChallenge(app.gameState.currentChallenge);
 
 		//Page data
 		this.pageData = {
 			time: this.challenge.time,
-			clear: this.app.i18next.t('game.page.clear'),
-			play: this.app.i18next.t('game.page.play'),
-			back: this.app.i18next.t('game.page.back'),
+			clear: app.i18next.t('game.page.clear'),
+			play: app.i18next.t('game.page.play'),
+			back: app.i18next.t('game.page.back'),
 			showBackButton: false,
-			inverseColour: this.app.interface.inverseClass()
+			inverseColour: app.interface.inverseClass()
 		};
 
 		//Build page
@@ -63,15 +65,15 @@ function GameView() {
 		$(gameHTML).appendTo($('#app'));
 
 		$('#home-button').click(() => {
-			this.homeButton('home');
+			homeButton('home');
 		});
 
 		//translate
-		this.translate();
+		translate();
 
 		//set button actions
-		$('#start-drawing-overlay').click(this, this.start);
-		$('#clear-drawing').click(this, this.clear);
+		$('#start-drawing-overlay').click(this, start);
+		$('#clear-drawing').click(this, clear);
 
 		if (!this.initiated) {
 			this.initiated = true;
@@ -79,55 +81,54 @@ function GameView() {
 		}
 
 		//animation
-		this.enterAnimation();
+		enterAnimation();
 
 		//emit to socker IO
-		this.emitToDashboard({
+		emitToDashboard({
 			type: 'interface',
 			view: 'game',
-			challenge: this.app.gameState.currentChallenge
+			challenge: app.gameState.currentChallenge
 		});
 
-		this.app.speak(this.app.i18next.t('game.speak.play'));
+		app.speak(app.i18next.t('game.speak.play'));
 
 	};
 
-	this.translate = function () {
+	const translate = () => {
 		$('#game').localize();
 	};
 
-	this.updatePage = function (guess) {
+	const updatePage = (guess) => {
 		$('#guess')[0].innerHTML = guess;
 		$('#container-guess').fadeIn('fast');
 		$('#container-guess').fadeOut('slow');
 	};
 
-	this.addListeners = function () {
-		const _this = this;
+	this.addListeners = () => {
 
-		this.canvasPaper.on('drawing', function (ets, ink) {
-			_this.magentaAI.read(ets, ink);
+		this.canvasPaper.on('drawing', (ets, ink) => {
+			this.magentaAI.read(ets, ink);
 		});
 
-		this.magentaAI.on('guess', function (guess) {
-			_this.updatePage(guess);
+		this.magentaAI.on('guess', (guess) => {
+			updatePage(guess);
 
-			_this.emitToCard({
+			emitToCard({
 				action: 'updateGuess',
 				guess: guess
 			});
 		});
 
-		this.magentaAI.on('stop', function () {
-			_this.canvasPaper.stop();
-			_this.timer.stop();
+		this.magentaAI.on('stop', () => {
+			this.canvasPaper.stop();
+			this.timer.stop();
 		});
 
 		if (!hasListeners(this.magentaAI, 'win')) {
-			this.magentaAI.on('win', function () {
+			this.magentaAI.on('win', () => {
 				$('.uk-offcanvas-content').show();
 				$('#game').remove();
-				_this.emit('changeView', {
+				this.emit('changeView', {
 					source: 'game',
 					target: 'post-game'
 				});
@@ -136,36 +137,32 @@ function GameView() {
 
 	};
 
-	this.start = function (e) {
-		const _this = e.data;
+	const start = (e) => {
 
 		$(e.currentTarget).remove();
 
-		_this.app.gameState.attempts = [];
+		app.gameState.attempts = [];
 
-		_this.timeGame();
-		_this.canvasPaper.startCanvas();
+		timeGame();
+		this.canvasPaper.startCanvas();
 
-		_this.emitToCard({
+		emitToCard({
 			action: 'start'
 		});
-
 	};
 
-
-	this.clear = function (e) {
-		const _this = e.data;
+	const clear = () => {
 
 		$('#guess')[0].innerHTML = '...';
-		_this.canvasPaper.clearCanvas();
+		this.canvasPaper.clearCanvas();
 
-		_this.emitToCard({
+		emitToCard({
 			action: 'updateGuess',
 			guess: '...'
 		});
 
 		//emit to socker IO
-		_this.emitToDashboard({
+		emitToDashboard({
 			type: 'guess',
 			view: 'game',
 			action: 'clear',
@@ -173,10 +170,18 @@ function GameView() {
 		});
 	};
 
-	this.homeButton = function () {
+	const homeButton = () => {
 		this.timer.stop();
-		this.app.gameState.attempts = [];
+		app.gameState.attempts = [];
 		this.canvasPaper.clearCanvas();
+
+		emitToCard({
+			action: 'wait',
+		});
+
+		emitToDashboard({
+			view: 'waiting'
+		});
 
 		$('.uk-offcanvas-content').show();
 		$('#game').remove();
@@ -187,9 +192,8 @@ function GameView() {
 	};
 
 	// --- set timer for game
-	this.timeGame = function () {
+	const timeGame = () => {
 
-		const _this = this;
 		const challengeTime = this.challenge.time;
 
 		this.timer = new easytimer(); // reset timer
@@ -235,11 +239,11 @@ function GameView() {
 		});
 
 
-		this.timer.addEventListener('secondTenthsUpdated', function () {
+		this.timer.addEventListener('secondTenthsUpdated', () => {
 
-			const min = _this.timer.getTimeValues().minutes;
-			const sec = _this.timer.getTimeValues().seconds;
-			const tsec = _this.timer.getTimeValues().secondTenths;
+			const min = this.timer.getTimeValues().minutes;
+			const sec = this.timer.getTimeValues().seconds;
+			const tsec = this.timer.getTimeValues().secondTenths;
 
 			timeLeftSeconds = (min * 60) + sec;
 
@@ -249,24 +253,23 @@ function GameView() {
 			progressBar.set(timeLeftPercent / 100); // Number from 0.0 to 1.0
 
 			//IO - emit timer
-			if (_this.app.IOon) {
-				_this.app.socket.emit('timer', {
-					view: 'game',
-					timer: timeLeftSeconds,
-					timerPercentage: timeLeftPercent
-				});
+			app.socket.emit('timer', {
+				view: 'game',
+				timer: timeLeftSeconds,
+				timerPercentage: timeLeftPercent
+			});
 
-				_this.emitToCard({
-					action: 'updateTime',
-					time: timeLeftSeconds
-				});
-			}
+			emitToCard({
+				action: 'updateTime',
+				time: timeLeftSeconds
+			});
+			
 		});
 
-		this.timer.addEventListener('targetAchieved', function () {
+		this.timer.addEventListener('targetAchieved', () => {
 			$('.uk-offcanvas-content').show();
 			$('#game').remove();
-			_this.emit('changeView', {
+			this.emit('changeView', {
 				source: 'game',
 				target: 'post-game'
 			});
@@ -274,7 +277,7 @@ function GameView() {
 	};
 
 	//animation
-	this.enterAnimation = function () {
+	const enterAnimation = () => {
 		const duration = 1500;
 
 		let container = $('#game');
@@ -298,49 +301,26 @@ function GameView() {
 		}, duration);
 	};
 
-	this.emitToCard = function ({
+	const emitToCard = ({
 		type = 'card',
 		view = 'challenge',
 		action = 'new',
-		name = '',
-		short = '',
-		draw = '',
-		drawCategory = '',
+		room = app.socket.id,
 		time = 0,
-		ready = '',
 		guess = ''
-	}) {
-		if (this.app.IOon) {
-			this.app.socket.emit(type, {
-				view: view,
-				action: action,
-				name: name,
-				short: short,
-				draw: draw,
-				drawCategory: drawCategory,
-				time: time,
-				ready: ready.pageData,
-				guess: guess
-			});
-		}
+	}) => {
+		app.socket.emit(type, {view, action, room, name, time, guess: guess});
 	};
 
-	this.emitToDashboard = function ({
+	const emitToDashboard = ({
 		type = 'interface',
 		view = 'game',
+		room = app.socket.id,
 		challenge = '',
 		action = '',
 		attempt = ''
-	}) {
-
-		if (this.app.IOon) {
-			this.app.socket.emit(type, {
-				view: view,
-				challenge: challenge,
-				action: action,
-				attempt: attempt
-			});
-		}
+	}) => {
+		app.socket.emit(type, {view, room, challenge, action, attempt});
 	};
 
 }

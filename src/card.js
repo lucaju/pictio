@@ -3,8 +3,6 @@
 */
 
 //modules
-import $ from 'jquery';
-
 import UIkit from 'uikit/dist/js/uikit.min';
 import uikiticons from 'uikit/dist/js/uikit-icons.min';
 
@@ -17,32 +15,50 @@ import cardView from './card-components/card-view';
 
 
 /// APP
-
 const AppCard = function () {
 
 	// main variables
 	this.socket = undefined;
-	this.card = new cardView(this);
+	const card = new cardView(this);
 
 	//methods
-	this.init = function () {
+	this.init = () => {
 
 		uikiticons(UIkit);
 
 		//socket.io
-		$(document).ready(function () {
-			app.socket = io();
-			app.socket.on('card', app.onCard);
+		app.socket = io();
+
+		app.socket.on('connected', () => {
+
 		});
 
-		app.card.update();
+		app.socket.emit('cardAdded', {
+			msg: 'cardAdded',
+			socketID: app.socket.id,
+		});
+
+		app.socket.on('roomJoined', (data) => {
+			console.log(data)
+			app.socket.room = data.roomID;
+
+			app.socket.emit('card', {
+				component: 'card',
+				action: 'start',
+				room: data.roomID
+			});
+
+		});
+
+		app.socket.on('card', onCard);
+
+		card.update();
 
 	};
 
-	this.onCard = function (data) {
-		app.card.update(data);
+	const onCard = (data) => {
+		card.update(data);
 	};
-
 };
 
 const app = new AppCard();

@@ -10,7 +10,7 @@ import postgameView from './postgame-view';
 
 export default function interfaceView(context) {
 
-	this.app = context;
+	const app = context;
 
 	this.currentViewName = 'waiting';
 	this.currentView = '';
@@ -20,12 +20,12 @@ export default function interfaceView(context) {
 	this.classBlend = '';  // blend
 
 
-	this.init = function () {
+	this.init = () => {
 		this.currentViewName = 'waiting';
 		this.changeView(this.currentViewName);
 	};
 
-	this.changeView = function (viewName, data) {
+	this.changeView = (viewName, data) => {
 
 		//clean view
 		const view = $('#view');
@@ -43,11 +43,11 @@ export default function interfaceView(context) {
 			this.currentView = postgameView;
 		}
 
-		this.currentView.init(this.app, data);
+		this.currentView.init(app, data);
 
 	};
 
-	this.updateView = function (data) {
+	this.updateView = (data) => {
 		if (data.view == 'partners' || data.view == 'challenges' || data.view == 'players') {
 			if (this.currentViewName != 'waiting') this.changeView('waiting');
 			if (data.colour) this.changeColour(data.colour);
@@ -65,7 +65,7 @@ export default function interfaceView(context) {
 
 	};
 	
-	this.updateGuess = function (data) {
+	this.updateGuess = (data) => {
 		if (this.currentViewName == 'game') {
 			if (data.action == 'clear') {
 				this.currentView.clear(data);
@@ -75,23 +75,23 @@ export default function interfaceView(context) {
 		}
 	};
 
-	this.updateTimer = function (data) {
+	this.updateTimer = (data) => {
 		if (this.currentViewName == 'game') {
 			this.currentView.timer(data);
 		}
 	};
 
-	this.draw = function(data) {
+	this.draw = (data) => {
 		if(this.currentViewName == 'game') {
 			this.currentView.draw(data);
 		}
 	};
 
-	this.inverseClass = function () {
+	this.inverseClass = () => {
 		return this.inverseClassToggle ? 'uk-light' : 'uk-dark';
 	};
 
-	this.changeColour = function(colour) {
+	this.changeColour = (colour) => {
 
 		const duration = 1000;
 

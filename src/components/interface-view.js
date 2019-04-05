@@ -14,7 +14,7 @@ import postgameView from './postgame-view';
 
 export default function interfaceView(context) {
 
-	this.app = context;
+	const app = context;
 
 	this.currentViewName = 'home';
 	this.currentView = '';
@@ -24,14 +24,12 @@ export default function interfaceView(context) {
 	this.classBlend = '';  // blend
 
 
-	this.init = function() {
+	this.init = () => {
 		this.currentViewName = {target:'home'};
 		this.changeView(this.currentViewName);
 	};
 
-	this.changeView = function(event) {
-		
-		const _this = this;
+	this.changeView = (event) => {
 
 		//clean view
 		const view = $('#view');
@@ -40,8 +38,7 @@ export default function interfaceView(context) {
 		this.currentViewName = event.target;
 
 		if(event.target == 'home') {
-			//reset gameState
-			this.app.resetGameState();
+			app.resetGameState();
 			this.currentView = homeView;
 		} else if(event.target == 'partners') {
 			this.currentView = partnersView;
@@ -57,16 +54,16 @@ export default function interfaceView(context) {
 			this.currentView = postgameView;
 		}
 
-		this.currentView.init(this.app);
-		this.currentView.once('changeView', view => _this.changeView(view));
+		this.currentView.init(app);
+		this.currentView.once('changeView', view => this.changeView(view));
 
 	};
 
-	this.inverseClass = function() {
+	this.inverseClass = () => {
 		return this.inverseClassToggle ? 'uk-light' : 'uk-dark';
 	};
 
-	this.changeColour = function(colour) {
+	this.changeColour = (colour) => {
 
 		const duration = 1000;
 

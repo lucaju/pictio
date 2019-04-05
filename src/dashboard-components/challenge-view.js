@@ -5,11 +5,11 @@ import challengeMustache from './challenge.html';
 
 function challengeView () {
 
-	this.init = function() {
+	this.init = () => {
 		// this.update();
 	};
 
-	this.update = function(data) {
+	this.update = (data) => {
 
 		if (data.players == 1) {
 			data.extraIcon = false;
@@ -26,12 +26,12 @@ function challengeView () {
 		$('#view').html(challengeHTML);
 
 		//animation
-		this.animation();
+		animation();
 	};
 	
 
 	//animation
-	this.animation = function() {
+	const animation = () => {
 		const duration = 1500;
 
 		let container = $('#challenge');

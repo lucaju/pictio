@@ -9,59 +9,55 @@ export default function cardView (context) {
 
 	let pageData = {};
 
-	this.init = function() {
+	this.init = () => {
 		// this.update();
 	};
 
-	this.update = function(data) {
+	this.update = (data) => {
 
-		if (!data) data = {action: 'new'};
+		if (!data) data = {action: 'wait'};
 
-		if (data.action == 'new') {
+		if (data.action == 'new' || data.action == 'wait') {
+
+			let waiting = (data.action == 'new') ? false : true;
+
 			pageData = data;
+			pageData.waiting = waiting;
 			
 			//build page
 			const challengeHTML = cardMustache(pageData);
-			
 			$('#view').html(challengeHTML);
 
-			//animation
-			this.animation();
+			$('#play').click(this, callGame);
 
-			// $('.uk-card').click(this, this.callGame);
-			if (data.action == 'new') $('#play').click(this, this.callGame);
-			
-		} else if (data.action == 'start') {
-			this.startGame(data);
+			//animation
+			animation();
+
 		} else if (data.action == 'updateGuess') {
-			this.updateGuess(data);
+			updateGuess(data);
 		} else if (data.action == 'updateTime') {
-			this.updatTime(data);
+			updatTime(data);
 		} else if (data.action == 'postGame') {
-			this.endGame(data);
+			endGame(data);
 		}
 	};
 
-	this.startGame = function updateGame() {
-		$('#play').remove();
-	};
-
-	this.updateGuess = function updateGame(data) {
+	const updateGuess = (data) => {
 		$('#guess').html(data.guess);
 	};
 
-	this.updatTime = function updateGame(data) {
+	const updatTime = (data) => {
 		$('#time').html(`${data.time + 1}s`);
 	};
 
-	this.endGame = function updateGame(data) {
+	const endGame =  (data) => {
 		$('#time').html('');
 		$('#guess').html(data.guess);
 	};
 	
 
 	//animation
-	this.animation = function() {
+	const animation = () => {
 		const duration = 1500;
 
 		let container = $('#challenge');
@@ -85,30 +81,27 @@ export default function cardView (context) {
 		}, duration);
 	};
 
-	this.callGame = () => {
+	const callGame = () => {
 		$('#play').remove();
 		$('#guess').html('...');
 		
 		emitToGame({
 			name: pageData.name,
-			actio: 'play',
+			action: 'play',
+			room: app.socket.room,
 			drawCategory: pageData.drawCategory,
 		});
 	};
 	
-	const emitToGame = function emitToGame({
+	const emitToGame = ({
 		type = 'card',
 		view = 'challenge',
 		name = '',
 		action = 'play',
+		room = '',
 		drawCategory = ''
-	}) {
-		app.socket.emit(type, {
-			view: view,
-			name: name,
-			action: action,
-			drawCategory: drawCategory
-		});
+	}) => {
+		app.socket.emit(type, {view, name, action, room, drawCategory});
 	};
 
 }

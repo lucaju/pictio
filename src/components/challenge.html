@@ -8,41 +8,40 @@
             </div>
             <div uk-grid>
                 <div class="uk-width-expand"></div>
-                    <div class="uk-card uk-card-default uk-width-2-3 uk-margin-small-left uk-padding-remove-left uk-box-shadow-large uk-border-rounded">
-                    {{#onePlayer}}
-                    <div class="uk-card-header">
-                        <h4 class="uk-h4 uk-margin-remove-bottom" data-i18n="challenges.page.draw">{{draw}}</h4>
+                <div id='card' class="uk-width-2-3">
+                    <div id="drawing-card" class="uk-card uk-card-default uk-box-shadow-large uk-border-rounded uk-margin-small-left uk-padding-remove-left ">
+                        <div class="uk-card-header">
+                            <h4 class="uk-h4 uk-margin-remove-bottom" data-i18n="challenges.page.draw">{{draw}}</h4>
+                        </div>
+                    
+                        <div class="uk-card-body uk-card-primary uk-box-shadow-large uk-light">
+                            <h2 class="uk-h2" data-i18n="categories.{{categorySlug}}">{{drawCategory}}</h2>
+                            <p class="uk-text-small">
+                                <span uk-icon="future" class="uk-margin-small-right"></span>{{time}}s
+                            </p>
+                        </div>
+                    
+                        <div class="uk-card-footer uk-box-shadow-large">
+                            <button id="play" class="uk-button uk-button-text uk-button-large uk-border-rounded uk-width-1-1"
+                                data-i18n="challenges.page.ready">{{ready}}
+                                <span uk-icon="chevron-right" class="uk-margin-small-left"></span>
+                            </button>
+                        </div>
                     </div>
-                    {{/onePlayer}}
-                    <div class="uk-card-body uk-background-primary uk-box-shadow-large uk-light">
-                        {{#onePlayer}}
-                        <h2 class="uk-h2" data-i18n="categories.{{categorySlug}}">{{drawCategory}}</h2>
-                        <p class="uk-text-small"><span uk-icon="future" class="uk-margin-small-right"></span>{{time}}s</p>
-                        {{/onePlayer}}
-                        {{^onePlayer}}
-                        <p>
-                            <span data-i18n="page.access">{{access}}</span><br/>
-                            <span class="uk-text-lead">{{externalCardURL}}</span><br/>
-                            <span data-i18n="page.on-device">{{onDevice}}</span>
-                        </p>
-                        {{/onePlayer}}
-                    </div>
-                    {{#onePlayer}}
-                    <div class="uk-card-footer uk-box-shadow-large">
-                        <button id="play" class="uk-button uk-button-text uk-button-large uk-border-rounded uk-width-1-1" data-i18n="challenges.page.ready">{{ready}}<span uk-icon="chevron-right" class="uk-margin-small-left"></span></button>
-                    </div>
-                    {{/onePlayer}}
                 </div>
                 <div class="uk-width-expand"></div>
             </div>
         </div>
         <div class="uk-width-expand"></div>
     </div>
+
     {{^onePlayer}}
     <div class="uk-margin-large-top">
-        <button id="back" class="uk-button uk-button-text uk-text-meta {{inverseColour}}"><span uk-icon="chevron-left" class="uk-margin-small-right"></span><span data-i18n="challenges.page.back">{{back}}</span></button>
+        <button id="back" class="uk-button uk-button-text uk-text-meta {{inverseColour}}"><span uk-icon="chevron-left"
+                class="uk-margin-small-right"></span><span data-i18n="challenges.page.back">{{back}}</span></button>
     </div>
     {{/onePlayer}}
+
 </div>
 
 <button id="home-button" class="uk-button uk-button-large uk-border-rounded uk-padding-remove">

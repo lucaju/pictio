@@ -9,10 +9,11 @@ import aboutMustache from './about.html';
 
 function HomeView() {
 
+	let app;
+
 	//emitter
 	ee(this);
 	
-	this.app = undefined;
 	this.homeData = {
 		subtitle: '',
 		buttons: {},
@@ -28,16 +29,16 @@ function HomeView() {
 		sponsorTitle:''
 	};
 
-	this.init = function (context) {
+	this.init = (context) => {
 
-		this.app = context;
+		app = context;
 
 		//data
 		this.homeData = {
-			subtitle: this.app.i18next.t('intro.subtitle'),
+			subtitle: app.i18next.t('intro.subtitle'),
 			buttons: {
-				play: this.app.i18next.t('intro.buttons.play'),
-				intructions: this.app.i18next.t('intro.buttons.intructions')
+				play: app.i18next.t('intro.buttons.play'),
+				intructions: app.i18next.t('intro.buttons.intructions')
 			},
 			languages: [{
 				name: 'English',
@@ -55,15 +56,15 @@ function HomeView() {
 		};
 
 		this.instructionData = {
-			title: this.app.i18next.t('instructions.title'),
-			text: this.app.i18next.t('instructions.text')
+			title: app.i18next.t('instructions.title'),
+			text: app.i18next.t('instructions.text')
 		};
 
 		this.aboutData = {
-			title: this.app.i18next.t('about.title'),
-			text: this.app.i18next.t('about.text'),
-			sponsortitle: this.app.i18next.t('about.sponsortitle'),
-			youtubeid: this.app.i18next.t('about.youtubeid')
+			title: app.i18next.t('about.title'),
+			text: app.i18next.t('about.text'),
+			sponsortitle: app.i18next.t('about.sponsortitle'),
+			youtubeid: app.i18next.t('about.youtubeid')
 		};
 		
 
@@ -78,24 +79,18 @@ function HomeView() {
 		$(aboutHTML).appendTo($('#view'));
 
 		//translation
-		this.translate();
+		translate();
 
 		//button
-		$('#go-play').click(this,this.play);
+		$('#go-play').click(this, play);
 
-		this.emitToDashboard({
+		emitToDashboard({
 			view: 'waiting'
-		});
-
-		this.emitToCard({
-			action: 'new',
 		});
 
 	};
 
-	this.translate = function() {
-		const _this = this;
-
+	const translate = () => {
 		$('#intro').localize();
 
 		$('#instructions').localize({
@@ -105,19 +100,17 @@ function HomeView() {
 			joinArrays: ' '
 		});
 
-		this.app.i18next.on('languageChanged', () => {
+		app.i18next.on('languageChanged', () => {
 			$('#intro').localize();
 			$('#instructions').localize({
 				joinArrays: ' '
 			});
-			_this.udpateAboutVideo();
-
-			//change about 
+			udpateAboutVideo();
 		});
 	};
 
-	this.udpateAboutVideo = function() {
-		this.aboutData.youtubeid = this.app.i18next.t('about.youtubeid');
+	const udpateAboutVideo = () => {
+		this.aboutData.youtubeid = app.i18next.t('about.youtubeid');
 		const aboutHTML = aboutMustache(this.aboutData);
 		$('#about').remove();
 		$(aboutHTML).appendTo($('#view'));
@@ -127,20 +120,19 @@ function HomeView() {
 		});
 	};
 
-	this.play = function(e) {
+	const play = () => {
 
-		const _this = e.data;
 		const duration = 1500;
 
-		_this.app._initArtyom(); // initialize languate
+		if(!app.artyom.initialized) app._initArtyom(); // initialize languate
 
-		_this.app.speak(_this.app.i18next.t('intro.speak.play'));
+		app.speak(app.i18next.t('intro.speak.play'));
 
 		$('#intro').animate({
 			marginTop: '-100',
 			opacity: 0,
-		}, duration, function () {
-			_this.emit('changeView', {
+		}, duration, () => {
+			this.emit('changeView', {
 				source: 'home',
 				target:'players' //'partners'
 			});
@@ -148,27 +140,12 @@ function HomeView() {
 
 	};
 
-	this.emitToCard = function ({
-		type = 'card',
-		action = 'new'
-	}) {
-		if (this.app.IOon) {
-			this.app.socket.emit(type, {
-				action: action,
-			});
-		}
-	};
-
-	this.emitToDashboard = function ({
+	const emitToDashboard = ({
 		type = 'interface',
 		view = 'waiting',
-	}) {
-		if (this.app.IOon) {
-			this.app.socket.emit(type, {
-				view: view,
-				message: ''
-			});
-		}
+		message = ''
+	}) => {	
+		app.socket.emit(type, {view, message});
 	};
 
 }

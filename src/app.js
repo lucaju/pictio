@@ -24,13 +24,11 @@ import 'uikit/dist/css/uikit.min.css';
 import './style.css';
 
 
-
 /// APP
-
 const App = function () {
 
 	//main variables
-	this.IOon = true;
+	this.vistualCardRegistered = false;
 	this.socket = undefined;
 	this.i18next = i18next;
 	this.artyom = new Artyom();
@@ -46,31 +44,32 @@ const App = function () {
 	this.currentPersona = this.personas[0];
 
 	this.gameState = {
+		players: 0,
+		noPhone: false,
 		currentChallenge: '', //'', //current challenge
 		currentCategory: '', //'', //current draw category
 		firstSpeak: true, //regulates is it is the first time the machine speak on each time that users play the challenge
 		success: false,
 		attempts: [], //current list of guess attempts
-		// timer: new easytimer() //innitiate timer object
 	};
 
 	//methods
-	this.init = function () {
+	this.init = () => {
 
 		uikiticons(UIkit);
 
-		// await $.getJSON('/lang')
-		// 	.then ( (d) =>{
-		// 		this.language = d.lang;
-		// 	});
-
 		//socket.io
-		if (this.IOon) {
-			$(document).ready(function () {
-				app.socket = io();
-				app.socket.on('card', app.onCard);
+		app.socket = io();
+		app.socket.on('connected', () => {
+			// console.log(app.socket);
+			// console.log('socket client connected');
+
+			app.socket.emit('gameCreated', {
+				msg: 'gameCreated',
+				socketID: app.socket.id,
 			});
-		}
+
+		});
 
 		app.i18next
 			.use(i18nextBackend)
@@ -81,53 +80,33 @@ const App = function () {
 				backend: {
 					loadPath: 'locales/{{lng}}.json'
 				}
-			}, function (err, t) {
-
+			}).then( () => {
 				jqueryI18next.init(window.app.i18next, $);
-				// , {
-				//         tName: 't', // --> appends $.t = i18next.t
-				//         i18nName: 'i18n', // --> appends $.i18n = i18next
-				//         handleName: 'localize', // --> appends $(selector).localize(opts);
-				//         selectorAttr: 'data-i18n', // selector for translating elements
-				//         targetAttr: 'i18n-target', // data-() attribute to grab target element to translate (if diffrent then itself)
-				//         optionsAttr: 'i18n-options', // data-() attribute that contains options, will load/set if useOptionsAttr = true
-				//         useOptionsAttr: false, // see optionsAttr
-				//         parseDefaultValueFromContent: true // parses default values from content ele.val or ele.text
-				//       });
-
 				app.interface.init();
-
-
-
 			});
 
-		// $.getJSON('/lang', (d) => {
-		// 	console.log(d);
-		// 	window.app.changeContexLanguage(d.lang);
-		// });
 	};
 
-	this.changeContexLanguage = function (lang) {
+	this.changeContexLanguage = (lang) => {
 		this.language = lang;
 		this.i18next.changeLanguage(this.language);
 		return this.language;
 	};
 
-	this.getPersona = function (slug) {
+	this.getPersona = (slug) => {
 		return this.personas.find(function (p) {
 			return slug.toLowerCase() == p.slug.toLowerCase();
 		});
 	};
 
-	this.getPersonaByColour = function (colour) {
+	this.getPersonaByColour = (colour) => {
 		const colourTraslated = this.i18next.t(`personas.colours.${colour}`);
 		return this.personas.find(function (p) {
 			return colourTraslated.toLowerCase() == p.colour.toLowerCase();
 		});
 	};
 
-	this.getLanguageCode = function (lang) {
-
+	this.getLanguageCode = (lang) => {
 		if (lang == 'American English' || lang == 'en') {
 			return 'en-US';
 		} else if (lang == 'British English' || lang == 'en') {
@@ -139,14 +118,13 @@ const App = function () {
 		}
 	};
 
-	this.getChallenge = function (name) {
+	this.getChallenge = (name) => {
 		return this.mechanics.challenges.find(function (c) {
 			return name.toLowerCase() == c.name.toLowerCase();
 		});
 	};
 
-	this._initArtyom = function () {
-
+	this._initArtyom = () => {
 		// Start the commands !
 		this.artyom.initialize({
 			lang: this.getLanguageCode(this.language), // GreatBritain english
@@ -158,13 +136,13 @@ const App = function () {
 			// name: 'Jarvis' // If providen, you can only trigger a command if you say its name e.g to trigger Good Morning, you need to say 'Jarvis Good Morning'
 		}).then(() => {
 			console.log('Artyom has been succesfully initialized');
+			this.artyom.initialized = true;
 		}).catch((err) => {
 			console.error('Artyom couldnt be initialized: ', err);
 		});
-
 	};
 
-	this.speak = function (text, language) {
+	this.speak = (text, language) => {
 		if (!this.mute && text != null) {
 			if (language != undefined) {
 				this.artyom.say(text, {
@@ -176,28 +154,28 @@ const App = function () {
 		}
 	};
 
-	this.resetGameState = function () {
+	this.resetGameState = () => {
 		this.gameState = {
 			players: 0,
+			noPhone: false,
 			currentChallenge: '',
 			currentCategory: '',
 			firstSpeak: true,
 			success: false,
 			attempts: [],
-			// timer: new easytimer()
 		};
 	};
 
-
 	// ---  set limited list of best guesses
-	this.getBestGuesses = function (limit) {
+	this.getBestGuesses = (limit) => {
 		if (limit) return this.gameState.attempts.slice(0, limit);
 		return this.gameState.attempts;
 	};
 
-	this.onCard = function (data) {
-		app.interface.currentView.ready(data);
-	};
+	// const onCard = (data) => {
+	// 	console.log(data);
+	// 	// app.interface.currentView.ready(data);
+	// };
 
 
 };

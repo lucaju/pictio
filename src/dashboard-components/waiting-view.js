@@ -4,15 +4,17 @@ import waitingMustache from './waiting.html';
 
 
 function WaitingView () {
+
+	let app;
 	
-	this.app = undefined;
+	app = undefined;
 	this.waitingData = {
 		status: '',
 		colourClass: ''
 	};
 
-	this.init = function(context) {
-		this.app = context;
+	this.init = (context) => {
+		app = context;
 		this.update();
 	};
 	
@@ -27,14 +29,14 @@ function WaitingView () {
 		const waitingHTML = waitingMustache(this.waitingData);
 		$('#view').html(waitingHTML);
 
-		this.invertColour();
+		invertColour();
 
 	};
 
-	this.invertColour = function() {
+	const invertColour = () => {
 		const duration = 500;
 
-		if (this.app.interface.inverseClassToggle == true) {
+		if (app.interface.inverseClassToggle == true) {
 			$('#waiting').addClass('uk-light', {
 				duration: duration
 			});
