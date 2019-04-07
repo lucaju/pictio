@@ -170,7 +170,7 @@ export default function magentaAI() {
 		let verbal = '';
 		let speech = '';
 
-		//check if the word Quickdraw is guessing is in our database - If not, just throw an interjection. Tis word should be added to the dataset later.
+		//check if the word Quickdraw is guessing is in our database - If not, just throw an interjection. This word should be added to the dataset later.
 		let attemptExist = app.mechanics.catChallenges.find( (c) => {
 			return attempt.toLowerCase() == c.Category.toLowerCase();
 		});
@@ -185,7 +185,7 @@ export default function magentaAI() {
 			{lng:app.getLanguageCode(app.language)}
 		);
 
-		//Throigh interjection. Change: [20%?] Or if the word is unknown
+		//Throw interjection. Chance: [20%?] Or if the word is unknown
 		if (Math.random() < app.mechanics.interjection.chance || attemptExist == undefined) {
 			
 			if (!attemptExist) {
