@@ -2,32 +2,25 @@
   "options": {
     "mute": false,
     "language": {
-      "name": "British English",
+      "name": "American English",
       "code": "en"
     }
   },
   "personas": 
     [
       {
-          "name": "Oliver Cromwell",
-          "slug": "oliver_cromwell",
-          "language": "British English",
-          "languageCode": "en",
-          "colour": "light"
-      },
-      {
           "name": "Nancy Fraser",
           "slug": "nancy_fraser",
           "language": "American English",
           "languageCode": "en",
-          "colour": "blue"
+          "colour": "light"
       },
       {
           "name": "Marcia Tiburi",
           "slug": "marcia_tiburi",
           "language": "Português Brasil",
           "languageCode": "pt",
-          "colour": "dark"
+          "colour": "blue"
       },
       {
           "name": "Voltaire",
@@ -42,6 +35,7 @@
       "name": "Drawing on the Wall",
       "code": "A",
       "short": "wall",
+      "players": 2,
       "time": 30,
       "description": "In this challenge, the two human players work together to produce one sketch representing the word given by the tablet. The player who saw the word must draw on a wall, using just their fingers, without leaving any visible mark. The second human acts as a proxy, following the trajectory of the finger and trying to reproduce it on the screen of the tablet. The AI program has one minute to guess what is being drawn."
     },
@@ -49,7 +43,8 @@
       "name": "Blind Drawing with Left/Right Hand",
       "code": "B",
       "short": "blind",
-      "time": 60,
+      "players": 1,
+      "time": 45,
       "description": "This is an individual challenge, where the drawer sketch representations for the word selected without looking at the screen and using her/his non-dominant hand. While the human player draws, the machine will attempt to guess what is being drawn."
 
     },
@@ -57,7 +52,8 @@
       "name": "Verbal Description",
       "code": "C",
       "short": "verbal",
-      "time": 90,
+      "players": 2,
+      "time": 60,
       "description": "In this challenge, the two human players work together to produce one sketch representing the word selected. The player who saw the word must verbally describe it, using only geometrical figures and spatial orientation. The second human acts as a proxy, following the instructions and trying to reproduce it on the screen of the tablets. The AI program has one minute to guess what is being drawn."
     }
   ],
@@ -162,10 +158,6 @@
       },
       {
         "id": 24,
-        "weight": 1
-      },
-      {
-        "id": 25,
         "weight": 1
       }
     ]

@@ -4,6 +4,8 @@ const webpack = require('webpack');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WebpackBar = require('webpackbar');
 
 module.exports = {
 	mode: 'development', //production
@@ -25,12 +27,6 @@ module.exports = {
 					'css-loader'
 				]
 			},
-			// {
-			// 	test: /\.(png|svg|jpg|gif)$/,
-			// 	use: [
-			// 		'file-loader'
-			// 	]
-			// },
 			{
 				test: /\.(gif|png|jpe?g|svg)$/i,
 				use: [
@@ -47,27 +43,20 @@ module.exports = {
 			{
 				test: /\.html$/,
 				use: 'mustache-loader'
-				// loader: 'mustache-loader?minify'
-				// loader: 'mustache-loader?{ minify: { removeComments: false } }'
-				// loader: 'mustache-loader?noShortcut'
 			}
 		]
 	},
 	plugins: [
-		new CleanWebpackPlugin([
-			'./dashboard'
-		]),
+		new CleanWebpackPlugin(
+			// [
+			// 	'./dashboard'
+			// ]
+		),
 		new HtmlWebpackPlugin({
 			inject: false,
 			template: require('html-webpack-template'),
 			appMountId: 'app',
-			appMountHtmlSnippet: `  <div class="uk-offcanvas-content" uk-height-viewport>
-			  <div id="view" class="uk-height-1-1 uk-section uk-background-default"></div>
-			</div>`,
-			// googleAnalytics: {
-			// 	trackingId: 'UA-XXXX-XX',
-			// 	pageViewOnLoad: true
-			// },
+			appMountHtmlSnippet: '<div id="view" class="uk-height-1-1 uk-section uk-background-default" uk-height-viewport></div>',
 			filename:'index.html',
 			meta: [
 				{
@@ -91,6 +80,7 @@ module.exports = {
 			'window.jQuery': 'jquery',
 			'window.$': 'jquery'
 		}),
+		new WebpackBar(),
 		// new BundleAnalyzerPlugin()
 	]
 };

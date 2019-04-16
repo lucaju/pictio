@@ -1,0 +1,18 @@
+<div id="qrcode-card" class="uk-card uk-card-default uk-border-rounded uk-padding-remove-left">
+    <div id="qrcode-card-body" class="uk-card-body">
+        <div uk-grid>
+            <div class="uk-width-3-5">
+                <h4 class="uk-h4 uk-text-muted uk-margin-top" data-i18n="page.access">{{qrcodeText}}</h4>
+            </div>
+            <div class="uk-width-2-5">
+                <img src="{{qrcode}}" alt="{{externalCardURL}}" width="122" height="122" />
+            </div>
+        </div>
+    </div>
+    <div id="no-phone-footer" class="uk-padding-remove-bottom ">
+        <button id="no-phone-bt"
+            class="uk-button uk-button-text uk-button-large uk-width-1-1"
+            data-i18n="challenges.page.no-phone-text">{{noPhoneText}}
+        </button>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div id="human-players" class="uk-container uk-container-small uk-position-center uk-text-center">
+    <h1 id="title" class="uk-h1 {{inverseColour}}" data-i18n="players.page.title">{{title}}</h1>
+    <div class="uk-margin-medium-top" uk-grid>
+            {{#playersOptions}}
+        <div class="uk-width-1-2">
+                <button id="{{slug}}" class="uk-button uk-button-large uk-border-rounded {{colour}} uk-margin-small-right uk-margin-small-bottom uk-padding-small uk-width-1-1">
+                    <span uk-icon="icon: user; ratio: 1.5"></span>
+                    {{#extraIcon}}<span uk-icon="icon: user; ratio: 1.5"></span>{{/extraIcon}}
+                </button>
+                 {{name}}
+        </div>
+        {{/playersOptions}}
+    </div>  
+</div>
+
+<button id="home-button" class="uk-button uk-button-large uk-border-rounded uk-padding-remove">
+    <span uk-icon="icon: home; ratio: 1.5" class="uk-margin-small-right"></span>Home
+</button>

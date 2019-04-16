@@ -5,6 +5,8 @@ import rwc from 'random-weighted-choice';
 
 export default function magentaAI() {
 
+	let app;
+
 	//emiter
 	ee(this);
 
@@ -22,26 +24,24 @@ export default function magentaAI() {
 
 	//--- Initialize...
 
-	this.init = function(context) {
-		this.app = context;
-		this.currentCategory  = this.app.gameState.currentCategory;
+	this.init = (context) => {
+		app = context;
+		this.currentCategory  = app.gameState.currentCategory;
 	};
 
-	this.read = function(eventTimeStamp,ink) {
+	this.read = (eventTimeStamp,ink) => {
 		//delay
 		if (eventTimeStamp - this.lastTimestamp_check > 1000) {
-			this.checkQuickDraw(ink);
+			checkQuickDraw(ink);
 			this.lastTimestamp_check = eventTimeStamp;
 		}
 	};
 
 	//--- Check Quickdraw Google AI API
-	this.checkQuickDraw = function(ink) {
-
-		const _this = this;
+	const checkQuickDraw = (ink) => {
 
 		// Get Paper Canvas Weight/Height
-		let c_dims = this.getCanvasDimensions();
+		let c_dims = getCanvasDimensions();
 
 		// Set HTTP Headers
 		let headers = {
@@ -52,15 +52,15 @@ export default function magentaAI() {
 		// Init HTTP Request
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', this.QUICK_DRAW_API);
-		Object.keys(headers).forEach(function (key, index) {
+		Object.keys(headers).forEach( (key) => {
 			xhr.setRequestHeader(key, headers[key]);
 		});
 
 		// HTTP Request On Load
-		xhr.onload = function () {
+		xhr.onload = () => {
 			if (xhr.status === 200) {
 				let res = xhr.responseText; // HTTP Response Text
-				_this.parseResponse(res); // Parse Response
+				parseResponse(res); // Parse Response
 			} else if (xhr.status !== 200) {
 				console.log('Request failed.  Returned status of ' + xhr.status);
 			}
@@ -88,7 +88,7 @@ export default function magentaAI() {
 	};
 
 	//--- Get Paper Canvas Dimensions Width/Height
-	this.getCanvasDimensions = function() {
+	const getCanvasDimensions = () => {
 		let w = document.getElementById('canvas').offsetWidth;
 		let h = document.getElementById('canvas').offsetHeight;
 		return {
@@ -98,7 +98,7 @@ export default function magentaAI() {
 	};
 
 	// Parse Quickdraw Google AI API Response
-	this.parseResponse = function(res) {
+	const parseResponse = (res) => {
 
 		// Convert Response String to JSON
 		let res_j = JSON.parse(res);
@@ -107,49 +107,49 @@ export default function magentaAI() {
 		this.scores = JSON.parse(res_j[1][0][3].debug_info.match(/SCORESINKS: (.+) Combiner:/)[1]);
 
 		// let activeScore = scores;
-		let activeScore = this.filterGuess(this.scores);
+		let activeScore = filterGuess(this.scores);
 
 		let attempt = activeScore[0][0];
 
 		//----TEST AND GET BACK TO THE INTERFACE
 		if (this.currentCategory != attempt) {
-			this.drawIsWrong(attempt);
+			drawIsWrong(attempt);
 		} else {
-			this.drawIsRight(attempt);
+			drawIsRight(attempt);
 		}
 
 	};
 
 	///add atemot to a list
-	this.addToGuessAttemps = function(newAttempt) {
+	const addToGuessAttemps = (newAttempt) => {
 
 		let repeated = false;
 
-		for(let attempt of this.app.gameState.attempts) {
+		for(let attempt of app.gameState.attempts) {
 			if (attempt == newAttempt) {
 				repeated = true;
 			}
 		}
 
 		if (repeated == false) {
-			this.app.gameState.attempts.push(newAttempt);
+			app.gameState.attempts.push(newAttempt);
 		}
 
 	};
 
 	//--- filter guesses
-	this.filterGuess = function(scores) {
+	const filterGuess = (scores) => {
 
 		let currentGuesses = this.scores.slice();
 
 		//if it is the first guess
-		if (this.app.gameState.attempts.length == 0) {
+		if (app.gameState.attempts.length == 0) {
 			return scores;
 		}
 
-		for (let i = 0; i < this.app.gameState.attempts.length; i++) {
+		for (let i = 0; i < app.gameState.attempts.length; i++) {
 			for (let j = 0; j < currentGuesses.length; j++) {
-				if (this.app.gameState.attempts[i] == currentGuesses[j][0]) {
+				if (app.gameState.attempts[i] == currentGuesses[j][0]) {
 					currentGuesses.splice(j, 1);
 				}
 			}
@@ -165,13 +165,13 @@ export default function magentaAI() {
 
 	
 	////-- if  draw is wrong
-	this.drawIsWrong = function (attempt) {
+	const drawIsWrong = (attempt) => {
 
 		let verbal = '';
 		let speech = '';
 
-		//check if the word Quickdraw is guessing is in our database - If not, just throw an interjection. Tis word should be added to the dataset later.
-		let attemptExist = this.app.mechanics.catChallenges.find(function (c) {
+		//check if the word Quickdraw is guessing is in our database - If not, just throw an interjection. This word should be added to the dataset later.
+		let attemptExist = app.mechanics.catChallenges.find( (c) => {
 			return attempt.toLowerCase() == c.Category.toLowerCase();
 		});
 
@@ -180,13 +180,13 @@ export default function magentaAI() {
 
 
 		//translate word
-		let translatedAttempt = this.app.i18next.t(
+		let translatedAttempt = app.i18next.t(
 			`categories.${attemptSlug}`,
-			{lng:this.app.getLanguageCode(this.app.currentPersona.language)}
+			{lng:app.getLanguageCode(app.language)}
 		);
 
-		//Throigh interjection. Change: [20%?] Or if the word is unknown
-		if (Math.random() < this.app.mechanics.interjection.chance || attemptExist == undefined) {
+		//Throw interjection. Chance: [20%?] Or if the word is unknown
+		if (Math.random() < app.mechanics.interjection.chance || attemptExist == undefined) {
 			
 			if (!attemptExist) {
 				console.log('ADD THIS: ' + attempt);
@@ -194,15 +194,15 @@ export default function magentaAI() {
 			}
 
 			//pick a interjection
-			const choosenItemID = rwc(this.app.mechanics.interjection.phrases);
+			const choosenItemID = rwc(app.mechanics.interjection.phrases);
 
 			//phrase
-			// const interjection = this.app.mechanics.interjection.phrases[choosenItemID].phrase;
+			// const interjection = app.mechanics.interjection.phrases[choosenItemID].phrase;
 			
 			//Phrease translation
-			let translatedInterjection = this.app.i18next.t(
+			let translatedInterjection = app.i18next.t(
 				`interjection.${choosenItemID}`,
-				{lng:this.app.getLanguageCode(this.app.currentPersona.language)}
+				{lng:app.getLanguageCode(app.language)}
 			);
 
 			//wild card *  ||  replace * for the attempt word
@@ -215,12 +215,12 @@ export default function magentaAI() {
 
 		} else {
 
-			this.addToGuessAttemps(attempt);
+			addToGuessAttemps(attempt);
 
 			verbal = translatedAttempt;
 
-			if (this.app.gameState.firstSpeak == true) {
-				this.app.gameState.firstSpeak = false;
+			if (app.gameState.firstSpeak == true) {
+				app.gameState.firstSpeak = false;
 				verbal = speech = 'Hummm....';
 			} else {
 				speech = verbal;
@@ -231,26 +231,25 @@ export default function magentaAI() {
 		this.emit('guess', verbal);
 
 		//speak
-		this.app.speak(speech,this.app.currentPersona.language);
+		app.speak(speech,app.language);
 
-		if(this.app.IOon) {
-			this.app.socket.emit('guess', {
-				view: 'game',
-				attempt: verbal,
-			});
-		}
+		app.socket.emit('guess', {
+			view: 'game',
+			room: app.socket.id,
+			attempt: verbal,
+		});
 
 	};
 
 	////-- if  draw is right
-	this.drawIsRight = function (attempt) {
+	const drawIsRight = (attempt) => {
 
 		const _this = this;
 
 		this.emit('stop');
 
-		this.addToGuessAttemps(attempt);
-		this.app.gameState.success = true; 
+		addToGuessAttemps(attempt);
+		app.gameState.success = true; 
 
 		let verbal = '';
 		let speech = '';
@@ -259,15 +258,15 @@ export default function magentaAI() {
 		let attemptSlug = attempt.replace(/\s/g, '-').toLowerCase();
 
 		//translate word
-		let translatedAttempt = this.app.i18next.t(
+		let translatedAttempt = app.i18next.t(
 			`categories.${attemptSlug}`,
-			{lng:this.app.getLanguageCode(this.app.currentPersona.language)}
+			{lng:app.getLanguageCode(app.language)}
 		);
 
 		//translate "i know" phrase"
-		let iknow = this.app.i18next.t(
+		let iknow = app.i18next.t(
 			'game.phrases.i-know',
-			{lng:this.app.getLanguageCode(this.app.currentPersona.language)}
+			{lng:app.getLanguageCode(app.language)}
 		);
 
 		verbal = speech = `${iknow} ${translatedAttempt}.`;
@@ -275,11 +274,11 @@ export default function magentaAI() {
 		//update page
 		this.emit('guess', verbal);
 
-		this.app.speak(speech,this.app.currentPersona.language);
+		app.speak(speech,app.language);
 
 		//wait 3 second before change view
 		const duration = 3000;
-		setTimeout(function () {
+		setTimeout( () => {
 			_this.emit('win');
 		}, duration);
 

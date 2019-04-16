@@ -5,6 +5,9 @@
             "play": "Let's Play",
             "instructions": "How to play?",
             "about": "About"
+        },
+        "speak": {
+            "play": "Awesome. Lets play Pict io!"
         }
     },
     "instructions": {
@@ -46,12 +49,30 @@
             "assembly": "Assembling teams"
         }
     },
+    "players": {
+        "page": {
+            "title": "How many human players?"
+        },        
+        "playersOptions": {
+            "onePlayer": "1 Human Player",
+            "twoPlayers": "2 Human Players"
+        },
+        "dashboard": {
+            "message": "Selecting human players"
+        },
+        "speak": {
+            "onePlayer": "Alright then",
+            "twoPlayers": "Great"
+        }
+    },
     "challenges": {
         "page": {
             "title": "Pick a challenge",
             "draw": "Draw",
             "ready": "I'm ready",
-            "back": "Back"
+            "back": "Back",
+            "qrcodeText": "Point your smartphone's camera to the QRcode to get a drawing card",
+            "no-phone-text": "No smartphone? Touch here to get a card."
         },
         "dashboard": {
             "selecting": "The team is selecting a challenge"
@@ -69,6 +90,13 @@
               "name": "Verbal Description",
               "description":"In this challenge, the two human players work together to produce one sketch representing the word selected. The player who saw the word must verbally describe it, using only geometrical figures and spatial orientation. The second human acts as a proxy, following the instructions and trying to reproduce it on the screen of the tablets. The AI program has one minute to guess what is being drawn."
             }
+        },
+        "speak": {
+            "pick-a-challenge": "Pick a challenge",
+            "the-challenge-is": "The chalenge is",
+            "you-must-draw": "You must draw the object in the card in",
+            "seconds": "seconds",
+            "are-you-ready": "Are you ready?"
         }
     },
     "game": {
@@ -79,6 +107,9 @@
         },
         "phrases": {
             "i-know": "I know! I know! It is"
+        },
+        "speak": {
+            "play": "Touch on play to start"
         }
     },
     "postgame": {
@@ -102,19 +133,19 @@
         "9": "Hurry up!",
         "10": "The time is running out",
         "11": "I have no idea what you're drawing",
-        "13": "I don't know what this is.",
-        "14": "Hahaha, what a mess",
-        "15": "Sorry, I'm very dumb",
-        "16": "Come on, you're doing well.",
-        "17": "We're almost there",
-        "18": "What a beautiful drawing",
-        "19": "This looks like a Picasso drawing",
-        "20": "I like this game",
-        "21": "How fun",
-        "22": "Ugh",
-        "23": "Humph",
-        "24": "Hahaha.",
-        "25": "Ummmmmm ..."
+        "12": "I don't know what this is.",
+        "13": "Hahaha, what a mess",
+        "14": "Sorry, I'm very dumb",
+        "15": "Come on, you're doing well.",
+        "16": "We're almost there",
+        "17": "What a beautiful drawing",
+        "18": "This looks like a Picasso drawing",
+        "19": "I like this game",
+        "20": "How fun",
+        "21": "Ugh",
+        "22": "Humph",
+        "23": "Hahaha.",
+        "24": "Ummmmmm ..."
     },
     "categories": {
         "aircraft-carrier": "aircraft carrier",

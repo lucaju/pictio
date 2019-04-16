@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WebpackBar = require('webpackbar');
 
 module.exports = {
 	mode: 'development', //production
@@ -26,12 +27,6 @@ module.exports = {
 					'css-loader'
 				]
 			},
-			// {
-			// 	test: /\.(png|svg|jpg|gif)$/,
-			// 	use: [
-			// 		'file-loader'
-			// 	]
-			// },
 			{
 				test: /\.(gif|png|jpe?g|svg)$/i,
 				use: [
@@ -48,16 +43,15 @@ module.exports = {
 			{
 				test: /\.html$/,
 				use: 'mustache-loader'
-				// loader: 'mustache-loader?minify'
-				// loader: 'mustache-loader?{ minify: { removeComments: false } }'
-				// loader: 'mustache-loader?noShortcut'
 			}
 		]
 	},
 	plugins: [
-		new CleanWebpackPlugin([
-			'./dist',
-		]),
+		new CleanWebpackPlugin(
+			// [
+			// 	'./dist',
+			// ]
+		),
 		new HtmlWebpackPlugin({
 			inject: false,
 			template: require('html-webpack-template'),
@@ -93,9 +87,10 @@ module.exports = {
 			'window.$': 'jquery'
 		}),
 		new CopyWebpackPlugin([
-			{ from: './locales/', to: 'locales/' },
-			{ from: './src/assets', to: 'assets/' }
+			{ from: './locales/', to: 'locales' },
+			{ from: './src/assets', to: 'assets' }
 		]),
+		new WebpackBar(),
 		// new BundleAnalyzerPlugin()
 	]
 };

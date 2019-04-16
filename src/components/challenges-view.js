@@ -7,68 +7,82 @@ import challengesMustache from './challenges.html';
 
 function ChallengesView() {
 
+	let app;
+
 	//emitter
 	ee(this);
 
-	this.app = undefined;
+	app = undefined;
 	this.pageData = {
 		title: '',
 		inverseColour: undefined,
 		challenges: undefined
 	};
 
-	this.init = function (context) {
-		this.app = context;
+	this.init = (context) => {
+		
+		app = context;
 
-		//reset gameState
-		this.app.resetGameState();
+		const challenges = [];
+		for (const challenge of app.mechanics.challenges) {
+			if (challenge.players > 1) {
+				challenges.push(challenge);
+			}
+		}
 
 		//data
 		this.pageData = {
-			title: this.app.i18next.t('challenges.page.title'),
-			inverseColour: this.app.interface.inverseClass(),
-			challenges: this.app.mechanics.challenges
+			title: app.i18next.t('challenges.page.title'),
+			inverseColour: app.interface.inverseClass(),
+			challenges: challenges
 		};
 
 		//build page
 		const challengesHTML = challengesMustache(this.pageData);
 		$(challengesHTML).appendTo($('#view'));
 
-		// get challenges
-		this.getChallenges();
 
-		//transalate
-		this.translate();
-
-		//emit to socker IO
-		this.emitToDashboard({
-			message: this.app.i18next.t('challenges.dashboard.selecting'),
+		//home button
+		$('#home-button').click(() => {
+			homeButton('home');
 		});
 
-		//animation
-		this.enterAnimation();
+		// get challenges
+		getChallenges();
 
+		//transalate
+		translate();
+
+		//emit to socker IO
+		emitToDashboard({
+			message: app.i18next.t('challenges.dashboard.selecting'),
+		});
+
+		app.speak(app.i18next.t('challenges.speak.pick-a-challenge'));
+
+		//animation
+		enterAnimation();
 	};
 
-	this.translate = function() {
+	const translate = () => {
 		$('#challenges').localize();
 	};
 
-	this.getChallenges = function() {
+	const getChallenges = () => {
 
 		// const _this = this;
 		const duration = 1000;
 
 		//loop
 		let i = 0;
-		for (let challenge of this.app.mechanics.challenges) {
+		for (const challenge of this.pageData.challenges) {
 
-			let card = $(`#${challenge.short}`);
+			const card = $(`#${challenge.short}`);
 			card.data({
 				short: challenge.short,
 				name:challenge.name
 			});
-			card.click(this,this.challengeButtonAction);
+			card.click(this, challengeButtonAction);
 
 			//visual initial state
 			let cDelay = 400 + (i * 100) + (Math.random() * 200);
@@ -88,21 +102,35 @@ function ChallengesView() {
 					height: 'easeOutBounce'
 				}
 			});
-
 		}
 	};
 
-	this.challengeButtonAction = function(e) {
-		const _this = e.data;
+	const homeButton = () => {
+		$('#challenges').animate({
+			marginTop: '-100',
+			opacity: 0,
+		}, 1500, () => {
+			this.emit('changeView', {
+				source: 'challenges',
+				target:'home'
+			});
+		});
+
+		emitToDashboard({
+			view: 'waiting'
+		});
+	};
+
+	const challengeButtonAction = (e) => {
 		const card = $(e.currentTarget);
 		const challengeName = card.data('name');
 
 		$('#challenges').animate({
 			marginTop: '-100',
 			opacity: 0,
-		}, 1500, function () {
-			_this.app.gameState.currentChallenge = challengeName;
-			_this.emit('changeView', {
+		}, 1500, () => {
+			app.gameState.currentChallenge = challengeName;
+			this.emit('changeView', {
 				source: 'challenges',
 				target:'challenge'
 			});
@@ -110,7 +138,7 @@ function ChallengesView() {
 	};
 
 	//animation
-	this.enterAnimation = function () {
+	const enterAnimation = () => {
 
 		const duration = 1100;
 
@@ -123,18 +151,13 @@ function ChallengesView() {
 		}, duration);
 	};
 
-	this.emitToDashboard = function({
+	const emitToDashboard = ({
 		type = 'interface',
 		view = 'challenges',
+		room = app.socket.id,
 		message = ''
-	}) {
-
-		if (this.app.IOon) {
-			this.app.socket.emit(type, {
-				view: view,
-				message: message,
-			});
-		}
+	}) => {
+		app.socket.emit(type, {view, room, message});
 	};
 
 }

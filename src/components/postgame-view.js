@@ -7,10 +7,11 @@ import postgameMustache from './postgame.html';
 
 function PostGameView() {
 
+	let app;
+
 	//emitter
 	ee(this);
 
-	this.app = undefined;
 	this.pageData = {
 		inverseColour: undefined,
 		success: false,
@@ -22,54 +23,64 @@ function PostGameView() {
 		bestGuessPhrase: ''
 	};
 
-	this.init = function (context) {
+	this.init = (context) => {
 
-		this.app = context;
+		app = context;
 
 		//collect and transform information
-		const status = this.app.gameState.success ? 'success' : 'wrong';
-		const category = this.app.gameState.currentCategory;
+		const status = app.gameState.success ? 'success' : 'wrong';
+		const category = app.gameState.currentCategory;
 
 		//slug - because JSON notation doesn't work well with spaces
 		let categorySlug = category.replace(/\s/g, '-').toLowerCase();
 
 		//page data
 		this.pageData = {
-			inverseColour: this.app.interface.inverseClass(),
-			success: this.app.gameState.success,
-			status: this.app.i18next.t(`postgame.${status}`),
-			supposedPhrase: this.app.i18next.t('postgame.supposed'),
-			itis: this.app.i18next.t('postgame.it-is'),
-			category: this.app.i18next.t(`categories.${categorySlug}`),
-			back: this.app.i18next.t('postgame.back'),
-			bestGuessPhrase: this.app.i18next.t('postgame.best-guesses')
+			inverseColour: app.interface.inverseClass(),
+			success: app.gameState.success,
+			status: app.i18next.t(`postgame.${status}`),
+			supposedPhrase: app.i18next.t('postgame.supposed'),
+			itis: app.i18next.t('postgame.it-is'),
+			category: app.i18next.t(`categories.${categorySlug}`),
+			back: app.i18next.t('postgame.back'),
+			bestGuessPhrase: app.i18next.t('postgame.best-guesses')
 		};
 
 		//build page
 		const postgameHTML = postgameMustache(this.pageData);
 		$(postgameHTML).appendTo($('#view'));
 
+		$('#home-button').click(() => {
+			homeButton('home');
+		});
+
 		// get limited list of best guess
-		const list = this.app.getBestGuesses();
+		const list = app.getBestGuesses();
 		const guessList = $('#view').find('.tags'); //DOM
 
 		for (let guess of list) {
 			const slug = guess.replace(/\s/g, '-').toLowerCase();
-			const translation = this.app.i18next.t(`categories.${slug}`);
+			const translation = app.i18next.t(`categories.${slug}`);
 			guessList.append(`<span class="uk-label uk-label-primary" data-i18n="categories.${slug}">${translation}</span>\n`);	
 		}
 
 		//translate
-		this.translate();
+		translate();
 
 		//speak
-		this.speak();
+		speak();
 
 		//action
-		$('#back').click(this, this.back);
+		$('#back').click(this, back);
+
+		emitToCard({
+			action: 'postGame',
+			time: -1,
+			guess: this.pageData.status
+		});
 
 		//emit to socker IO
-		this.emitToDashboard({
+		emitToDashboard({
 			inverseColour: this.pageData.inverseColour,
 			success:this.pageData.success,
 			status: this.pageData.status,
@@ -82,42 +93,85 @@ function PostGameView() {
 
 	};
 
-	this.translate = function() {
+	const translate = () => {
 		$('postgame').localize();
 	};
 
-	this.back = function(e) {
+	const homeButton = () => {
 
-		const _this = e.data;
-		const duration = 1500;
+		emitToCard({
+			action: 'wait',
+		});
+
+		emitToDashboard({
+			view: 'waiting'
+		});
 
 		$('#postgame').animate({
 			marginTop: '-100',
 			opacity: 0,
-		}, duration, function () {
-			_this.emit('changeView', {
+		}, 1500, () => {
+			this.emit('changeView', {
 				source: 'post-game',
-				target:'challenges'
+				target:'home'
+			});
+		});
+	};
+
+	const back = () => {
+		const duration = 1500;
+
+		emitToCard({
+			action: 'wait',
+		});
+
+		emitToDashboard({
+			view: 'waiting'
+		});
+
+		$('#postgame').animate({
+			marginTop: '-100',
+			opacity: 0,
+		}, duration, () => {
+			this.emit('changeView', {
+				source: 'post-game',
+				target:'players'
 			});
 		});
 
 	};
 
-	this.speak = function() {
+	const speak = () => {
 		//speak
 		let speech = '';
-		if (this.app.gameState.success) {
+		if (app.gameState.success) {
 			speech = `${this.pageData.status}. ${this.pageData.itis} ${this.pageData.category}.`;
 		} else {
 			speech = `${this.pageData.status}. ${this.pageData.supposedPhrase} ${this.pageData.category}.`;
 		}
 
-		this.app.speak(speech, this.app.currentPersona.language);
+		app.speak(speech, app.language);
 	};
 
-	this.emitToDashboard = function ({
+	const emitToCard = ({
+		type = 'card',
+		view = 'challenge',
+		action = 'postGame',
+		room = app.socket.id,
+		name = '',
+		short = '',
+		draw = '',
+		drawCategory = '',
+		time = 0,
+		guess = ''
+	}) => {
+		app.socket.emit(type, {view, action, room, name, short, draw, drawCategory, time, guess});
+	};
+
+	const emitToDashboard = ({
 		type = 'interface',
 		view = 'post-game',
+		room = app.socket.id,
 		inverseColour = '',
 		success = false,
 		status = '',
@@ -126,21 +180,8 @@ function PostGameView() {
 		category = '',
 		bestGuessPhrase = '',
 		bestGuesses = ''
-	}) {
-
-		if (this.app.IOon) {
-			this.app.socket.emit(type, {
-				view: view,
-				inverseColour: inverseColour,
-				success: success,
-				status: status,
-				supposedPhrase: supposedPhrase,
-				itis: itis,
-				category: category,
-				bestGuessPhrase: bestGuessPhrase,
-				bestGuesses: bestGuesses,
-			});
-		}
+	}) => {
+		app.socket.emit(type, {view, room, inverseColour, success, status, supposedPhrase, itis, category, bestGuessPhrase, bestGuesses});
 	};
 
 }

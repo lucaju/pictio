@@ -5,6 +5,9 @@
             "play": "Jouer",
             "instructions": "Comment jouer?",
             "about": "À propos"
+        },
+        "speak": {
+            "play": "Génial. Allez, on joue!"
         }
     },
     "instructions": {
@@ -46,12 +49,30 @@
             "assembly": "Assembler les équipes"
         }
     },
+    "players": {
+        "page": {
+            "title": "Combien de joueurs humains?"
+        },        
+        "playersOptions": {
+            "onePlayer": "1 Joueur Humain",
+            "twoPlayers": "2 Joueurs Humains"
+        },
+        "dashboard": {
+            "message": "Sélection des joueurs humains"
+        },
+        "speak": {
+            "onePlayer": "Ok",
+            "twoPlayers": "Excellent!"
+        }
+    },
     "challenges": {
         "page": {
-            "title": "Choisissez un défi",
+            "title": "Choisie un défi",
             "draw": "Dessiner",
             "ready": "Je suis prêt",
-            "back": "Retour"
+            "back": "Retour",
+            "qrcodeText": "Tournez la caméra de votre téléphone vers le QRcode pour obtenir une carte à dessiner",
+            "no-phone-text": "Pas de téléphone? Cliquez ici pour voir la carte."
         },
         "dashboard": {
             "selecting": "L'équipe choisit son défi"
@@ -69,6 +90,13 @@
               "name": "Description verbale",
               "description":"Dans ce défi, les deux joueurs humains travaillent ensemble pour produire un dessin représentant le mot donné par la tablette. Le joueur qui a vu le mot doit le décrire verbalement, en utilisant uniquement des figures géométriques et d'orientations spatiales. Le deuxième humain agit en tant que proxy en suivant les instructions et en essayant de les reproduire à l'écran des tablettes. La machine a une minute pour deviner ce qui est dessiné."
             }
+        },
+        "speak": {
+            "pick-a-challenge": "Choisis un défi",
+            "the-challenge-is": "Le défi est",
+            "you-must-draw": "Tu dois dessiner l'objet indiqué sur la carte en",
+            "seconds": "secondes",
+            "are-you-ready": "Tu es prêt?"
         }
     },
     "game": {
@@ -79,6 +107,9 @@
         },
         "phrases": {
             "i-know": "Je sais! Je sais! C'est "
+        },
+        "speak": {
+            "play": "Appuie sur Jouer pour commencer"
         }
     },
     "postgame": {
@@ -92,7 +123,7 @@
     "interjection": {
         "0": "Qu'est-ce que c'est ça?",
         "1": "Je n'ai aucune idée de ce que ça peut bien être.",
-        "2": "hmmm... peut-être *?",
+        "2": "hmmm... peut-être...",
         "3": "Allez, on n'a presque plus de temps!",
         "4": "C'est très amusant.",
         "5": "Allez, plus vite!",
@@ -425,9 +456,9 @@
         "television": "télévision",
         "tennis-racquet": "raquette de tennis",
         "tent": "tente",
-        "The-Eiffel-Tower": "La tour Eiffel",
-        "The-Great-Wall-of-China": "La grande muraille de Chine",
-        "The-Mona-Lisa": "La Mona Lisa",
+        "the-eiffel-tower": "La tour Eiffel",
+        "the-great-wall-of-china": "La grande muraille de Chine",
+        "the-mona-lisa": "La Mona Lisa",
         "tiger": "tigre",
         "toaster": "grille-pain",
         "toe": "doigt de pied",

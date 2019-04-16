@@ -5,11 +5,11 @@ import postgameMustache from './postgame.html';
 
 function PostGameView() {
 
-	this.init = function () {
+	this.init = () => {
 		
 	};
 
-	this.update = function(data) {
+	this.update = (data) => {
 
 		//build page
 		const postgameHTML = postgameMustache(data);
