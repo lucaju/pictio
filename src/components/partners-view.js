@@ -26,12 +26,15 @@ function PartnersView() {
 
 		this.app = context;
 
+		//lintit option by language
+		const personas = this.app.personas.filter(persona => persona.languageCode == this.app.language);
+
 		//data
 		this.pageData = {
 			title: 'Choose your partner',
 			inverseColour: this.app.interface.inverseClass(),
 			done: this.app.i18next.t('personas.page.done'),
-			personas: this.app.personas,
+			personas: personas,
 			showName: false,
 			individualAccent: false
 		};
@@ -39,7 +42,7 @@ function PartnersView() {
 		//build page
 		const partnerHTML = partnersMustache(this.pageData);
 		$(partnerHTML).appendTo($('#view'));
-
+		
 		//buttons - personas
 		for (let persona of this.app.personas) {
 			const bt = $(`#${persona.slug}`);
@@ -61,7 +64,7 @@ function PartnersView() {
 		//done
 		$('#done').click(this,this.done);
 
-		this.app.artyom.on([this.pageData.done]).then(function (i) {
+		this.app.artyom.on([this.pageData.done]).then(function () {
 			_this.doneSpeak();
 		});
 
@@ -73,6 +76,8 @@ function PartnersView() {
 			message: this.app.i18next.t('personas.dashboard.assembly'),
 		});
 
+		//pre-select first option
+		this.changePersona(this.app.getPersona(personas[0].slug));
 	};
 
 	this.translate = function() {
@@ -164,6 +169,12 @@ function PartnersView() {
 
 	this.done = function(e) {
 		const _this = e.data;
+
+		let persona = _this.app.currentPersona;
+		
+		let translatedColor = _this.translateColour(persona,_this.pageData.individualAccent);
+
+		_this.speak(persona,translatedColor);
 		_this.exitAnimation();
 	};
 
@@ -179,7 +190,10 @@ function PartnersView() {
 			marginTop: '-100',
 			opacity: 0,
 		}, duration, function () {
-			_this.emit('changeView', 'challenges');
+			_this.emit('changeView', {
+				source: 'partners',
+				target:'challenges'
+			});
 		});
 	};
 

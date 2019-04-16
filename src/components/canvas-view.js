@@ -124,7 +124,7 @@ export default function canvasView() {
 	};
 
 	this.stop = function() {
-		paper.tool.remove();
+		if (paper.tool) paper.tool.remove();
 	};
 
 	//--- Get Paper Canvas Dimensions Width/Height

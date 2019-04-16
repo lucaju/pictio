@@ -46,6 +46,10 @@ function HomeView() {
 			{
 				name: 'Português',
 				iso: 'pt',
+			},
+			{
+				name: 'Français',
+				iso: 'fr',
 			}
 			]
 		};
@@ -126,7 +130,10 @@ function HomeView() {
 			marginTop: '-100',
 			opacity: 0,
 		}, duration, function () {
-			_this.emit('changeView', 'partners');
+			_this.emit('changeView', {
+				source: 'home',
+				target:'partners'
+			});
 		});
 
 	};

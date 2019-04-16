@@ -1,6 +1,7 @@
 //modules
 import $ from 'jquery';
 import ee from 'event-emitter';
+import hasListeners from 'event-emitter/has-listeners';
 import easytimer from 'easytimer/dist/easytimer.min';
 import loadingbar from '@loadingio/loading-bar';
 
@@ -30,6 +31,8 @@ function GameView() {
 	};
 	this.canvasPaper = new canvasPaper();
 	this.magentaAI = new magentaAI();
+
+	this.initiated = false;
 
 
 	this.init = function (context) {
@@ -65,7 +68,10 @@ function GameView() {
 		$('#clear-drawing').click(this, this.clear);
 		if (this.pageData.showBackButton) $('#back').click(this, this.back);
 
-		this.addListeners();
+		if (!this.initiated) {
+			this.initiated = true;
+			this.addListeners();
+		}
 
 		//animation
 		this.enterAnimation();
@@ -102,9 +108,14 @@ function GameView() {
 			_this.timer.stop();
 		});
 
-		this.magentaAI.on('changeView', function () {
-			_this.emit('changeView', 'post-game');
-		});
+		if (!hasListeners(this.magentaAI,'win')) {
+			this.magentaAI.on('win', function () {
+				_this.emit('changeView', {
+					source: 'game',
+					target:'post-game'
+				});
+			});
+		}
 
 	};
 
@@ -127,7 +138,6 @@ function GameView() {
 		$('#guess')[0].innerHTML = '...';
 		_this.canvasPaper.clearCanvas();
 
-
 		//emit to socker IO
 		_this.emitToDashboard({
 			type: 'guess',
@@ -145,7 +155,10 @@ function GameView() {
 			marginTop: '-100',
 			opacity: 0,
 		}, duration, function () {
-			_this.app.interface.changeView('challenge');
+			_this.app.interface.changeView({
+				source: 'game',
+				target:'challenge'
+			});
 		});
 
 	};
@@ -201,7 +214,10 @@ function GameView() {
 		});
 
 		this.timer.addEventListener('targetAchieved', function (e) {
-			_this.app.interface.changeView('post-game');
+			_this.emit('changeView', {
+				source: 'game',
+				target:'post-game'
+			});
 		});
 	};
 

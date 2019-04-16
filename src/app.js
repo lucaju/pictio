@@ -36,8 +36,14 @@ const App = function () {
 	this.artyom = new Artyom();
 
 	this.interface = new interfaceView(this);
-	this.language = 'British English';
 	this.mute = gameMechanics.options.mute;
+	this.language = gameMechanics.options.language.code;
+	// this.language = 'British English';
+	// this.language = {
+	// 	name: 'British English',
+	// 	code: 'en-GB'
+	// };
+	
 
 	this.mechanics = gameMechanics;
 

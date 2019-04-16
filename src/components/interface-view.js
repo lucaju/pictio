@@ -24,11 +24,11 @@ export default function interfaceView(context) {
 
 
 	this.init = function() {
-		this.currentViewName = 'home';
+		this.currentViewName = {target:'home'};
 		this.changeView(this.currentViewName);
 	};
 
-	this.changeView = function(viewName) {
+	this.changeView = function(event) {
 
 		const _this = this;
 
@@ -36,24 +36,24 @@ export default function interfaceView(context) {
 		const view = $('#view');
 		view.empty();
 
-		this.currentViewName = viewName;
+		this.currentViewName = event.target;
 
-		if(viewName == 'home') {
+		if(event.target == 'home') {
 			this.currentView = homeView;
-		} else if(viewName == 'partners') {
+		} else if(event.target == 'partners') {
 			this.currentView = partnersView;
-		} else if(viewName == 'challenges') {
+		} else if(event.target == 'challenges') {
 			this.currentView = challengesView;
-		} else if(viewName == 'challenge') {
+		} else if(event.target == 'challenge') {
 			this.currentView = challengeView;
-		} else if(viewName == 'game') {
+		} else if(event.target == 'game') {
 			this.currentView = gameView;
-		} else if(viewName == 'post-game') {
+		} else if(event.target == 'post-game') {
 			this.currentView = postgameView;
 		}
 
 		this.currentView.init(this.app);
-		this.currentView.on('changeView', view => _this.changeView(view));
+		this.currentView.once('changeView', view => _this.changeView(view));
 
 	};
 

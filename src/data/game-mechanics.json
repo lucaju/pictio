@@ -1,6 +1,10 @@
 {
   "options": {
-    "mute": false
+    "mute": false,
+    "language": {
+      "name": "British English",
+      "code": "en"
+    }
   },
   "personas": 
     [
@@ -8,24 +12,28 @@
           "name": "Oliver Cromwell",
           "slug": "oliver_cromwell",
           "language": "British English",
+          "languageCode": "en",
           "colour": "light"
       },
       {
           "name": "Nancy Fraser",
           "slug": "nancy_fraser",
           "language": "American English",
+          "languageCode": "en",
           "colour": "blue"
       },
       {
           "name": "Marcia Tiburi",
           "slug": "marcia_tiburi",
           "language": "Português Brasil",
+          "languageCode": "pt",
           "colour": "dark"
       },
       {
           "name": "Voltaire",
           "slug": "voltaire",
           "language": "Français",
+          "languageCode": "fr",
           "colour": "yellow"
       }
   ],
