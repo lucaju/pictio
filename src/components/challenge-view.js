@@ -43,7 +43,7 @@ function ChallengeView() {
 
 		const categorySlug = this.currentDrawChallenge.replace(/\s/g, '-').toLowerCase();
 
-		const externalCardURL = `https://da4e0522.ngrok.io/card/${app.socket.id}`;
+		const externalCardURL = `https://c2ed1aa8.ngrok.io/card/${app.socket.id}`;
 		
 		const qrCode = await QRCode.toDataURL(externalCardURL);
 

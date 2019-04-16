@@ -79,7 +79,6 @@ function PostGameView() {
 			guess: this.pageData.status
 		});
 
-
 		//emit to socker IO
 		emitToDashboard({
 			inverseColour: this.pageData.inverseColour,
