@@ -1,11 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
-
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackBar = require('webpackbar');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
 	mode: 'development', //production
@@ -23,9 +23,17 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
-					'style-loader',
-					'css-loader'
-				]
+					{
+						loader: MiniCssExtractPlugin.loader,
+						options: {
+							// you can specify a publicPath here
+							// by default it uses publicPath in webpackOptions.output
+							publicPath: '../',
+							hmr: process.env.NODE_ENV === 'development',
+						},
+					},
+					'css-loader',
+				],
 			},
 			{
 				test: /\.(gif|png|jpe?g|svg)$/i,
@@ -79,6 +87,12 @@ module.exports = {
 				}
 			],
 			title: 'Pict.io'
+		}),
+		new MiniCssExtractPlugin({
+			// Options similar to the same options in webpackOptions.output
+			// both options are optional
+			filename: '[name].css',
+			chunkFilename: '[id].css',
 		}),
 		new webpack.ProvidePlugin({
 			$: 'jquery',
