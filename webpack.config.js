@@ -8,7 +8,7 @@ const WebpackBar = require('webpackbar');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-	mode: 'development', //development || production
+	mode: 'production', //development || production
 	entry: './src/app.js',
 	output: {
 		filename: 'app.bundle.js',
@@ -17,7 +17,7 @@ module.exports = {
 	devServer: {
 		contentBase: './dist'
 	},
-	devtool: 'inline-source-map', //'inline-source-map' || '' 
+	devtool: '', //'inline-source-map' || '' 
 	module: {
 		rules: [
 			{
