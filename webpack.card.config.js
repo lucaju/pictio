@@ -9,7 +9,7 @@ const WebpackBar = require('webpackbar');
 
 
 module.exports = {
-	mode: 'development', //production
+	mode: 'development', //development || production
 	entry: './src/card.js',
 	output: {
 		filename: 'card.bundle.js',
@@ -18,7 +18,7 @@ module.exports = {
 	devServer: {
 		contentBase: './card'
 	},
-	devtool: 'inline-source-map',
+	devtool: 'inline-source-map', //inline-source-map || ''
 	module: {
 		rules: [
 			{
@@ -97,5 +97,28 @@ module.exports = {
 		}),
 		new WebpackBar(),
 		// new BundleAnalyzerPlugin()
-	]
+	],
+	optimization: {
+		splitChunks: {
+			chunks: 'all',
+			minSize: 30000,
+			maxSize: 0,
+			minChunks: 1,
+			maxAsyncRequests: 5,
+			maxInitialRequests: 3,
+			automaticNameDelimiter: '~',
+			name: true,
+			cacheGroups: {
+				vendors: {
+					test: /[\\/]node_modules[\\/]/,
+					priority: -10
+				},
+				default: {
+					minChunks: 2,
+					priority: -20,
+					reuseExistingChunk: true
+				}
+			}
+		}
+	}
 };

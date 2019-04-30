@@ -2,14 +2,14 @@ const path = require('path');
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackBar = require('webpackbar');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 
 module.exports = {
-	mode: 'development', //production
+	mode: 'development', //development || production
 	entry: './src/dashboard.js',
 	output: {
 		filename: 'dashboard.bundle.js',
@@ -18,7 +18,7 @@ module.exports = {
 	devServer: {
 		contentBase: './dashboard'
 	},
-	devtool: 'inline-source-map',
+	devtool: 'inline-source-map', //inline-source-map || ''
 	module: {
 		rules: [
 			{
@@ -97,5 +97,28 @@ module.exports = {
 		}),
 		new WebpackBar(),
 		// new BundleAnalyzerPlugin()
-	]
+	],
+	optimization: {
+		splitChunks: {
+			chunks: 'all',
+			minSize: 30000,
+			maxSize: 0,
+			minChunks: 1,
+			maxAsyncRequests: 5,
+			maxInitialRequests: 3,
+			automaticNameDelimiter: '~',
+			name: true,
+			cacheGroups: {
+				vendors: {
+					test: /[\\/]node_modules[\\/]/,
+					priority: -10
+				},
+				default: {
+					minChunks: 2,
+					priority: -20,
+					reuseExistingChunk: true
+				}
+			}
+		}
+	}
 };
