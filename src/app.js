@@ -8,7 +8,7 @@ import $ from 'jquery';
 import UIkit from 'uikit/dist/js/uikit.min';
 import uikiticons from 'uikit/dist/js/uikit-icons.min';
 
-import i18next from 'i18next/i18next.min';
+import i18next from 'i18next';
 import i18nextBackend from 'i18next-xhr-backend/i18nextXHRBackend.min';
 import jqueryI18next from 'jquery-i18next/jquery-i18next.min';
 
@@ -164,6 +164,11 @@ const App = function () {
 			success: false,
 			attempts: [],
 		};
+	};
+
+	this.resetGameSuccess = () => {
+		this.gameState.success = false;
+		this.gameState.attempts = [];
 	};
 
 	// ---  set limited list of best guesses

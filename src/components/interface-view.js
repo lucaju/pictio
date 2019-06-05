@@ -47,6 +47,7 @@ export default function interfaceView(context) {
 		} else if(event.target == 'challenges') {
 			this.currentView = challengesView;
 		} else if(event.target == 'challenge') {
+			app.resetGameSuccess();
 			this.currentView = challengeView;
 		} else if(event.target == 'game') {
 			this.currentView = gameView;

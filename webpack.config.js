@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -8,7 +8,7 @@ const WebpackBar = require('webpackbar');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-	mode: 'production', //development || production
+	mode: 'development', //development || production
 	entry: './src/app.js',
 	output: {
 		filename: 'app.bundle.js',
@@ -17,7 +17,7 @@ module.exports = {
 	devServer: {
 		contentBase: './dist'
 	},
-	devtool: '', //'inline-source-map' || '' 
+	devtool: 'inline-source-map', //'inline-source-map' || '' 
 	module: {
 		rules: [
 			{
@@ -55,11 +55,7 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new CleanWebpackPlugin(
-			// [
-			// 	'./dist',
-			// ]
-		),
+		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			inject: false,
 			template: require('html-webpack-template'),
