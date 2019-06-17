@@ -32,7 +32,7 @@ Luciano Frizzera is a Ph.D. student in Communication Studies at Concordia Univer
 
 ### Julia Salles
 
-Julia Salles is a PhD candidate in Communication Studies at Université du Québec à Montréal and a Lecturer at Université de Montréal. Website:  [juliasalles.com](http://juliasalles.com;)
+Julia Salles is a PhD candidate in Communication Studies at Université du Québec à Montréal and a Lecturer at Université de Montréal. Website:  [juliasalles.com](http://juliasalles.com)
 
 ### Julia Zamboni
 
