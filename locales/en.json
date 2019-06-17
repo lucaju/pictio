@@ -72,18 +72,18 @@
             "people": {
                 "luciano": {
                     "name": "Luciano Frizzera",
-                    "text": "Luciano Frizzera is a Ph.D. student in Communication Studies at Concordia University. His doctoral research explores the political and social implications of algorithmic media (Social and Mobile Media, AI, and Internet of Things) in the urban space. Website: <a href='luciano.fluxo.art.br' target='_blank'>luciano.fluxo.art.br</a>"
+                    "text": "Luciano Frizzera is a Ph.D. student in Communication Studies at Concordia University. His doctoral research explores the political and social implications of algorithmic media (Social and Mobile Media, AI, and Internet of Things) in the urban space. Website: <a href='http://luciano.fluxo.art.br' target='_blank'>luciano.fluxo.art.br</a>"
                 },
                 "salles": {
                     "name": "Julia Salles",
-                    "text": "Julia Salles is a PhD candidate in Communication Studies at Université du Québec à Montréal and a Lecturer at Université de Montréal. Website: <a href='juliasalles.com;' target='_blank'>juliasalles.com</a>"
+                    "text": "Julia Salles is a PhD candidate in Communication Studies at Université du Québec à Montréal and a Lecturer at Université de Montréal. Website: <a href='http://juliasalles.com;' target='_blank'>juliasalles.com</a>"
                 },
                 "zamboni": {
                     "name": "Julia Zamboni",
-                    "text": "Julia Zamboni is a PhD student at the INDI program and holds a master in Robotic Art. Julia’s artistic research focuses on machines as ambiguous characters, perceived by the audience as entities that operate between the realms of the living and non-living. Website: <a href='juliaghorayeb.dunked.com' target='_blank'>juliaghorayeb.dunked.com</a>"
+                    "text": "Julia Zamboni is a PhD student at the INDI program and holds a master in Robotic Art. Julia’s artistic research focuses on machines as ambiguous characters, perceived by the audience as entities that operate between the realms of the living and non-living. Website: <a href='http://juliaghorayeb.dunked.com' target='_blank'>juliaghorayeb.dunked.com</a>"
                 }
             },
-            "support": "This research was developed in the context of the <a href='machineagencies.org' target='_blank'>Machine Agencies</a> Research Group @ <a href='milieux.concordia.ca' target='_blank'>Milieux</a>, an interdisciplinary group of researchers working with various topics associated with Artificial Intelligence and related technologies."
+            "support": "This research was developed in the context of the <a href='http://machineagencies.org' target='_blank'>Machine Agencies</a> Research Group @ <a href='http://milieux.concordia.ca' target='_blank'>Milieux</a>, an interdisciplinary group of researchers working with various topics associated with Artificial Intelligence and related technologies."
         },
         "sponsors": {
             "title": "Sponsors",
