@@ -26,13 +26,82 @@
         ]
     },
     "about": {
-        "title": "About",
-        "text": [
-            "<p>PICT.IO is a game for humans and machines to work together in teams. PICT.IO is also a tool for instigating debates on AI within a science popularization approach.</p>",
-            "<p>PICT.IO was developed by <a href='https://squiggle.fluxo.art.br' target='_blank'>Squiggle Collective</a> using <a href='https://github.com/googlecreativelab/quickdraw-dataset' target='_blank'>Quick Draw's API</a> with the support of <a href='https://milieux.concordia.ca' target='_blank'>Milieux Institute for Arts, Culture and Technology</a> and <a  href='https://tag.hexagram.ca' target='_blank'></a>TAG - Technology Arts and Games</a> at Concordia University (Montreal, Canada).</p>"
-        ],
-        "sponsortitle": "Sponsors",
-        "youtubeid": "ffwH93X_pKg"
+        "title": "About PICT.IO",
+        "text": "PICT. IO is based on the popular drawing game Pictionary, where players work together to solve drawing challenges. It is a guessing game where players try to identify objects that are drawn by their teammates. In PICT.IO, each team is composed of two humans and one machine, working in collaboration and communicating with limited resources, using drawings or speech, to solve visual challenges. The game’s system builds on Google’s Quick, Draw! that uses Machine Learning techniques to guess what players are drawing. PICT.IO is an online game that can be played on devices with a touchscreen, such as tablets and smartphones.",
+        "youtubeid": "ffwH93X_pKg",
+        "presentations": {
+            "title": "Presentations and Exhibitions",
+            "text": "This project was presented in different venues, in Canada, Brazil, Germany and the UK, in events about education, scientific outreach and makers fair.",
+            "presentations": {
+                "title": "Presentations",
+                "list": [
+                    {
+                        "name": "Canadian Games Studies Association (CGSA) (June 2019). UBC. Vancouver, Canada"
+                    },
+                    {
+                        "name": "La Charrette: Art+Tech (April 2019). Factry. Montreal, Canada"
+                    },
+                    {
+                        "name": "Discover ConcordAI (October 2018). Concordia University. Montreal, Canada."
+                    },
+                    {
+                        "name": "Camp Serrapilheira (September 2018). Museu do Amanhã. Rio de Janeiro, Brazil."
+                    },
+                    {
+                        "name": "Conversation Cytoenne sour l’IA (June 2018). Université de Montreal. Montreal, Canada"
+                    }
+                ]
+            },
+            "exhibitions": {
+                "title": "Exhibitions",
+                "list": [
+                    {
+                        "name": "Semaine du NumériQC (April 2019). Musée de la Civilisation de la ville de Québec. Quebec, Canada."
+                    },
+                    {
+                        "name": "Montréal Mini-Maker Faire (November 2018). Concordia University. Montreal, Canada."
+                    },
+                    {
+                        "name": "Hackathon AI (November 2018). Concordia University. Montreal, Canada"
+                    }
+                ]
+            }
+        },
+        "team": {
+            "title": "Team",
+            "people": {
+                "luciano": {
+                    "name": "Luciano Frizzera",
+                    "text": "Luciano Frizzera is a Ph.D. student in Communication Studies at Concordia University. His doctoral research explores the political and social implications of algorithmic media (Social and Mobile Media, AI, and Internet of Things) in the urban space. Website: <a href='luciano.fluxo.art.br' target='_blank'>luciano.fluxo.art.br</a>"
+                },
+                "salles": {
+                    "name": "Julia Salles",
+                    "text": "Julia Salles is a PhD candidate in Communication Studies at Université du Québec à Montréal and a Lecturer at Université de Montréal. Website: <a href='juliasalles.com;' target='_blank'>juliasalles.com</a>"
+                },
+                "zamboni": {
+                    "name": "Julia Zamboni",
+                    "text": "Julia Zamboni is a PhD student at the INDI program and holds a master in Robotic Art. Julia’s artistic research focuses on machines as ambiguous characters, perceived by the audience as entities that operate between the realms of the living and non-living. Website: <a href='juliaghorayeb.dunked.com' target='_blank'>juliaghorayeb.dunked.com</a>"
+                }
+            },
+            "support": "This research was developed in the context of the <a href='machineagencies.org' target='_blank'>Machine Agencies</a> Research Group @ <a href='milieux.concordia.ca' target='_blank'>Milieux</a>, an interdisciplinary group of researchers working with various topics associated with Artificial Intelligence and related technologies."
+        },
+        "sponsors": {
+            "title": "Sponsors",
+            "list": [
+                {
+                    "name": "Capes",
+                    "image": "capes.png"
+                },
+                {
+                    "name": "TAG",
+                    "image": "tag.png"
+                },
+                {
+                    "name": "Milieux",
+                    "image": "milieux.png"
+                }
+            ]
+        }
     },
     "personas": {
         "page": {

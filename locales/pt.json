@@ -26,13 +26,82 @@
         ]
     },
     "about": {
-        "title": "Sobre",
-        "text": [
-            "<p>PICT.IO é um jogo para humanos e máquinas em que eles tem que trabalhar em equipe. O PICT.IO também é uma ferramenta para instigar debates sobre Inteligência Artificial dentro de uma abordagem de popularização da ciência.</p>",
-            "<p>O PICT.IO foi desenvolvido pelo <a href='https://squiggle.fluxo.art.br' target='_blank'>Coletivo Squiggle</a> usando a API do <a href='https://github.com/googlecreativelab/quickdraw-dataset' target='_blank'>Quick Draw</a> com o apoio do <a href='https://milieux.concordia.ca' target='_blank'>Milieux Institute for Arts, Culture and Technology</a> e <a  href='https://tag.hexagram.ca' target='_blank'></a>TAG - Technology Arts and Games</a> na Concordia University (Montreal, Canada).</p>"
-        ],
-        "sponsortitle": "Patrocinadores",
-        "youtubeid": "o-Q1gIdlIHg"
+        "title": "Sobre PICT.IO",
+        "text": "PICT. O IO é baseado no popular jogo de desenho Pictionary, onde os jogadores trabalham juntos para resolver desafios. É um jogo de adivinhação onde os jogadores tentam identificar objetos que são desenhados por seus companheiros de equipe. No PICT.IO, cada equipe é composta de dois seres humanos e uma máquina, trabalhando em colaboração e comunicando-se com recursos limitados, usando desenhos ou a fala, para resolver desafios visuais. O sistema do jogo se baseia no Quick, Draw! que usa técnicas de Machine Learning para adivinhar o que os jogadores estão desenhando.  PICT.IO é um jogo online que pode ser jogado em dispositivos com tela sensível ao toque, como tablets e smartphones.",
+        "youtubeid": "o-Q1gIdlIHg",
+        "presentations": {
+            "title": "Apresentações e Exposições",
+            "text": "Este projeto foi apresentado em diferentes locais, no Canadá, Brasil, Alemanha e Reino Unido, em eventos sobre educação, divulgação científica e feira de fabricantes.",
+            "presentations": {
+                "title": "Apresentações",
+                "list": [
+                    {
+                        "name": "Canadian Games Studies Association (CGSA) (June 2019). UBC. Vancouver, Canada"
+                    },
+                    {
+                        "name": "La Charrette: Art+Tech (April 2019). Factry. Montreal, Canada"
+                    },
+                    {
+                        "name": "Discover ConcordAI (October 2018). Concordia University. Montreal, Canada."
+                    },
+                    {
+                        "name": "Camp Serrapilheira (September 2018). Museu do Amanhã. Rio de Janeiro, Brasil."
+                    },
+                    {
+                        "name": "Conversation Cytoenne sour l’IA (June 2018). Université de Montreal. Montreal, Canada"
+                    }
+                ]
+            },
+            "exhibitions": {
+                "title": "Exposições",
+                "list": [
+                    {
+                        "name": "Semaine du NumériQC (April 2019). Musée de la Civilisation de la ville de Québec. Quebec, Canada."
+                    },
+                    {
+                        "name": "Montréal Mini-Maker Faire (November 2018). Concordia University. Montreal, Canada."
+                    },
+                    {
+                        "name": "Hackathon AI (November 2018). Concordia University. Montreal, Canada"
+                    }
+                ]
+            }
+        },
+        "team": {
+            "title": "Team",
+            "people": {
+                "luciano": {
+                    "name": "Luciano Frizzera",
+                    "text": "Luciano Frizzera é Ph.D. estudante em Estudos de Comunicação na Universidade de Concordia. Sua pesquisa de doutorado explora as implicações políticas e sociais da mídia algorítmica (mídias sociais e móveis, inteligencia artificial e Internet of Things) no espaço urbano. Website: <a href='luciano.fluxo.art.br' target='_blank'>luciano.fluxo.art.br</a>"
+                },
+                "salles": {
+                    "name": "Julia Salles",
+                    "text": "Julia Salles é doutoranda em Estudos da Comunicação na Université du Québec à Montréal e professora da Université de Montréal. Website: <a href='juliasalles.com;' target='_blank'>juliasalles.com</a>"
+                },
+                "zamboni": {
+                    "name": "Julia Zamboni",
+                    "text": "Julia Zamboni é estudante de doutorado no programa INDI e mestre em arte robótica. A pesquisa artística de Julia se concentra em máquinas como personagens ambíguas, percebidas pelo público como entidades que operam entre os domínios dos vivos e não vivos. Website: <a href='juliaghorayeb.dunked.com' target='_blank'>juliaghorayeb.dunked.com</a>"
+                }
+            },
+            "support": "Esta pesquisa foi desenvolvida em colaboração com o grupo de pesquisa <a href='machineagencies.org' target='_blank'>Machine Agencies</a> no <a href='milieux.concordia.ca' target='_blank'>Milieux</a>,um grupo interdisciplinar de pesquisadores que trabalham com vários tópicos associados à Inteligência Artificial e tecnologias relacionadas."
+        },
+        "sponsors": {
+            "title": "Apoio",
+            "list": [
+                {
+                    "name": "Capes",
+                    "image": "capes.png"
+                },
+                {
+                    "name": "TAG",
+                    "image": "tag.png"
+                },
+                {
+                    "name": "Milieux",
+                    "image": "milieux.png"
+                }
+            ]
+        }
     },
     "personas": {
         "page": {

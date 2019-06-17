@@ -63,9 +63,32 @@ function HomeView() {
 		this.aboutData = {
 			title: app.i18next.t('about.title'),
 			text: app.i18next.t('about.text'),
-			sponsortitle: app.i18next.t('about.sponsortitle'),
-			youtubeid: app.i18next.t('about.youtubeid')
+			youtubeid: app.i18next.t('about.youtubeid'),
+			presentations: {
+				title: app.i18next.t('about.presentations.title'),
+				text: app.i18next.t('about.presentations.text'),
+				presentations: {
+					title: app.i18next.t('about.presentations.presentations.title'),
+					list: app.i18next.store.data.en.translation.about.presentations.presentations.list
+				},
+				exhibitions: {
+					title: app.i18next.t('about.presentations.exhibitions.title'),
+					list: app.i18next.store.data.en.translation.about.presentations.exhibitions.list
+				},
+			},
+			team: {
+				title: app.i18next.t('about.team.title'),
+				people: app.i18next.store.data.en.translation.about.team.people,
+				support: app.i18next.t('about.team.support'),
+			},
+			sponsors: {
+				title: app.i18next.t('about.sponsors.title'),
+				list: app.i18next.store.data.en.translation.about.sponsors.list
+			}
 		};
+
+		console.log(this.aboutData);
+		console.log(app.i18next);
 		
 
 		//build page
@@ -96,15 +119,14 @@ function HomeView() {
 		$('#instructions').localize({
 			joinArrays: ' '
 		});
-		$('#about').localize({
-			joinArrays: ' '
-		});
+		$('#about').localize();
 
 		app.i18next.on('languageChanged', () => {
 			$('#intro').localize();
 			$('#instructions').localize({
 				joinArrays: ' '
 			});
+			$('#about').localize();
 			udpateAboutVideo();
 		});
 	};

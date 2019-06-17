@@ -1,29 +1,97 @@
-<div id="about" class="uk-modal-full" uk-modal>
+<div id="about" class="uk-modal-full uk-modal-overflow" uk-modal>
     <div class="uk-modal-dialog">
         <button class="uk-modal-close-full uk-close-large" type="button" uk-close></button>
-        <div class="uk-grid-collapse uk-child-width-1-2@s uk-flex-middle" uk-grid uk-height-viewport>
-            <div class="uk-padding-large">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{youtubeid}}?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
-            <div class="uk-padding-large">
-                <h1 data-i18n="about.title">{{title}}</h1>
-                <div data-i18n="[html]about.text">
-                    {{text}}
+
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title uk-text-center" data-i18n="about.title">{{title}}</h2>
+        </div>
+
+        <div class="uk-modal-body" uk-overflow-auto>     
+            <div class="uk-container uk-container-xsmall">
+                <div>
+                    <p data-i18n="about.text">{{text}}</p>
                 </div>
-                <h4 data-i18n="about.sponsortitle">{{sponsortitle}}</h4>
-                <div class="uk-grid-collapse uk-child-width-1-3@s uk-flex-middle" uk-grid>
-                    <div>
-                        <img src="./assets/capes.opt.png"/>
-                    </div>
-                    <div>
-                        <img src="assets/tag.opt.png"/>
-                    </div>
-                    <div>
-                        <img src="./assets/milieux.opt.png"/>
+                
+                <div class="uk-margin-large-top">
+                    <iframe width="750" height="422" src="https://www.youtube.com/embed/{{youtubeid}}?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+
+                <div class="uk-margin-large-top">
+                    <h2 class="uk-heading-line uk-text-center"><span data-i18n="about.presentations.title">{{presentations.title}}</span></h2>
+                    <p class="uk-text-small" data-i18n="about.presentations.text">{{presentations.text}}</p>
+                    
+                    <div uk-grid>
+                        <div class="uk-width-1-2">
+                            <h4 data-i18n="about.presentations.presentations.title">{{presentations.presentations.title}}</h4>
+                            <ul class="uk-text-small">
+                                {{#presentations.presentations.list}}
+                                <li>{{name}}</li>
+                                {{/presentations.presentations.list}}
+                            </ul>
+                        </div>
+                        <div class="uk-width-1-2">
+                            <h4 data-i18n="about.presentations.exhibitions.title">{{presentations.exhibitions.title}}</h4>
+                            <ul class="uk-text-small">
+                                {{#presentations.exhibitions.list}}
+                                <li>{{name}}</li>
+                                {{/presentations.exhibitions.list}}
+                            </ul>
+                        </div>
                     </div>
                 </div>
+
+                <div class="uk-margin-large-top">
+                    <h2 class="uk-heading-line uk-text-center"><span data-i18n="about.team.title">{{team.title}}</span></h2>
+                    <div uk-grid>
+                        <div class="uk-width-1-3">
+                            <h4>{{team.people.luciano.name}}</h4>
+                            <p class="uk-text-small" data-i18n="[html]about.team.people.luciano.text">{{{team.people.luciano.text}}}</p>
+                        </div>
+                        <div class="uk-width-1-3">
+                            <h4>{{team.people.salles.name}}</h4>
+                            <p class="uk-text-small" data-i18n="[html]about.team.people.salles.text">{{{team.people.salles.text}}}</p>
+                        </div>
+                        <div class="uk-width-1-3">
+                            <h4>{{team.people.zamboni.name}}</h4>
+                            <p class="uk-text-small" data-i18n="[html]about.team.people.zamboni.text">{{{team.people.zamboni.text}}}</p>
+                        </div>
+                    </div>
+
+                    <p class="uk-margin-large-top uk-text-small" data-i18n="[html]about.team.support">{{{team.support}}}</p>
+                </div>
+
+
+                <div class="uk-margin-large-top">
+                    <h2 class="uk-heading-line uk-text-center"><span data-i18n="about.sponsors.title">{{sponsors.title}}</span></h2>
+                    <div class="uk-child-width-1-3@s uk-flex-middle" uk-grid>
+                        {{#sponsors.list}}
+                        <div>
+                            <img class="uk-align-center" data-src="./assets/{{image}}" alt="{{name}}" uk-img/>
+                        </div>
+                        {{/sponsors.list}}
+                    </div>
+                </div>
+                
+                <div class="uk-margin-xlarge-top">
+                    <hr>
+                    
+                    <div class="uk-child-width-1-1@s uk-flex-middle" uk-grid>
+                        <div>
+                            <a href="https://github.com/lucaju/pictio" target="_blank">
+                                <img class="uk-align-center" width="45" data-src="assets/github.png" alt="Github" uk-img>
+                            </a>
+                        </div>
+                        <div class="uk-margin-remove-top">
+                            <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">
+                                <img class="uk-align-center" width="100" data-src="assets/cc-by-nc.png" alt="CC" uk-img>
+                            </a>
+                        </div>
+                    </div>
+            
+                </div>
+                    
             </div>
         </div>
-        
-    </div>
+
+    </div>   
 </div>
