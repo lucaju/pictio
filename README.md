@@ -43,5 +43,7 @@ This research was developed in the context of the [Machine Agencies](http://mach
 ## Sponsors
 
 ![Capes](http://www.gamepictio.com/assets/capes.png)
+
 ![TAG](http://www.gamepictio.com/assets/tag.png)
+
 ![enter image description here](http://www.gamepictio.com/assets/milieux.png)
