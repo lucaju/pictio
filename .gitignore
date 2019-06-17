@@ -7,7 +7,7 @@ yarn-error.log*
 
 package-lock.json
 
-
+design/
 
 # Runtime data
 pids
