@@ -3,14 +3,27 @@
   "version": "1.0.0",
   "description": "An inclusive mini-game for humans and quasi-humans!",
   "author": "Luciano Frizzera",
-  "license": "MIT",
-  "private": true,
+  "contributors": [
+    {
+      "name": "Julia Salles",
+      "email": "juliacsalles@yahoo.com.br"
+    },
+    {
+      "name": "Julia Zamboni",
+      "email": "juliaghorayeb@gmail.com"
+    }
+  ],
+  "license": "CC-BY-NC-4.0",
   "keywords": [
     "Game",
     "Machine Learning"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucaju/pictio"
+  },
   "scripts": {
-    "server": "node index.js",
+    "start": "node index.js",
     "webpackServer": "webpack-dev-server --open",
     "watchGame": "webpack --watch",
     "watchCard": "webpack --config webpack.card.config.js --watch",
@@ -27,7 +40,7 @@
     "easytimer": "^1.1.1",
     "event-emitter": "^0.3.5",
     "express": "^4.17.1",
-    "i18next": "^17.0.3",
+    "i18next": "^17.0.4",
     "i18next-xhr-backend": "^3.0.0",
     "jquery": "^3.4.1",
     "jquery-i18next": "^1.2.1",
@@ -40,7 +53,7 @@
     "qrcode": "^1.3.3",
     "random-weighted-choice": "^0.1.3",
     "socket.io": "^2.2.0",
-    "uikit": "^3.1.5",
+    "uikit": "^3.1.6",
     "webpack-jquery-ui": "^2.0.1"
   },
   "devDependencies": {
@@ -59,11 +72,11 @@
     "ndjson": "^1.5.0",
     "style-loader": "^0.23.1",
     "url-loader": "^2.0.0",
-    "webpack": "^4.34.0",
+    "webpack": "^4.35.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.4",
     "webpack-dev-middleware": "^3.7.0",
-    "webpack-dev-server": "^3.7.1",
+    "webpack-dev-server": "^3.7.2",
     "webpackbar": "^3.2.0"
   }
 }
