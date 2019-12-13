@@ -7,7 +7,9 @@ yarn-error.log*
 
 package-lock.json
 
-design/
+dist/
+card/
+dashboard/
 
 # Runtime data
 pids

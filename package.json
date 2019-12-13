@@ -23,14 +23,18 @@
     "url": "https://github.com/lucaju/pictio"
   },
   "scripts": {
+    "clean": "rimraf dist && rimraf card && rimraf dashboard",
+    "start-dev": "nodemon index.js",
     "start": "node index.js",
     "webpackServer": "webpack-dev-server --open",
-    "watchGame": "webpack --watch",
-    "watchCard": "webpack --config webpack.card.config.js --watch",
-    "watchDashboard": "webpack --config webpack.dashboard.config.js --watch",
-    "production": "webpack --config webpack.prod.config.js -p --progress",
-    "productionCard": "webpack --config webpack.card.prod.config.js -p --progress",
-    "productionDashboard": "webpack --config webpack.dashboard.prod.config.js -p --progress"
+    "watchGame": "webpack --config webpack.dev.game.js --watch",
+    "watchCard": "webpack --config webpack.dev.card.js --watch",
+    "watchDashboard": "webpack --config webpack.dev.dashboard.js --watch",
+    "dev-server-game": "webpack-dev-server --config webpack.dev.game.js",
+    "productionGame": "webpack --config webpack.prod.game.js -p --progress",
+    "productionCard": "webpack --config webpack.prod.card.js -p --progress",
+    "productionDashboard": "webpack --config webpack.prod.dashboard.js -p --progress",
+    "production": "npm run clean && npm run productionGame && npm run productionCard && npm run productionDashboard"
   },
   "main": "index.js",
   "dependencies": {
@@ -46,8 +50,9 @@
     "jquery-ui": "^1.12.1",
     "luxon": "^1.21.3",
     "mustache": "^3.1.0",
+    "nodemon": "^2.0.2",
     "paper": "^0.12.3",
-    "progressbar.js": "^1.1.0",
+    "progressbar.js": "^1.0.1",
     "qrcode": "^1.4.4",
     "random-weighted-choice": "^0.1.3",
     "socket.io": "^2.3.0",
@@ -70,13 +75,16 @@
     "mini-css-extract-plugin": "^0.8.0",
     "mustache-loader": "^1.4.3",
     "ndjson": "^1.5.0",
+    "rimraf": "^3.0.0",
     "style-loader": "^1.0.1",
+    "terser-webpack-plugin": "^2.3.0",
     "url-loader": "^3.0.0",
     "webpack": "^4.41.2",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^3.3.10",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-dev-server": "^3.9.0",
+    "webpack-merge": "^4.2.2",
     "webpackbar": "^4.0.0"
   }
 }
