@@ -26,15 +26,15 @@
     "clean": "rimraf dist && rimraf card && rimraf dashboard  && rimraf locales",
     "start-dev": "nodemon index.js",
     "start": "node index.js",
-    "webpackServer": "webpack-dev-server --open",
-    "watchGame": "webpack --config webpack.dev.game.js --watch",
-    "watchCard": "webpack --config webpack.dev.card.js --watch",
-    "watchDashboard": "webpack --config webpack.dev.dashboard.js --watch",
+    "webpack-server": "webpack-dev-server --open",
+    "watch-game": "webpack --config webpack.dev.game.js --watch",
+    "watch-card": "webpack --config webpack.dev.card.js --watch",
+    "watch-dashboard": "webpack --config webpack.dev.dashboard.js --watch",
     "dev-server-game": "webpack-dev-server --config webpack.dev.game.js",
-    "productionGame": "webpack --config webpack.prod.game.js -p --progress",
-    "productionCard": "webpack --config webpack.prod.card.js -p --progress",
-    "productionDashboard": "webpack --config webpack.prod.dashboard.js -p --progress",
-    "production": "npm run clean && npm run productionGame && npm run productionCard && npm run productionDashboard"
+    "production-game": "webpack --config webpack.prod.game.js -p --progress",
+    "production-card": "webpack --config webpack.prod.card.js -p --progress",
+    "production-dashboard": "webpack --config webpack.prod.dashboard.js -p --progress",
+    "production": "npm run clean && mkdirp locales && npm run production-game && npm run production-card && npm run production-dashboard"
   },
   "main": "index.js",
   "dependencies": {
