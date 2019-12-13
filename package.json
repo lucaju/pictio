@@ -1,6 +1,6 @@
 {
   "name": "pictio",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An inclusive mini-game for humans and quasi-humans!",
   "author": "Luciano Frizzera",
   "contributors": [
@@ -23,7 +23,7 @@
     "url": "https://github.com/lucaju/pictio"
   },
   "scripts": {
-    "clean": "rimraf dist && rimraf card && rimraf dashboard",
+    "clean": "rimraf dist && rimraf card && rimraf dashboard  && rimraf locales",
     "start-dev": "nodemon index.js",
     "start": "node index.js",
     "webpackServer": "webpack-dev-server --open",
