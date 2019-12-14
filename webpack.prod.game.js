@@ -24,7 +24,7 @@ module.exports = merge(common, {
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
 		new CopyWebpackPlugin([
-			{ from: './locales/', to: 'locales' },
+			{ from: './src/locales', to: '../locales' },
 			{ from: './src/assets', to: 'assets' }
 		]),
 		new HtmlWebpackPlugin({

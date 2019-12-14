@@ -7,11 +7,10 @@ yarn-error.log*
 
 package-lock.json
 
-dist/
-card/
-dashboard/
-dashboard
-locales/
+/dist
+/card
+/dashboard
+/locales
 
 # Runtime data
 pids
