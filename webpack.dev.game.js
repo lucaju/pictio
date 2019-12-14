@@ -35,7 +35,7 @@ module.exports = merge(common, {
 	},
 	plugins: [
 		new CopyWebpackPlugin([
-			{ from: './locales/', to: 'locales' },
+			{ from: './src/locales', to: 'locales' },
 			{ from: './src/assets', to: 'assets' }
 		]),
 		new HtmlWebpackPlugin({
