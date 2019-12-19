@@ -42,8 +42,8 @@ This research was developed in the context of the [Machine Agencies](http://mach
 
 ## Sponsors
 
-![Capes](http://www.gamepictio.com/assets/capes.png)
+![Capes](https://github.com/lucaju/pictio/blob/master/src/assets/capes.png)
 
-![TAG](http://www.gamepictio.com/assets/tag.png)
+![TAG](https://github.com/lucaju/pictio/blob/master/src/assets/tag.png)
 
-![enter image description here](http://www.gamepictio.com/assets/milieux.png)
+![Milieux](https://github.com/lucaju/pictio/blob/master/src/assets/milieux.png)
