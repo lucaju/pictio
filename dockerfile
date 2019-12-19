@@ -11,7 +11,7 @@ COPY . .
 RUN npm install
 
 # RUN npm run build-dev
-# RUN npm run production
+RUN npm run production
 
 EXPOSE 3000
 CMD ["pm2", "start", "index.js", "--no-daemon"]
