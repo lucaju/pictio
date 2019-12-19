@@ -9,8 +9,6 @@ WORKDIR /pictio
 COPY . .
 
 RUN npm install
-
-# RUN npm run build-dev
 RUN npm run production
 
 EXPOSE 3000
