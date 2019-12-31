@@ -2,7 +2,11 @@
   "name": "pictio",
   "version": "1.1.0",
   "description": "An inclusive mini-game for humans and quasi-humans!",
-  "author": "Luciano Frizzera",
+  "author": {
+		"name": "Luciano Frizzera",
+		"email": "lucaju@gmail.com",
+		"url": "http://luciano.fluxo.art.br"
+	},
   "contributors": [
     {
       "name": "Julia Salles",
