@@ -1,6 +1,6 @@
 # PICT.IO
 
-FROM node
+FROM node:15.11.0
 
 RUN npm install pm2 -g
 
