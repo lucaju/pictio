@@ -38,7 +38,8 @@
     "production-card": "webpack --config webpack.prod.card.js -p --progress",
     "production-dashboard": "webpack --config webpack.prod.dashboard.js -p --progress",
     "build-dev": "npm run clean && mkdirp locales && webpack --config webpack.dev.game.js && webpack --config webpack.dev.card.js && webpack --config webpack.dev.dashboard.js",
-    "production": "npm run clean && mkdirp locales && npm run production-game && npm run production-card && npm run production-dashboard"
+    "production": "npm run clean && mkdirp locales && npm run production-game && npm run production-card && npm run production-dashboard",
+    "build": "npm run clean && mkdirp locales && npm run production-game && npm run production-card && npm run production-dashboard"
   },
   "main": "index.js",
   "dependencies": {
