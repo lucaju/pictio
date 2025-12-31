@@ -28,7 +28,7 @@ This project was presented in different venues, in Canada, Brazil, Germany and t
 
 ### Luciano Frizzera
 
-Luciano Frizzera is a Ph.D. student in Communication Studies at Concordia University. His doctoral research explores the political and social implications of algorithmic media (Social and Mobile Media, AI, and Internet of Things) in the urban space. Website:  [luciano.fluxo.art.br](http://luciano.fluxo.art.br)
+Luciano Frizzera is a Ph.D. student in Communication Studies at Concordia University. His doctoral research explores the political and social implications of algorithmic media (Social and Mobile Media, AI, and Internet of Things) in the urban space. Website:  [lucianofrizzera.com](https://lucianofrizzera.com/)
 
 ### Julia Salles
 
